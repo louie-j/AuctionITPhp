@@ -35,19 +35,19 @@ and open the template in the editor.
             <form class="form-group" action="AddItemDatabase.php" method="post">
                 <div class="form-group">
                     <label for="itemNumber">Item Number</label>
-                    <input type="text" class="form-control" id="itemNumber" placeholder="Item Number">
+                    <input type="text" class="form-control" name="itemNumber" id="itemNumber" placeholder="Item Number">
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <input type="text" class="form-control" id="description" placeholder="Description">
+                    <input type="text" class="form-control" name="description" id="description" placeholder="Description">
                 </div>
                 <div class="form-group">
                     <label for="donatedBy">Donated By</label>
-                    <input type="text" class="form-control" id="donatedBy" placeholder="Donated By">
+                    <input type="text" class="form-control" name="donatedBy" id="donatedBy" placeholder="Donated By">
                 </div>
                 <div class="form-group">
                     <label for="value">Value</label>
-                    <input type="text" class="form-control" id="value" placeholder="Value">
+                    <input type="text" class="form-control" name="value" id="value" placeholder="Value">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

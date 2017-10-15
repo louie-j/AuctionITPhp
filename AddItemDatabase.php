@@ -1,23 +1,24 @@
 <?php
+header('Location: AddItem.php');
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+require 'databaseConnection.php';
 $itemNumber = $description = $donatedBy = $value = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $itemNumber = test_input($_POST["itemNumber"]);
-  $description = test_input($_POST["decription"]);
-  $donatedBy = test_input($_POST["donatedBy"]);
-  $value = test_input($_POST["value"]);
-}
+$conn = Connect();
+$itemNumber    = $conn->real_escape_string($_POST['itemNumber']);
+$description   = $conn->real_escape_string($_POST['description']);
+$donatedBy    = $conn->real_escape_string($_POST['donatedBy']);
+$value = $conn->real_escape_string($_POST['value']);
+$query   = "INSERT into auctionitems (ItemId,Description,DonatedBy,Value) VALUES('" . $itemNumber . "','" . $description . "','" . $donatedBy . "','" . $value . "')";
+$success = $conn->query($query);
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+
+if (!$success) {
+    die("Couldn't enter data: ".$conn->error);
+ 
 }
+ 
+echo "Item Added <br>";
+ 
+$conn->close();
 ?>
