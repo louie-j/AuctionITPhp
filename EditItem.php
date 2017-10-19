@@ -28,7 +28,7 @@ and open the template in the editor.
                             <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
                         </li>
                         <li>
-                            <a class="nav-link" href="EditItem.php"><h4>Edit an Item</h4></a>
+                            <a class="nav-link" href="FindItem.php"><h4>Edit an Item</h4></a>
                         </li>
                         <li>
                             <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
@@ -40,8 +40,49 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+        <div class="container body-content">
         <?php
-        // put your code here
+            require 'DatabaseConnection.php';
+            $itemNumber = $description = $donatedBy = $value = "";
+            $conn = Connect();
+            $itemNumber = $conn->real_escape_string($_POST['itemNumber']);
+            $query = "SELECT ItemId, Description, Value, DonatedBy FROM auctionitems WHERE ItemId = " . $itemNumber;
+            $result = $conn->query($query);
+            if ($result->num_rows > 0) {
+                while($row = mysqli_fetch_assoc($result)) {
+                    $itemNumber = $row["ItemId"];
+                    $description = $row["Description"];
+                    $donatedBy = $row["DonatedBy"];
+                    $value = $row["Value"];                    
+                }
+            }
+            else 
+            {
+                    $itemNumber = "Not Found";
+                    $description = "Not Found";
+                    $donatedBy = "Not Found";
+                    $value = "Not Found";      
+            }
         ?>
+            <form class="form-group" action="EditItemDatabase.php" method="post">
+                <div class="form-group">
+                    <label for="itemNumber">Item Number</label>
+                    <input type="text" class="form-control" name="itemNumber" id="itemNumber" value="<?php echo "" . $itemNumber . "" ?>">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" name="description" id="description" value="<?php echo $description ?>">
+                </div>
+                <div class="form-group">
+                    <label for="donatedBy">Donated By</label>
+                    <input type="text" class="form-control" name="donatedBy" id="donatedBy" value="<?php echo $donatedBy ?>">
+                </div>
+                <div class="form-group">
+                    <label for="value">Value</label>
+                    <input type="text" class="form-control" name="value" id="value" value="<?php echo $value ?>">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
     </body>
 </html>

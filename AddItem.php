@@ -28,7 +28,7 @@ and open the template in the editor.
                             <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
                         </li>
                         <li>
-                            <a class="nav-link" href="EditItem.php"><h4>Edit an Item</h4></a>
+                            <a class="nav-link" href="FindItem.php"><h4>Edit an Item</h4></a>
                         </li>
                         <li>
                             <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
