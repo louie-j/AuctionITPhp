@@ -4,12 +4,36 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+
 <html>
     <head>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
+        <script src="DataTables/datatables.min.js"></script>
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                var table = $('#myDataTable').DataTable( {
+                "ajax": "ViewItemTable.php",
+                "bPaginate":true,
+                "bProcessing": true,
+                "columns": [
+                    { mData: 'ItemId' } ,
+                    { mData: 'Description' },
+                    { mData: 'DonatedBy' },
+                    { mData: 'Value'},
+                    { mData: 'CurrentWinningBidder'},
+                    { mData: 'CurrentWinningBid'}
+                ]
+            });
+            setInterval( function () {
+            table.ajax.reload(null, false);
+            }, 30000 );
+            });
+
+        </script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
     </head>
@@ -41,25 +65,18 @@ and open the template in the editor.
             </div>
         </div>
         <div class="container body-content">
-            <form class="form-group" action="AddItemDatabase.php" method="post">
-                <div class="form-group">
-                    <label for="itemNumber">Item Number</label>
-                    <input type="text" class="form-control" name="itemNumber" id="itemNumber" placeholder="Item Number">
-                </div>
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <input type="text" class="form-control" name="description" id="description" placeholder="Description">
-                </div>
-                <div class="form-group">
-                    <label for="donatedBy">Donated By</label>
-                    <input type="text" class="form-control" name="donatedBy" id="donatedBy" placeholder="Donated By">
-                </div>
-                <div class="form-group">
-                    <label for="value">Value</label>
-                    <input type="text" class="form-control" name="value" id="value" placeholder="Value">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            <table id="myDataTable"  class="cell-border" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <td>ItemId</td>
+                        <td>Description</td>
+                        <td>Donated By</td>
+                        <td>Value</td>
+                        <td>Winning Bidder</td>
+                        <td>Winning Bid</td>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 header('Location: AddItem.php');
 
-require 'databaseConnection.php';
+require 'DatabaseConnection.php';
 $itemNumber = $description = $donatedBy = $value = "";
 
 $conn = Connect();
