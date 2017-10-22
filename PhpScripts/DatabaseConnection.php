@@ -5,7 +5,7 @@ function Connect()
 {
  $dbhost = "localhost";
  $dbuser = "root";
- $dbpass = "Edmonds15";
+ $dbpass = "";
  $dbname = "auctionit";
 
  // Create connection
