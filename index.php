@@ -14,25 +14,34 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-                <nav class="navbar navbar-inverse bg-inverse">
+        <div class="navbar navbar-inverse bg-inverse">
             <div clas="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.php">AuctionIT</a>
+                    <a class="navbar-brand" href="Index.php">AuctionIT</a>
                 </div>
-                <div class="navbar-collapse">
+                <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
                             <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
                         </li>
+                        <li>
+                            <a class="nav-link" href="FindItem.php"><h4>Edit an Item</h4></a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="Reports.php"><h4>Reports</h4></a>
+                        </li>
                     </ul>
                 </div>
             </div>
-        </nav>
+        </div>
         <?php
-         echo "Hello, world! This is my first PHP project!";
+         echo "Home Page";
         ?>
     </body>
 </html>
