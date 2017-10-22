@@ -64,7 +64,7 @@ and open the template in the editor.
                     $value = "Not Found";      
             }
         ?>
-            <form class="form-group" action="EditItemDatabase.php" method="post">
+            <form class="form-group" action="PhpScripts/EditItemDatabase.php" method="post">
                 <div class="form-group">
                     <label for="itemNumber">Item Number</label>
                     <input type="text" class="form-control" name="itemNumber" id="itemNumber" value="<?php echo "" . $itemNumber . "" ?>">

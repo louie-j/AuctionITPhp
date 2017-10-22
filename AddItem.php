@@ -41,7 +41,7 @@ and open the template in the editor.
             </div>
         </div>
         <div class="container body-content">
-            <form class="form-group" action="AddItemDatabase.php" method="post">
+            <form class="form-group" action="PhpScripts/AddItemDatabase.php" method="post">
                 <div class="form-group">
                     <label for="itemNumber">Item Number</label>
                     <input type="text" class="form-control" name="itemNumber" id="itemNumber" placeholder="Item Number">

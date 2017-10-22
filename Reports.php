@@ -6,6 +6,10 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/tether.min.js"></script>
+        <script src ="js/bootstrap.min.js"></script>
+        <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
     </head>
@@ -36,8 +40,10 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        <?php
-        // put your code here
-        ?>
+        <div class="container body-content">
+            <form action="PhpScripts/GenerateAuctionNumSheet.php" method="post">
+                <input type="submit" value="Auction Numbering Sheet">
+           </form> 
+        </div>
     </body>
 </html>

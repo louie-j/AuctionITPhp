@@ -1,5 +1,5 @@
 <?php
-//header('Location: FindItem.php');
+header('Location: FindItem.php');
 
 require 'DatabaseConnection.php';
 $itemNumber = $description = $donatedBy = $value = "";
