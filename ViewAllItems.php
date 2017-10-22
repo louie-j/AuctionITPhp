@@ -14,23 +14,22 @@ and open the template in the editor.
         <script type="text/javascript">
             $( document ).ready(function() {
                 var table = $('#myDataTable').DataTable( {
-                "ajax": "phpScripts/ViewItemTable.php",
-                "bPaginate":true,
-                "bProcessing": true,
-                "columns": [
-                    { mData: 'ItemId' } ,
-                    { mData: 'Description' },
-                    { mData: 'DonatedBy' },
-                    { mData: 'Value'},
-                    { mData: 'CurrentWinningBidder'},
-                    { mData: 'CurrentWinningBid'}
-                ]
+                    "ajax": "phpScripts/ViewItemTable.php",
+                    "bPaginate":true,
+                    "bProcessing": true,
+                    "columns": [
+                        { mData: 'ItemId', "searchable": true } ,
+                        { mData: 'Description', "searchable": false },
+                        { mData: 'DonatedBy', "searchable": false },
+                        { mData: 'Value', "searchable": false},
+                        { mData: 'CurrentWinningBidder', "searchable": false},
+                        { mData: 'CurrentWinningBid', "searchable": false}
+                    ]
+                });
+                setInterval( function () {
+                    table.ajax.reload(null, false);
+                }, 10000 );
             });
-            setInterval( function () {
-            table.ajax.reload(null, false);
-            }, 10000 );
-            });
-
         </script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
@@ -65,7 +64,7 @@ and open the template in the editor.
             </div>
         </div>
         <div class="container body-content">
-            <table id="myDataTable"  class="cell-border" cellspacing="0" width="100%">
+            <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <td>ItemId</td>
