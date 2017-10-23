@@ -41,9 +41,12 @@ and open the template in the editor.
             </div>
         </div>
         <div class="container body-content">
-            <form action="PhpScripts/GenerateAuctionNumSheet.php" method="post">
-                <input type="submit" value="Auction Numbering Sheet">
-           </form> 
+            <form class="form-group" action="PhpScripts/GenerateAuctionNumSheet.php" method="post">
+                <input class="btn btn-primary" type="submit" value="Auction Numbering Sheet">
+            </form> 
+            <form class="form-group" action="PhpScripts/GenerateAuctionProgram.php" method="post">
+                <input class="btn btn-primary" type="submit" value="Auction Program">
+            </form> 
         </div>
     </body>
 </html>
