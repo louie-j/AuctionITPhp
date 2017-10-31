@@ -1,7 +1,8 @@
 <?php
     require 'DatabaseConnection.php';
     $conn = Connect();
-    $query = "SELECT ItemId, Description, DonatedBy, Value, CurrentWinningBidder, CurrentWinningBid FROM auctionitems";
+    $year = date("Y");
+    $query = "CALL viewItemTable(".$year.")";
     $result = $conn->query($query);
     $data = array();
     while( $rows = mysqli_fetch_assoc($result) ) {

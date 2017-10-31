@@ -58,6 +58,10 @@ and open the template in the editor.
                     <label for="value">Value</label>
                     <input type="text" class="form-control" name="value" id="value" placeholder="Value">
                 </div>
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <input type="text" class="form-control" name="year" id="year" placeholder="Year">
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
