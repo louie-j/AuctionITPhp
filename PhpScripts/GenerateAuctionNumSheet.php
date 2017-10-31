@@ -4,26 +4,30 @@
 
 require 'DatabaseConnection.php';
 require '../FPDF/fpdf.php';
-
+    $year = date("Y");
     $conn = Connect();
-    $query = "SELECT ItemId, Description, DonatedBy, Value FROM auctionitems ORDER BY ItemId asc";
+    $query = "CALL viewAuctionItemsSheet(".$year.")";
     $result = $conn->query($query);
 
 $pdf = new FPDF();
-$pdf->AddPage();
-$pdf->SetFont('Arial','B',16);
-$pdf->Cell(40,10,'Auction Numbering Sheet');
 
 foreach($result as $row) {
-	$pdf->SetFont('Arial','B',12);	
+        $pdf->AddPage();
+	$pdf->SetFont('Arial','B',20);	
 	$pdf->Ln();
-        $pdf->Cell(50, 8,$row["ItemId"] . ".   " . $row["Description"]);
         $pdf->Ln();
-        $pdf->SetFont('Arial','',12);
-        $pdf->Cell(50,8,"Donated By: " . $row["DonatedBy"]);
-        $pdf->SetFont('Arial','B',12);	
         $pdf->Ln();
-        $pdf->Cell(50,8,"Retail Value: $" . $row["Value"]);
+        $pdf->Cell(0, 5,$row["ItemId"],0,0,'C');
+        $pdf->Ln();
+        $pdf->Cell(0, 40,"$" . $row["Value"] . " ". $row["Description"],0,0,'C');
+        $pdf->Ln();
+        $pdf->Ln();
+        $pdf->Ln();
+        $pdf->Ln();
+        $pdf->Ln();
+        $pdf->Cell(0,10,"Donated By:",0,0,'C');
+        $pdf->Ln();
+        $pdf->Cell(0,10, $row["DonatedBy"],0,0,'C');
 }
 
 $pdf->Output();

@@ -2,7 +2,7 @@
 
 require 'DatabaseConnection.php';
 require '../FPDF/fpdf.php';
-
+    $year = date("Y");
     $conn = Connect();
     $query = "SELECT ItemId, Description, DonatedBy, Value FROM auctionitems ORDER BY ItemId asc";
     $result = $conn->query($query);
