@@ -3,10 +3,10 @@
 
 function Connect()
 {
- $dbhost = "localhost";
- $dbuser = "root";
+ $dbhost = "auctionit.fbcmtown.org";
+ $dbuser = "fbcmtown_auction";
  $dbpass = "";
- $dbname = "auctionit";
+ $dbname = "fbcmtown_auctionITdb";
 
  // Create connection
  $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname) or die($conn->connect_error);
