@@ -60,7 +60,7 @@ and open the template in the editor.
                 </div>
                 <div class="form-group">
                     <label for="year">Year</label>
-                    <input type="text" class="form-control" name="year" id="year" placeholder="Year">
+                    <input type="text" class="form-control" name="year" id="year" value=<?php echo date("Y") ?>>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
