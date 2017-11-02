@@ -42,11 +42,12 @@ and open the template in the editor.
         </div>
         <div class="container body-content">
         <?php
-            require 'DatabaseConnection.php';
+            require 'PhpScripts/DatabaseConnection.php';
+            $year = date("Y");
             $itemNumber = $description = $donatedBy = $value = "";
             $conn = Connect();
             $itemNumber = $conn->real_escape_string($_POST['itemNumber']);
-            $query = "SELECT ItemId, Description, Value, DonatedBy FROM auctionitems WHERE ItemId = " . $itemNumber;
+            $query = "CALL viewSpecficItem(". $year . "," . $itemNumber . ")";
             $result = $conn->query($query);
             if ($result->num_rows > 0) {
                 while($row = mysqli_fetch_assoc($result)) {
