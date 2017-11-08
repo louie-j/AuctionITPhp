@@ -33,9 +33,23 @@ and open the template in the editor.
             {
                 var error="";
                 var number = document.getElementById( "itemNumber" );
-                if( number.value == "" )
+                if( number.value === "" )
                 {
-                    error = " You have to enter an Item Number.";
+                    error = "You have to enter an Item Number.";
+                    document.getElementById( "error_para" ).innerHTML = error;
+                    return false;
+                }
+                var description = document.getElementById( "description" );
+                if( description.value === "" )
+                {
+                    error = "You have to enter an item description.";
+                    document.getElementById( "error_para" ).innerHTML = error;
+                    return false;
+                }
+                var year = document.getElementById( "year" );
+                if( year.value === "" )
+                {
+                    error = "You have to enter an year.";
                     document.getElementById( "error_para" ).innerHTML = error;
                     return false;
                 }
