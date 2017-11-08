@@ -13,7 +13,10 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
     </head>
-    <body>
+    <body>     
+        <?php
+        session_start();
+        $_SESSION['databaseSuccess'] = 0 ?>
         <div class="navbar navbar-inverse bg-inverse">
             <div clas="container">
                 <div class="navbar-header">

@@ -6,10 +6,30 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        <?php
+            session_start();
+        ?>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+                <script type="text/javascript">
+            $( document ).ready(function() {
+                if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
+                {
+                    alert("Item Updated");
+                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                }
+                else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
+                {
+                    alert("Error updating the Item in the database.");
+                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                }
+                else
+                {
+                }
+            });
+        </script>
         <meta charset="UTF-8">
         <title></title>
     </head>

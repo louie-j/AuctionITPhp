@@ -12,10 +12,13 @@ $donatedBy    = $conn->real_escape_string($_POST['donatedBy']);
 $value = $conn->real_escape_string($_POST['value']);
 $query   = "CALL updateAuctionItem(" . $itemNumber . "," . "'" . $description . "'" . "," . "'" . $donatedBy . "'"  . "," . $value . "," . $year . ")";
 $success = $conn->query($query);
+session_start();
 
     if (!$success) {
-    die("Couldn't enter data: ".$conn->error);
+        $_SESSION['databaseSuccess'] = 2;
+        die("Couldn't enter data: ".$conn->error);
     }
     echo "Item Added <br>";
+    $_SESSION['databaseSuccess'] = 1;
 
 ?>

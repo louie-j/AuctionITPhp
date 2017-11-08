@@ -6,10 +6,46 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        <?php
+            session_start();
+        ?>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
+                {
+                    alert("Item Added");
+                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                }
+                else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
+                {
+                    alert("Error adding Item to Database");
+                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                }
+                else
+                {
+                }
+            });
+            function validate()
+            {
+                var error="";
+                var number = document.getElementById( "itemNumber" );
+                if( number.value == "" )
+                {
+                    error = " You have to enter an Item Number.";
+                    document.getElementById( "error_para" ).innerHTML = error;
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+        </script>
         <meta charset="UTF-8">
         <title></title>
     </head>
@@ -41,7 +77,7 @@ and open the template in the editor.
             </div>
         </div>
         <div class="container body-content">
-            <form class="form-group" action="PhpScripts/AddItemDatabase.php" method="post">
+            <form class="form-group" action="PhpScripts/AddItemDatabase.php" onsubmit="return validate();"  method="post">
                 <div class="form-group">
                     <label for="itemNumber">Item Number</label>
                     <input type="text" class="form-control" name="itemNumber" id="itemNumber" placeholder="Item Number">
@@ -64,6 +100,7 @@ and open the template in the editor.
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            <p id="error_para" ></p>
         </div>
     </body>
 </html>

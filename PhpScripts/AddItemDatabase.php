@@ -13,12 +13,16 @@ $year = $conn->real_escape_string($_POST['year']);
 
 $sql = "CALL insertAuctionItems(" . $itemNumber. ",'" . $description . "','" . $donatedBy . "'," . $value . "," . $year . ")";
 $result = $conn->query($sql);
+session_start();
+
 
         if (!$result) {
+            $_SESSION['databaseSuccess'] = 2;
             die("Couldn't enter data: ".$conn->error);
  
         }
         echo "Item Added <br>";
+        $_SESSION['databaseSuccess'] = 1;
 
  
 $conn->close();
