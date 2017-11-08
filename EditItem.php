@@ -10,6 +10,30 @@ and open the template in the editor.
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <script type="text/javascript">
+            function validate()
+                {
+                    var error="";
+                    var number = document.getElementById( "itemNumber" );
+                    if( number.value === "" )
+                    {
+                        error = "You have to enter an Item Number.";
+                        document.getElementById( "error_para" ).innerHTML = error;
+                        return false;
+                    }
+                    var description = document.getElementById( "description" );
+                    if( description.value === "" )
+                    {
+                        error = "You have to enter an item description.";
+                        document.getElementById( "error_para" ).innerHTML = error;
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+        </script>
         <meta charset="UTF-8">
         <title></title>
     </head>
@@ -65,7 +89,7 @@ and open the template in the editor.
                     $value = "Not Found";      
             }
         ?>
-            <form class="form-group" action="PhpScripts/EditItemDatabase.php" method="post">
+            <form class="form-group" action="PhpScripts/EditItemDatabase.php" onsubmit="return validate();" method="post">
                 <div class="form-group">
                     <label for="itemNumber">Item Number</label>
                     <input type="text" class="form-control" name="itemNumber" id="itemNumber" value="<?php echo "" . $itemNumber . "" ?>">
@@ -84,6 +108,7 @@ and open the template in the editor.
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            <p id="error_para" ></p>
         </div>
     </body>
 </html>
