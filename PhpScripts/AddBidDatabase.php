@@ -9,7 +9,7 @@ $itemNumber    = $conn->real_escape_string($_POST['itemNumber']);
 $bidderID   = $conn->real_escape_string($_POST['bidderID']);
 $value = $conn->real_escape_string($_POST['value']);
 
-$sql = "CALL insertBid(" . $itemNumber. ",'" . $bidderID . "','" . $value . "," . ")";
+$sql = "CALL insertBid(" . $itemNumber. "," . $bidderID . "," . $value . ")";
 $result = $conn->query($sql);
 session_start();
 
