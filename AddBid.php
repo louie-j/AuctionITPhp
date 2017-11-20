@@ -17,12 +17,12 @@ and open the template in the editor.
             $( document ).ready(function() {
                 if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
                 {
-                    alert("Item Added");
+                    alert("Bid Added");
                     <?php $_SESSION['databaseSuccess'] = 0 ?>
                 }
                 else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
                 {
-                    alert("Error adding Item to Database");
+                    alert("Error adding Bid to Database");
                     <?php $_SESSION['databaseSuccess'] = 0 ?>
                 }
                 else
@@ -39,17 +39,10 @@ and open the template in the editor.
                     document.getElementById( "error_para" ).innerHTML = error;
                     return false;
                 }
-                var description = document.getElementById( "description" );
+                var bidderID = document.getElementById( "bidderID" );
                 if( description.value === "" )
                 {
-                    error = "You have to enter an item description.";
-                    document.getElementById( "error_para" ).innerHTML = error;
-                    return false;
-                }
-                var year = document.getElementById( "year" );
-                if( year.value === "" )
-                {
-                    error = "You have to enter an year.";
+                    error = "You have to enter a Bidder ID.";
                     document.getElementById( "error_para" ).innerHTML = error;
                     return false;
                 }
@@ -93,31 +86,22 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        <div class="container body-content">
-            <form class="form-group" action="PhpScripts/AddItemDatabase.php" onsubmit="return validate();"  method="post">
+         <div class="container body-content">
+            <form class="form-group" action="PhpScripts/AddBidDatabase.php" method="post">
                 <div class="form-group">
                     <label for="itemNumber">Item Number</label>
                     <input type="text" class="form-control" name="itemNumber" id="itemNumber" placeholder="Item Number">
                 </div>
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <input type="text" class="form-control" name="description" id="description" placeholder="Description">
-                </div>
-                <div class="form-group">
-                    <label for="donatedBy">Donated By</label>
-                    <input type="text" class="form-control" name="donatedBy" id="donatedBy" placeholder="Donated By">
+                    <label for="bidderID">Bidder ID</label>
+                    <input type="text" class="form-control" name="bidderID" id="bidderID" placeholder="Bidder ID">
                 </div>
                 <div class="form-group">
                     <label for="value">Value</label>
                     <input type="text" class="form-control" name="value" id="value" placeholder="Value">
                 </div>
-                <div class="form-group">
-                    <label for="year">Year</label>
-                    <input type="text" class="form-control" name="year" id="year" value=<?php echo date("Y") ?>>
-                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <p id="error_para" ></p>
         </div>
     </body>
 </html>

@@ -5,7 +5,7 @@ function Connect()
 {
  $dbhost = "auctionit.fbcmtown.org";
  $dbuser = "fbcmtown_auction";
- $dbpass = "";
+ $dbpass = "57xJyUkV5yk4c8wq77Fe";
  $dbname = "fbcmtown_auctionITdb";
 
  // Create connection
