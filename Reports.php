@@ -36,6 +36,9 @@ and open the template in the editor.
                         <li>
                             <a class="nav-link" href="Reports.php"><h4>Reports</h4></a>
                         </li>
+                        <li>
+                            <a class="nav-link" href="AddBid.php"><h4>Add Bid</h4></a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -47,6 +50,16 @@ and open the template in the editor.
             <form class="form-group" action="PhpScripts/GenerateAuctionProgram.php" method="post">
                 <input class="btn btn-primary" type="submit" value="Auction Program">
             </form> 
+            <form class="form-group" action="PhpScripts/GenerateReceipt.php" method="post">
+                <input class="btn btn-primary" type="submit" value="All Receipts">
+            </form>
+            <form class="form-group" action="PhpScripts/GenerateSpecificReceipt.php" method="post">
+                <div class="form-group">
+                    <label for="bidderID">Bidder ID</label>
+                    <input type="text" class="form-control" name="bidderID" id="bidderID" placeholder="Bidder ID">
+                </div>
+                <input class="btn btn-primary" type="submit" value="Get Specific Receipt">
+            </form>
         </div>
     </body>
 </html>
