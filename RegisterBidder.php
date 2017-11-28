@@ -17,12 +17,12 @@ and open the template in the editor.
             $( document ).ready(function() {
                 if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
                 {
-                    alert("Bid Added");
+                    alert("Bidder Added");
                     <?php $_SESSION['databaseSuccess'] = 0 ?>
                 }
                 else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
                 {
-                    alert("Error adding Bid to Database");
+                    alert("Error registering bidder to Database");
                     <?php $_SESSION['databaseSuccess'] = 0 ?>
                 }
                 else if(<?php echo $_SESSION['databaseSuccess'] ?> === 3)
@@ -37,17 +37,17 @@ and open the template in the editor.
             function validate()
             {
                 var error="";
-                var number = document.getElementById( "itemNumber" );
+                var number = document.getElementById( "bidderID" );
                 if( number.value === "" )
                 {
-                    error = "You have to enter an Item Number.";
+                    error = "You have to enter an Bidder Number.";
                     document.getElementById( "error_para" ).innerHTML = error;
                     return false;
                 }
-                var bidderID = document.getElementById( "bidderID" );
-                if( description.value === "" )
+                var year = document.getElementById( "year" );
+                if( year.value === "" )
                 {
-                    error = "You have to enter a Bidder ID.";
+                    error = "You have to enter a Year.";
                     document.getElementById( "error_para" ).innerHTML = error;
                     return false;
                 }
@@ -95,57 +95,26 @@ and open the template in the editor.
             </div>
         </div>
          <div class="container body-content">
-            <form class="form-group" action="PhpScripts/AddBidDatabase.php" method="post">
-                <div class="form-group">
-                    <label for="itemNumber">Item Number</label>
-                    <input type="text" class="form-control" name="itemNumber" id="itemNumber" placeholder="Item Number">
-                </div>
+            <form class="form-group" action="PhpScripts/RegisterBidderDatabase.php" method="post">                
                 <div class="form-group">
                     <label for="bidderID">Bidder ID</label>
                     <input type="text" class="form-control" name="bidderID" id="bidderID" placeholder="Bidder ID">
                 </div>
                 <div class="form-group">
-                    <label for="value">Value</label>
-                    <input type="text" class="form-control" name="value" id="value" placeholder="Value">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" name="address" id="address" placeholder="address">
                 </div>
                 <div class="form-group">
                     <label for="year">Year</label>
                     <input type="text" class="form-control" name="year" id="year" value=<?php echo date("Y") ?>>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description (Used only for 600+)</label>
-                    <input type="text" class="form-control" name="description" id="description" placeholder="description">
-                </div>
+                </div>                
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
-        <div>
-            <table style="width:20%">
-                <tr>
-                    <th>Item Number</th>
-                    <th>Description</th>
-                </tr>
-                <tr>
-                    <th>600</th>
-                    <th>Cake Slices</th>
-                </tr>
-                <tr>
-                    <th>601</th>
-                    <th>Whole Cake</th>
-                </tr>
-                <tr>
-                    <th>602</th>
-                    <th>Ducks</th>
-                </tr>
-                <tr>
-                    <th>603</th>
-                    <th>Button Type 1</th>
-                </tr>
-                <tr>
-                    <th>604</th>
-                    <th>Button Type 2</th>
-                </tr>
-            </table>
-        </div>
     </body>
 </html>
+
