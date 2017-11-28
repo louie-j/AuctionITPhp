@@ -39,6 +39,9 @@ and open the template in the editor.
                         <li>
                             <a class="nav-link" href="AddBid.php"><h4>Add Bid</h4></a>
                         </li>
+                        <li>
+                            <a class="nav-link" href="RegisterBidder.php"><h4>Bidder Registration</h4></a>
+                        </li>
                     </ul>
                 </div>
             </div>
