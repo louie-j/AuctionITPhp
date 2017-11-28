@@ -15,12 +15,11 @@ and open the template in the editor.
     </head>
     <body>     
         <?php
-        require 'PhpScripts/SecureSession.php';
-        sec_session_start();
+        session_start();
         $_SESSION['databaseSuccess'] = 0;
-        if(!isset($_SESSION['accountType']))
+        if(isset($_SESSION['accountType']) == FALSE)
         {
-            $_SESSION['accountType'] = 'guest';
+            $_SESSION['accountType'] = "guest";
         }?>
         <div class="navbar navbar-inverse bg-inverse">
             <div clas="container">
@@ -30,15 +29,17 @@ and open the template in the editor.
                     </button>
                     <a class="navbar-brand" href="Index.php">AuctionIT</a>
                 </div>
+                <?php if ($_SESSION["accountType"] != 'guest'): ?>
                 <div class="navbar-collapse collapse">
-                    <?php if ($_SESSION["accountType"] != 'guest'): ?>
                     <ul class="nav navbar-nav">
                         <li>
                             <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
                         </li>
+                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
                         <li>
                             <a class="nav-link" href="FindItem.php"><h4>Edit an Item</h4></a>
                         </li>
+                    <?php endif; ?>
                         <li>
                             <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
                         </li>
@@ -51,17 +52,24 @@ and open the template in the editor.
                         <li>
                             <a class="nav-link" href="RegisterBidder.php"><h4>Bidder Registration</h4></a>
                         </li>
+                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
                         <li>
                             <a class="nav-link" href="AdminPage.php"><h4>Administrator Tools</h4></a>
                         </li>
-                    </ul>
                     <?php endif; ?>
+                    </ul>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
         <?php if ($_SESSION["accountType"] == 'guest'): ?>
             <form action="Login.php">
                 <input type="submit" class="btn btn-primary" value="Login" />
+            </form>
+        <?php endif;?>
+        <?php if ($_SESSION["accountType"] != 'guest'): ?>
+        <form action="PhpScripts/Logout.php">
+                <input type="submit" class="btn btn-primary" value="Logout" />
             </form>
         <?php endif;?>
     </body>

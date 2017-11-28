@@ -8,6 +8,10 @@ and open the template in the editor.
     <head>
         <?php
             session_start();
+            if($_SESSION["accountType"] != admin)
+            {
+                header('Location: index.php'); 
+            }
         ?>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/tether.min.js"></script>
@@ -42,14 +46,17 @@ and open the template in the editor.
                     </button>
                     <a class="navbar-brand" href="Index.php">AuctionIT</a>
                 </div>
+                <?php if ($_SESSION["accountType"] != 'guest'): ?>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
                             <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
                         </li>
+                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
                         <li>
                             <a class="nav-link" href="FindItem.php"><h4>Edit an Item</h4></a>
                         </li>
+                    <?php endif; ?>
                         <li>
                             <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
                         </li>
@@ -62,11 +69,14 @@ and open the template in the editor.
                         <li>
                             <a class="nav-link" href="RegisterBidder.php"><h4>Bidder Registration</h4></a>
                         </li>
+                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
                         <li>
                             <a class="nav-link" href="AdminPage.php"><h4>Administrator Tools</h4></a>
                         </li>
+                    <?php endif; ?>
                     </ul>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
          <div class="container body-content">
