@@ -15,8 +15,13 @@ and open the template in the editor.
     </head>
     <body>     
         <?php
-        session_start();
-        $_SESSION['databaseSuccess'] = 0; ?>
+        require 'PhpScripts/SecureSession.php';
+        sec_session_start();
+        $_SESSION['databaseSuccess'] = 0;
+        if(!isset($_SESSION['accountType']))
+        {
+            $_SESSION['accountType'] = 'guest';
+        }?>
         <div class="navbar navbar-inverse bg-inverse">
             <div clas="container">
                 <div class="navbar-header">
@@ -26,6 +31,7 @@ and open the template in the editor.
                     <a class="navbar-brand" href="Index.php">AuctionIT</a>
                 </div>
                 <div class="navbar-collapse collapse">
+                    <?php if ($_SESSION["accountType"] != 'guest'): ?>
                     <ul class="nav navbar-nav">
                         <li>
                             <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
@@ -45,12 +51,18 @@ and open the template in the editor.
                         <li>
                             <a class="nav-link" href="RegisterBidder.php"><h4>Bidder Registration</h4></a>
                         </li>
+                        <li>
+                            <a class="nav-link" href="AdminPage.php"><h4>Administrator Tools</h4></a>
+                        </li>
                     </ul>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
-        <?php
-         echo "Home Page";
-        ?>
+        <?php if ($_SESSION["accountType"] == 'guest'): ?>
+            <form action="Login.php">
+                <input type="submit" class="btn btn-primary" value="Login" />
+            </form>
+        <?php endif;?>
     </body>
 </html>

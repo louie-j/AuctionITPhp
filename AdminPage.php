@@ -17,48 +17,18 @@ and open the template in the editor.
             $( document ).ready(function() {
                 if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
                 {
-                    alert("Item Added");
+                    alert("Password Changed");
                     <?php $_SESSION['databaseSuccess'] = 0 ?>
                 }
                 else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
                 {
-                    alert("Error adding Item to Database");
+                    alert("Error occured when attempting to change password");
                     <?php $_SESSION['databaseSuccess'] = 0 ?>
                 }
                 else
                 {
                 }
             });
-            function validate()
-            {
-                var error="";
-                var number = document.getElementById( "itemNumber" );
-                if( number.value === "" )
-                {
-                    error = "You have to enter an Item Number.";
-                    document.getElementById( "error_para" ).innerHTML = error;
-                    return false;
-                }
-                var description = document.getElementById( "description" );
-                if( description.value === "" )
-                {
-                    error = "You have to enter an item description.";
-                    document.getElementById( "error_para" ).innerHTML = error;
-                    return false;
-                }
-                var year = document.getElementById( "year" );
-                if( year.value === "" )
-                {
-                    error = "You have to enter an year.";
-                    document.getElementById( "error_para" ).innerHTML = error;
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-
         </script>
         <meta charset="UTF-8">
         <title></title>
@@ -95,38 +65,22 @@ and open the template in the editor.
                         <li>
                             <a class="nav-link" href="AdminPage.php"><h4>Administrator Tools</h4></a>
                         </li>
-                        <li>
-                            <a class="nav-link" href="AdminPage.php"><h4>Administrator Tools</h4></a>
-                        </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="container body-content">
-            <form class="form-group" action="PhpScripts/AddItemDatabase.php" onsubmit="return validate();"  method="post">
+         <div class="container body-content">
+            <form class="form-group" action="PhpScripts/AdminToolsDatabase.php" method="post">                
                 <div class="form-group">
-                    <label for="itemNumber">Item Number</label>
-                    <input type="text" class="form-control" name="itemNumber" id="itemNumber" placeholder="Item Number">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Username">
                 </div>
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <input type="text" class="form-control" name="description" id="description" placeholder="Description">
-                </div>
-                <div class="form-group">
-                    <label for="donatedBy">Donated By</label>
-                    <input type="text" class="form-control" name="donatedBy" id="donatedBy" placeholder="Donated By">
-                </div>
-                <div class="form-group">
-                    <label for="value">Value</label>
-                    <input type="text" class="form-control" name="value" id="value" placeholder="Value">
-                </div>
-                <div class="form-group">
-                    <label for="year">Year</label>
-                    <input type="text" class="form-control" name="year" id="year" value=<?php echo date("Y") ?>>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                    <label for="password">Password</label>
+                    <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+                </div>                                
+                <button type="submit" class="btn btn-primary">Change Password</button>
             </form>
-            <p id="error_para" ></p>
         </div>
     </body>
 </html>

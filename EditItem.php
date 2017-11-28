@@ -66,6 +66,9 @@ and open the template in the editor.
                         <li>
                             <a class="nav-link" href="RegisterBidder.php"><h4>Bidder Registration</h4></a>
                         </li>
+                        <li>
+                            <a class="nav-link" href="AdminPage.php"><h4>Administrator Tools</h4></a>
+                        </li>
                     </ul>
                 </div>
             </div>
