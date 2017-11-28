@@ -25,7 +25,7 @@ and open the template in the editor.
             </div>
         </div>
         <div class="container body-content">
-            <form class="form-group" action="" onsubmit=""  method="post">
+            <form class="form-group" action="PhpScripts/LoginDatabase.php" onsubmit=""  method="post">
                 <div class="form-group">
                     <label for="userName">User Name</label>
                     <input type="text" class="form-control" name="userName" id="userName">
