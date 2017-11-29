@@ -8,7 +8,7 @@ and open the template in the editor.
     <head>
         <?php
             session_start();
-            if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != admin)
+            if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
             {
                 header('Location: index.php'); 
             }
@@ -66,17 +66,24 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <div class="navbar navbar-inverse bg-inverse">
-            <div clas="container">
+        <nav class="navbar navbar-inverse bg-inverse">
+            <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
+                    <button style="background-color: #292b2c;"type="button" class="navbar-inverse-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <a class="navbar-brand" href="Index.php">AuctionIT</a>
                     </button>
-                    <a class="navbar-brand" href="Index.php">AuctionIT</a>
+                    <?php if ($_SESSION["accountType"] != 'guest'): ?>
+                        <form style="float: right;"action="PhpScripts/Logout.php">
+                            <input type="submit" class="btn btn-primary" value="Logout" />
+                        </form>
+                    <?php endif;?>
                 </div>
                 <?php if ($_SESSION["accountType"] != 'guest'): ?>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+                        <li>
+                            <a class="nav-link" href="index.php"><h4>Home</h4></a>
+                        </li>
                         <li>
                             <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
                         </li>
@@ -105,8 +112,9 @@ and open the template in the editor.
                     </ul>
                 </div>
                 <?php endif; ?>
+
             </div>
-        </div>
+        </nav>
          <div class="container body-content">
             <form class="form-group" action="PhpScripts/RegisterBidderDatabase.php" method="post">                
                 <div class="form-group">

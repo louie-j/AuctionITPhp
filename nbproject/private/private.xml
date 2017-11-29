@@ -3,21 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/FindItem.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/AddItem.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/EditItem.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/PhpScripts/DatabaseConnection.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/PhpScripts/AddItemDatabase.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/PhpScripts/AdminsToolsDatabase.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/Login.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/PhpScripts/LoginDatabase.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/AddBid.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/RegisterBidder.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/PhpScripts/GenerateSpecificReceipt.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/AdminPage.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/index.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/ViewAllItems.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhp/Reports.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/FindItem.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/index.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/EditItem.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/RegisterBidder.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/AddItem.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/Reports.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/ViewAllItems.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/Login.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/AdminPage.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/AddBid.php</file>
         </group>
     </open-files>
 </project-private>
