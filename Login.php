@@ -4,6 +4,9 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<?php
+    session_start();
+?>
 <html>
     <head>
         <script src="js/jquery-3.2.1.min.js"></script>
@@ -12,6 +15,15 @@ and open the template in the editor.
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
+                {
+                    alert("Invalid Username or Password");
+                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                }
+            });
+        </script>
     </head>
     <body>
         <div class="navbar navbar-inverse bg-inverse">

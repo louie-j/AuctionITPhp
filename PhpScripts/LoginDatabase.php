@@ -16,7 +16,6 @@ foreach($result as $row)
     if($row["Type"] == 1)
     {
         $_SESSION['accountType'] = "admin";
-        echo($_SESSION['accountType']);
         header('Location: ../index.php');    
     }   
     if($row["Type"] == 2)
@@ -26,10 +25,12 @@ foreach($result as $row)
     }
     if($row["Type"] == -1)
     {
-       //header('Location: ../Login.php'); 
+       $_SESSION['databaseSuccess'] = 2;
+       header('Location: ../Login.php');
     }
     if($row["Type"] == 0)
     {
-        //header('Location: ../Login.php'); 
+        $_SESSION['userName'] = $userName;
+        header('Location: ../SetPassword.php'); 
     }
 }
