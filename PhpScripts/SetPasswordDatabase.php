@@ -11,4 +11,5 @@ if($password != $confirmPassword)
     $_SESSION['databaseSuccess'] = 2;
     header('Location: ../SetPassword.php');
 }
+echo password_hash($password, PASSWORD_BCRYPT);
 ?>

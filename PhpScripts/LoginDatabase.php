@@ -9,8 +9,9 @@ session_start();
 $conn = Connect();
 $userName    = $conn->real_escape_string($_POST['userName']);
 $password   = $conn->real_escape_string($_POST['password']);
+$password = !empty($password) ? "'$password'" : "NULL";
 
-$sql = "CALL checkPassword('" . $userName . "','" . ($password == null ? NULL : "'$password'") . "')";
+$sql = "CALL checkPassword('" . $userName . "'," . $password . ")";
 $result = $conn->query($sql);
 foreach($result as $row)
 {

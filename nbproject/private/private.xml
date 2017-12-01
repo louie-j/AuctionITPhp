@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/FindItem.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/index.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/EditItem.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/RegisterBidder.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/AddItem.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/Reports.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/ViewAllItems.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/PhpScripts/SetPasswordDatabase.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/SetPassword.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/PhpScripts/LoginDatabase.php</file>
             <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/Login.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/AdminPage.php</file>
-            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/AddBid.php</file>
         </group>
     </open-files>
 </project-private>
