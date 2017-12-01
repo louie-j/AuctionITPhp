@@ -9,9 +9,23 @@ session_start();
 $conn = Connect();
 $userName    = $conn->real_escape_string($_POST['userName']);
 $password   = $conn->real_escape_string($_POST['password']);
-$password = !empty($password) ? "'$password'" : "NULL";
 
-$sql = "CALL checkPassword('" . $userName . "'," . $password . ")";
+if($password == "")
+{
+    $password = !empty($password) ? "'$password'" : "NULL";
+}
+else
+{
+    $password = md5($password);
+}
+if($password == "NULL")
+{
+    $sql = "CALL checkPassword('" . $userName . "'," . $password . ")";
+}
+else
+{
+    $sql = "CALL checkPassword('" . $userName . "','" . $password . "')";
+}
 $result = $conn->query($sql);
 foreach($result as $row)
 {

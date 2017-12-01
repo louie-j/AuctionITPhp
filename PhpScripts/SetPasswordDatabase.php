@@ -11,5 +11,29 @@ if($password != $confirmPassword)
     $_SESSION['databaseSuccess'] = 2;
     header('Location: ../SetPassword.php');
 }
-echo password_hash($password, PASSWORD_BCRYPT);
+$passwordhash = md5($password);
+$userName    = $conn->real_escape_string($_SESSION['userName']);
+
+$sql = "CALL createPassword('" . $userName . "','" . $passwordhash . "')";
+$result = $conn->query($sql);
+$conn->close();
+
+$conn2 = Connect();
+$sql2 = "CALL checkPassword('" . $userName . "','" . $passwordhash . "')";
+$result2 = $conn2->query($sql2);
+
+foreach($result2 as $row)
+{
+    if($row["Type"] == 1)
+    {
+        $_SESSION['accountType'] = "admin";
+        header('Location: ../index.php');    
+    }   
+    if($row["Type"] == 2)
+    {
+        $_SESSION['accountType'] = "user";
+        header('Location: ../index.php'); 
+    }
+}    
+$conn2->close();
 ?>

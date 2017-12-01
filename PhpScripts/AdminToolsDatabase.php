@@ -5,6 +5,7 @@ $user = $pass = "";
 $conn = Connect();
 $user   = $conn->real_escape_string($_POST['username']);
 $pass = $conn->real_escape_string($_POST['password']);
+$pass = md5($pass);
 $sql = "CALL createPassword('" . $user . "','" . $pass . "')";
 $result = $conn->query($sql);
 session_start();
