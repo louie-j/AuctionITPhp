@@ -8,7 +8,7 @@ and open the template in the editor.
     <head>
         <?php
             session_start();
-            if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
+            if($_SESSION["accountType"] != 'admin')
             {
                 header('Location: index.php'); 
             }
@@ -17,6 +17,23 @@ and open the template in the editor.
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
+                {
+                    alert("Password Changed");
+                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                }
+                else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
+                {
+                    alert("Error occured when attempting to change password");
+                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                }
+                else
+                {
+                }
+            });
+        </script>
         <meta charset="UTF-8">
         <title></title>
     </head>
@@ -70,22 +87,17 @@ and open the template in the editor.
 
             </div>
         </nav>
-        <div class="container body-content">
-            <form class="form-group" action="PhpScripts/GenerateAuctionNumSheet.php" method="post">
-                <input class="btn btn-primary" type="submit" value="Auction Numbering Sheet">
-            </form> 
-            <form class="form-group" action="PhpScripts/GenerateAuctionProgram.php" method="post">
-                <input class="btn btn-primary" type="submit" value="Auction Program">
-            </form> 
-            <form class="form-group" action="PhpScripts/GenerateReceipt.php" method="post">
-                <input class="btn btn-primary" type="submit" value="All Receipts">
-            </form>
-            <form class="form-group" action="PhpScripts/GenerateSpecificReceipt.php" method="post">
+         <div class="container body-content">
+            <form class="form-group" action="PhpScripts/AdminToolsDatabase.php" method="post">                
                 <div class="form-group">
-                    <label for="bidderID">Bidder ID</label>
-                    <input type="text" class="form-control" name="bidderID" id="bidderID" placeholder="Bidder ID">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Username">
                 </div>
-                <input class="btn btn-primary" type="submit" value="Get Specific Receipt">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+                </div>                                
+                <button type="submit" class="btn btn-primary">Change Password</button>
             </form>
         </div>
     </body>

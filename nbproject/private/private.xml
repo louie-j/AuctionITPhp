@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/XAMPP/htdocs/AuctionIt/PhpScripts/GenerateSpecificReceipt.php</file>
-            <file>file:/E:/XAMPP/htdocs/AuctionIt/AddBid.php</file>
-            <file>file:/E:/XAMPP/htdocs/AuctionIt/PhpScripts/GenerateAuctionNumSheet.php</file>
-            <file>file:/E:/XAMPP/htdocs/AuctionIt/AddItem.php</file>
-            <file>file:/E:/XAMPP/htdocs/AuctionIt/PhpScripts/AddItemDatabase.php</file>
-            <file>file:/E:/XAMPP/htdocs/AuctionIt/PhpScripts/GenerateReceipt.php</file>
-            <file>file:/E:/XAMPP/htdocs/AuctionIt/Reports.php</file>
-            <file>file:/E:/XAMPP/htdocs/AuctionIt/PhpScripts/DatabaseConnection.php</file>
-            <file>file:/E:/XAMPP/htdocs/AuctionIt/PhpScripts/AddBidDatabase.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/PhpScripts/SetPasswordDatabase.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/SetPassword.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/PhpScripts/LoginDatabase.php</file>
+            <file>file:/C:/Users/Sean/Documents/NetBeansProjects/AuctionITPhpLogon/Login.php</file>
         </group>
     </open-files>
 </project-private>
