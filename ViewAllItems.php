@@ -19,7 +19,9 @@ and open the template in the editor.
         <script src ="js/bootstrap.min.js"></script>
         <script src="DataTables/datatables.min.js"></script>
         <script type="text/javascript">
+            var interval;
             $( document ).ready(function() {
+                
                 var table = $('#myDataTable').DataTable( {
                     "ajax": "phpScripts/ViewItemTable.php",
                     "bPaginate":true,
@@ -34,12 +36,26 @@ and open the template in the editor.
                     ]
                 });
                 setInterval( function () {
-                    var info = table.page.info();
-                    var pageNum = (info.page < info.pages) ? info.page + 1 : 1;
-                    table.page(pageNum).draw(false);    
                     table.ajax.reload(null, false);
                 }, 10000 );
             });
+            function changePagesAutomatically()
+            {
+                var table = $('#myDataTable').DataTable();
+                if(interval)
+                {
+                    clearInterval(interval);
+                    interval = null;
+                }
+                else
+                {
+                    interval = setInterval( function () {
+                        var info = table.page.info();
+                        var pageNum = (info.page < info.pages) ? info.page + 1 : 1;
+                        table.page(pageNum).draw(false); 
+                    }, 10000);                   
+                }
+            }
         </script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
@@ -97,6 +113,7 @@ and open the template in the editor.
             </div>
         </nav>
         <div class="container body-content">
+            <input id="clickMe" type="button" class="btn-info" value="Start/Stop Rotating Through Pages" onclick="changePagesAutomatically();" />
             <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
                 <thead>
                     <tr>
