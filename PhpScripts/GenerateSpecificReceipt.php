@@ -23,18 +23,22 @@ foreach($result as $row) {
         $pdf->Ln();
         $pdf->Ln();
         $pdf->Ln();
+        $pdf->Cell(0,10,"Purchased By: " . $row["Name"],0,0,'C');
+        $pdf->Ln();
         $pdf->Cell(0,10,"Purchased By ID Number: " . $row["BuyerId"],0,0,'C');
         $pdf->Ln();
         $pdf->Ln();
         $pdf->Ln();
-        $pdf->Cell(0, 5,$row["ItemId"] . " " . $row["Description"] . " " . "$" . $row["Value"],0,0,'C');
+        $pdf->Cell(0, 5,$row["ItemId"] . " " . $row["Description"] . " ",0,0,'C');
+        $pdf->Cell(0, 5,"$" . $row["Value"],0,0,'R');
     }
     else if($row["BuyerId"] != $current_ID)
     {
         $pdf->Ln();
         $pdf->Ln();
         $pdf->Ln();
-        $pdf->Cell(0,10,"Total Due: " . "$" . $running_total,0,0,'C');
+        $pdf->Cell(0,10,"Total Due: ",0,0,'C');
+        $pdf->Cell(0,10,"$" . $running_total,0,0,'R');
         $pdf->AddPage();
         $running_total = 0;
         $current_ID = $row["BuyerId"];
@@ -43,37 +47,28 @@ foreach($result as $row) {
         $pdf->Ln();
         $pdf->Ln();
         $pdf->Ln();
+        $pdf->Cell(0,10,"Purchased By: " . $row["Name"],0,0,'C');
+        $pdf->Ln();
         $pdf->Cell(0,10,"Purchased By ID Number: " . $row["BuyerId"],0,0,'C');
         $pdf->Ln();
         $pdf->Ln();
         $pdf->Ln();
-        $pdf->Cell(0, 5,$row["ItemId"] . " " . $row["Description"] . " " . "$" . $row["Value"],0,0,'C');
+        $pdf->Cell(0, 5,$row["ItemId"] . " " . $row["Description"] . " ",0,0,'C');
+        $pdf->Cell(0, 5,"$" . $row["Value"],0,0,'R');
     }
     else 
     {
         $running_total = $running_total + $row["Value"];
         $pdf->Ln();
         $pdf->Ln();
-        $pdf->Cell(0, 5,$row["ItemId"] . " " . $row["Description"] . " " . "$" . $row["Value"],0,0,'C');
+        $pdf->Cell(0, 5,$row["ItemId"] . " " . $row["Description"] . " ",0,0,'C');
+        $pdf->Cell(0, 5,"$" . $row["Value"],0,0,'R');
     }	
-        //$pdf->Cell(0, 5,$row["ItemId"] . " " . $row["Description"] . "$" . $row["Value"],0,0,'C');
-        //$pdf->Ln();
-        //$pdf->Cell(0, 40,"$" . $row["Value"] . " ". $row["Description"],0,0,'C');
-        //$pdf->Ln();
-        //$pdf->Ln();
-        //$pdf->Ln();
-        //$pdf->Ln();
-        //$pdf->Ln();
-        //$pdf->Cell(0,10,"Purchased By:",0,0,'C');
-        //$pdf->Ln();
-        //$pdf->Cell(0,10, $row["BuyerId"],0,0,'C');
 }
 $pdf->Ln();
 $pdf->Ln();
 $pdf->Ln();
-$pdf->Cell(0,10,"Total Due: " . "$" . $running_total,0,0,'C');
-//check buyerid, if same add to current page, keep running total
-//if new add new page, reset running total
+$pdf->Cell(0,10,"Total Due: ",0,0,'C');
+$pdf->Cell(0,10,"$" . $running_total,0,0,'R');
 $pdf->Output();
-//ob_end_flush();
 ?>

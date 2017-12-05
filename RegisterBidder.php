@@ -19,19 +19,19 @@ and open the template in the editor.
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <script type="text/javascript">
             $( document ).ready(function() {
-                if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
+                if (<?php echo $_SESSION['databaseSuccess'] ?> === 1)
                 {
                     alert("Bidder Added");
                     <?php $_SESSION['databaseSuccess'] = 0 ?>
                 }
-                else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
+                else if (<?php echo $_SESSION['databaseSuccess'] ?> === 2)
                 {
                     alert("Error registering bidder to Database");
                     <?php $_SESSION['databaseSuccess'] = 0 ?>
                 }
-                else if(<?php echo $_SESSION['databaseSuccess'] ?> === 3)
+                else if (<?php echo $_SESSION['databaseSuccess'] ?> === 3)
                 {
-                    alert("This is a test");
+                    alert("Bidder already exists in the database");
                     <?php $_SESSION['databaseSuccess'] = 0 ?>
                 }
                 else
@@ -120,6 +120,10 @@ and open the template in the editor.
                 <div class="form-group">
                     <label for="bidderID">Bidder ID</label>
                     <input type="text" class="form-control" name="bidderID" id="bidderID" placeholder="Bidder ID">
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Name">
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
