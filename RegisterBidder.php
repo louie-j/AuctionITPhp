@@ -19,24 +19,17 @@ and open the template in the editor.
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <script type="text/javascript">
             $( document ).ready(function() {
-                if (<?php echo $_SESSION['databaseSuccess'] ?> === 1)
-                {
-                    alert("Bidder Added");
-                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                
+                switch(<?php echo $_SESSION['databaseSuccess'] ?>) {
+                    case 1:
+                        alert("Bidder added.");
+                        break;
+                    case 3:
+                        alert("Bidder already in database.");
+                        break;
+                    default:
                 }
-                else if (<?php echo $_SESSION['databaseSuccess'] ?> === 2)
-                {
-                    alert("Error registering bidder to Database");
-                    <?php $_SESSION['databaseSuccess'] = 0 ?>
-                }
-                else if (<?php echo $_SESSION['databaseSuccess'] ?> === 3)
-                {
-                    alert("Bidder already exists in the database");
-                    <?php $_SESSION['databaseSuccess'] = 0 ?>
-                }
-                else
-                {
-                }
+                
             });
             function validate()
             {
