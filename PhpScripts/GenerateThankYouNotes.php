@@ -34,11 +34,7 @@ foreach($result as $row) {
         $pdf->Ln();
         $pdf->Cell(0,10,"Thank you for donating to this year's auction. The generosity of you and",0,0,'L');
         $pdf->Ln();
-<<<<<<< HEAD
         $pdf->Cell(0,10,"others allow for the event to be a success. Also, consider this a donation",0,0,'L');
-=======
-        $pdf->Cell(0,10,"others allows for the event to be a success. Also, consider this a donation",0,0,'L');
->>>>>>> origin/Thank-You-Note-format
         $pdf->Ln();
         $pdf->Cell(0,10,"receipt for tax purposes.",0,0,'L');
         $pdf->Ln();
@@ -53,15 +49,12 @@ foreach($result as $row) {
         $pdf->Ln();
         $pdf->Cell(0,10,"Total Contribution: ",0,0,'C');
         $pdf->Cell(0,10,"$" . $running_total,0,0,'R');
-<<<<<<< HEAD
-=======
         $pdf->Ln();
         $pdf->Ln();
         $pdf->Cell(0,10,"Sincerely,",0,0,'L');
         $pdf->Ln();
         $pdf->Ln();
         $pdf->Cell(0,10,"FBCM Auction Committee",0,0,'L');
->>>>>>> origin/Thank-You-Note-format
         $pdf->AddPage();
         $running_total = 0;
         $current_ID = $row["Name"];
@@ -79,11 +72,7 @@ foreach($result as $row) {
         $pdf->Ln();
         $pdf->Cell(0,10,"Thank you for donating to this year's auction. The generosity of you and",0,0,'L');
         $pdf->Ln();
-<<<<<<< HEAD
         $pdf->Cell(0,10,"others allow for the event to be a success. Also, consider this a donation",0,0,'L');
-=======
-        $pdf->Cell(0,10,"others allows for the event to be a success. Also, consider this a donation",0,0,'L');
->>>>>>> origin/Thank-You-Note-format
         $pdf->Ln();
         $pdf->Cell(0,10,"receipt for tax purposes.",0,0,'L');
         $pdf->Ln();
@@ -117,14 +106,11 @@ $pdf->Ln();
 $pdf->Ln();
 $pdf->Cell(0,10,"Total Contribution: ",0,0,'C');
 $pdf->Cell(0,10,"$" . $running_total,0,0,'R');
-<<<<<<< HEAD
-=======
 $pdf->Ln();
 $pdf->Ln();
 $pdf->Cell(0,10,"Sincerely,",0,0,'L');
 $pdf->Ln();
 $pdf->Ln();
 $pdf->Cell(0,10,"FBCM Auction Committee",0,0,'L');
->>>>>>> origin/Thank-You-Note-format
 $pdf->Output();
 ?>
