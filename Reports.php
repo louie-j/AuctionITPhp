@@ -80,6 +80,9 @@ and open the template in the editor.
             <form class="form-group" action="PhpScripts/GenerateReceipt.php" method="post">
                 <input class="btn btn-primary" type="submit" value="All Receipts">
             </form>
+            <form class="form-group" action="PhpScripts/GenerateThankYouNotes.php" method="post">
+                <input class="btn btn-primary" type="submit" value="Thank You Notes">
+            </form>
             <form class="form-group" action="PhpScripts/GenerateSpecificReceipt.php" method="post">
                 <div class="form-group">
                     <label for="bidderID">Bidder ID</label>

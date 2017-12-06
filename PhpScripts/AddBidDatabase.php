@@ -23,24 +23,8 @@ if($itemNumber < 600)
  
             }
             else {
-                //$conn->close();
-            
-                //$conn = Connect();
-            
-                //$sql2 = "SELECT CurrentWinningBid FROM auctionItems WHERE ItemId = " . $itemNumber ;
-                //$result2 = $conn->query($sql2);
-            
-                //$row = mysqli_fetch_assoc($result2);
-                //$return_value = intval($row['CurrentWinningBid']);
-            
-                //if($value > $return_value)
-                //{
+                
                    $_SESSION['databaseSuccess'] = 1;
-                //}
-                //else
-                //{
-                //    $_SESSION['databaseSuccess'] = 3;
-                //}
             }
 }
  else {
