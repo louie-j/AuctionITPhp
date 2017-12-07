@@ -28,7 +28,7 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="Index.php">AuctionIT</a>
+                    <a class="navbar-brand" href="index.php">AuctionIT</a>
                 </div>
             </div>
         </div>

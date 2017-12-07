@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="navbar-header">
                     <button style="background-color: #292b2c;"type="button" class="navbar-inverse-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <a class="navbar-brand" href="Index.php">AuctionIT</a>
+                        <a class="navbar-brand" href="index.php">AuctionIT</a>
                     </button>
                     <?php if ($_SESSION["accountType"] != 'guest'): ?>
                         <form style="float: right;"action="PhpScripts/Logout.php">
