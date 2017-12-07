@@ -17,7 +17,7 @@ if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
             $( document ).ready(function() {
                 
                 var table = $('#myDataTable').DataTable( {
-                    "ajax": "phpScripts/ViewItemTable.php",
+                    "ajax": "PhpScripts/ViewItemTable.php",
                     "bPaginate":true,
                     "bProcessing": true,
                     "columns": [
