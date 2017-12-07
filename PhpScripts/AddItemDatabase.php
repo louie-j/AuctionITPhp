@@ -1,4 +1,6 @@
 <?php
+ob_start();
+session_start();
 header('Location: /AddItem.php');
 
 require 'DatabaseConnection.php';
@@ -13,7 +15,6 @@ $year = $conn->real_escape_string($_POST['year']);
 
 $sql = "CALL insertAuctionItems(" . $itemNumber. ",'" . $description . "','" . $donatedBy . "'," . $value . "," . $year . ")";
 $result = $conn->query($sql);
-session_start();
 
 
         if (!$result) {

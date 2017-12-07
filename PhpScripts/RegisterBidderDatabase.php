@@ -1,4 +1,6 @@
 <?php
+ob_start();
+session_start();
 header('Location: ../RegisterBidder.php');
 
 require 'DatabaseConnection.php';
@@ -13,7 +15,6 @@ $name = $conn->real_escape_string($_POST['name']);
 
 $sql = "CALL insertBidder(" . $bidderID . ",'" . $phone . "','" . $address . "'," . $year . ",'" . $name . "')";
 $result = $conn->query($sql);
-session_start();
 foreach($result as $row)
 {
     if($row["Output"] == 1)

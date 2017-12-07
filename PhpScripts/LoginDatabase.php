@@ -1,11 +1,8 @@
 <?php
-require 'DatabaseConnection.php';    
+ob_start();
 session_start();
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+require 'DatabaseConnection.php';    
+
 $conn = Connect();
 $userName    = $conn->real_escape_string($_POST['userName']);
 $password   = $conn->real_escape_string($_POST['password']);

@@ -1,4 +1,6 @@
 <?php
+ob_start();
+session_start();
 header('Location: ../AddBid.php');
 
 require 'DatabaseConnection.php';
@@ -15,7 +17,6 @@ if($itemNumber < 600)
 {
     $sql = "CALL insertBid(" . $itemNumber. "," . $bidderID . "," . $value . "," . $year . ")";
     $result = $conn->query($sql);
-    session_start();
 
             if (!$result) {
                 $_SESSION['databaseSuccess'] = 2;

@@ -1,4 +1,6 @@
 <?php
+ob_start();
+session_start();
 header('Location: ../FindItem.php');
 
 require 'DatabaseConnection.php';
@@ -12,7 +14,6 @@ $donatedBy    = $conn->real_escape_string($_POST['donatedBy']);
 $value = $conn->real_escape_string($_POST['value']);
 $query   = "CALL updateAuctionItem(" . $itemNumber . "," . "'" . $description . "'" . "," . "'" . $donatedBy . "'"  . "," . $value . "," . $year . ")";
 $success = $conn->query($query);
-session_start();
 
     if (!$success) {
         $_SESSION['databaseSuccess'] = 2;

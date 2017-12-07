@@ -1,7 +1,7 @@
 <?php
-
-require 'DatabaseConnection.php';    
+ob_start();
 session_start();
+require 'DatabaseConnection.php';    
 $conn = Connect();
 $password    = $conn->real_escape_string($_POST['password']);
 $confirmPassword   = $conn->real_escape_string($_POST['confirmPassword']);

@@ -1,9 +1,11 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+        <?php
+        ob_start();
+        session_start();
+        $_SESSION['databaseSuccess'] = 0;
+        if(isset($_SESSION['accountType']) == FALSE)
+        {
+            $_SESSION['accountType'] = "guest";
+        }?>
 <html>
     <head>
         <script src="js/jquery-3.2.1.min.js"></script>
@@ -14,13 +16,7 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>     
-        <?php
-        session_start();
-        $_SESSION['databaseSuccess'] = 0;
-        if(isset($_SESSION['accountType']) == FALSE)
-        {
-            $_SESSION['accountType'] = "guest";
-        }?>
+
         <nav class="navbar navbar-inverse bg-inverse">
             <div class="container">
                 <div class="navbar-header">
