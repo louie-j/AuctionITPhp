@@ -1,11 +1,10 @@
-        <?php
-        ob_start();
-        session_start();
-        $_SESSION['databaseSuccess'] = 0;
-        if(isset($_SESSION['accountType']) == FALSE)
-        {
-            $_SESSION['accountType'] = "guest";
-        }?>
+<?php
+session_start();
+$_SESSION['databaseSuccess'] = 0;
+if(isset($_SESSION['accountType']) == FALSE)
+{
+    $_SESSION['accountType'] = "guest";
+}?>
 <html>
     <head>
         <script src="js/jquery-3.2.1.min.js"></script>

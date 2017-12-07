@@ -1,11 +1,10 @@
-        <?php
-            ob_start();
-            session_start();
-            if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
-            {
-                header('Location: index.php'); 
-            }
-        ?>
+<?php
+session_start();
+if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
+{
+    header('Location: index.php'); 
+}
+?>
 <html>
     <head>
 

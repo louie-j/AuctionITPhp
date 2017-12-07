@@ -1,11 +1,10 @@
-        <?php
-            ob_start();
-            session_start();
-            if($_SESSION["accountType"] != 'admin')
-            {
-                header('Location: index.php'); 
-            }
-        ?>
+<?php
+session_start();
+if($_SESSION["accountType"] != 'admin')
+{
+    header('Location: index.php'); 
+}
+?>
 <html>
     <head>
         <script src="js/jquery-3.2.1.min.js"></script>
