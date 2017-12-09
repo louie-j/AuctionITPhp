@@ -19,19 +19,16 @@ and open the template in the editor.
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <script type="text/javascript">
             $( document ).ready(function() {
-                if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
-                {
-                    alert("Item Added");
-                    <?php $_SESSION['databaseSuccess'] = 0 ?>
-                }
-                else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
-                {
-                    alert("Error adding Item to Database");
-                    <?php $_SESSION['databaseSuccess'] = 0 ?>
-                }
-                else
-                {
-                }
+                switch(<?php echo $_SESSION['databaseSuccess'] ?>) {
+                    case 1:
+                        alert("Item Added to Database.");
+                        break;
+                    case 2:
+                        alert("Problem adding item to database.");
+                        break;
+                    default:
+                        break;
+                    }
             });
             function validate()
             {

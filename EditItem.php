@@ -108,16 +108,23 @@ and open the template in the editor.
                     $itemNumber = $row["ItemId"];
                     $description = $row["Description"];
                     $donatedBy = $row["DonatedBy"];
-                    $value = $row["Value"];                    
+                    $value = $row["Value"];    
+                    $year = $row["Year"];
                 }
             }
             else 
             {
-                    $itemNumber = "Not Found";
-                    $description = "Not Found";
-                    $donatedBy = "Not Found";
-                    $value = "Not Found";      
-            }
+                $itemNumber = "Not Found";
+                $description = "Not Found";
+                $donatedBy = "Not Found";
+                $value = "Not Found";     
+                $year = "Not Found";
+            } 
+            $_SESSION["itemNumber"] = $itemNumber;
+            $_SESSION["description"] = $description;
+            $_SESSION["donatedBy"] = $donatedBy;
+            $_SESSION["value"] = $value;
+            $_SESSION["year"] = $year;
         ?>
             <form class="form-group" action="PhpScripts/EditItemDatabase.php" onsubmit="return validate();" method="post">
                 <div class="form-group">
@@ -135,6 +142,10 @@ and open the template in the editor.
                 <div class="form-group">
                     <label for="value">Value</label>
                     <input type="text" class="form-control" name="value" id="value" value="<?php echo $value ?>">
+                </div>
+                <div class="form-group">
+                    <label for="value">Year</label>
+                    <input type="text" class="form-control" name="year" id="year" value="<?php echo $year ?>">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
