@@ -65,10 +65,14 @@ if(isset($_SESSION['accountType']) == FALSE)
 
             </div>
         </nav>
+        <div class="container body-content">
+            <br>
+            <br>
         <?php if ($_SESSION["accountType"] == 'guest'): ?>
             <form action="Login.php">
                 <input type="submit" class="btn btn-primary" value="Login" />
             </form>
         <?php endif;?>
+        </div>
     </body>
 </html>
