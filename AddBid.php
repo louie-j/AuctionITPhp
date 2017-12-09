@@ -22,17 +22,17 @@ and open the template in the editor.
                 if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
                 {
                     alert("Bid Added");
-                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                    <?php $_SESSION['databaseSuccess'] = 0; ?>
                 }
                 else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
                 {
                     alert("Error adding Bid to Database");
-                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                    <?php $_SESSION['databaseSuccess'] = 0; ?>
                 }
                 else if(<?php echo $_SESSION['databaseSuccess'] ?> === 3)
                 {
                     alert("This is a test");
-                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                    <?php $_SESSION['databaseSuccess'] = 0; ?>
                 }
                 else
                 {
