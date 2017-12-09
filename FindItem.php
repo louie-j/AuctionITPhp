@@ -21,15 +21,19 @@ and open the template in the editor.
                 switch(<?php echo $_SESSION['databaseSuccess'] ?>) {
                     case 1:
                         alert("Item Updated.");
+                        <?php $_SESSION['databaseSuccess'] = 0; ?>
                         break;
                     case 2:
                         alert("Item not in database.");
+                        <?php $_SESSION['databaseSuccess'] = 0; ?>
                         break;
                     case 3:
-                        alert("Item Number not valid");
+                        alert("Item Number not valid")
+                        <?php $_SESSION['databaseSuccess'] = 0; ?>;
                         break;
                     case 4:
                         alert("You didn't make any changes to the item.");
+                        <?php $_SESSION['databaseSuccess'] = 0; ?>
                         break;
                     default:
                         break;
