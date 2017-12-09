@@ -23,11 +23,14 @@ and open the template in the editor.
                 switch(<?php echo $_SESSION['databaseSuccess'] ?>) {
                     case 1:
                         alert("Bidder added.");
+                        <?php $_SESSION['databaseSuccess'] = 0; ?>
                         break;
                     case 3:
                         alert("Bidder already in database.");
+                        <?php $_SESSION['databaseSuccess'] = 0; ?>
                         break;
                     default:
+                        break;
                 }
                 
             });
