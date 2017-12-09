@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION["accountType"] != admin)
+if($_SESSION["accountType"] != 'admin')
 {
     header('Location: index.php'); 
 }
