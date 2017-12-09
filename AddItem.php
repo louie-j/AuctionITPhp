@@ -22,9 +22,11 @@ and open the template in the editor.
                 switch(<?php echo $_SESSION['databaseSuccess'] ?>) {
                     case 1:
                         alert("Item Added to Database.");
+                        <?php $_SESSION['databaseSuccess'] = 0; ?>
                         break;
                     case 2:
                         alert("Problem adding item to database.");
+                        <?php $_SESSION['databaseSuccess'] = 0; ?>
                         break;
                     default:
                         break;
