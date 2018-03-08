@@ -21,7 +21,7 @@ and open the template in the editor.
             $( document ).ready(function() {
                 if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
                 {
-                    alert("Password Changed");
+                    alert("User created");
                     <?php $_SESSION['databaseSuccess'] = 0 ?>
                 }
                 else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
@@ -96,8 +96,12 @@ and open the template in the editor.
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="text" class="form-control" name="password" id="password" placeholder="Password">
-                </div>                                
-                <button type="submit" class="btn btn-primary">Change Password</button>
+                </div>
+                <div class="form-group">
+                    <input type="radio" class="form-control" name="type" id="type" value="1">Admin
+                    <input type="radio" class="form-control" name="type" id="type" value="2">Regular
+                </div>                                 
+                <button type="submit" class="btn btn-primary">Add user</button>
             </form>
         </div>
     </body>

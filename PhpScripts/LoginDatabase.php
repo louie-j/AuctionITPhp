@@ -7,26 +7,49 @@ session_start();
  * and open the template in the editor.
  */
 $conn = Connect();
-$userName    = $conn->real_escape_string($_POST['userName']);
+$userName   = $conn->real_escape_string($_POST['userName']);
 $password   = $conn->real_escape_string($_POST['password']);
 
-if($password == "")
-{
-    $password = !empty($password) ? "'$password'" : "NULL";
-}
-else
-{
-    $password = md5($password);
-}
-if($password == "NULL")
-{
-    $sql = "CALL checkPassword('" . $userName . "'," . $password . ")";
-}
-else
-{
-    $sql = "CALL checkPassword('" . $userName . "','" . $password . "')";
-}
+
+// if($password == "NULL")
+// {
+//     $sql = "CALL checkPassword('" . $userName . "'," . $password . ")";
+// }
+// else
+// {
+    $sql = "CALL checkPassword('" . $userName . "')";
+//}
 $result = $conn->query($sql);
+
+while($row = $result->fetch_array(MYSQLI_BOTH))
+{
+    if (password_verify($password, $row["password_hashed"]))
+    {
+        if($row["Type"] == 1)
+        {
+            $_SESSION['accountType'] = "admin";
+            header('Location: ../index.php');    
+        }   
+        else if($row["Type"] == 2)
+        {
+            $_SESSION['accountType'] = "user";
+            header('Location: ../index.php'); 
+        }
+        else
+        {
+            $_SESSION['databaseSuccess'] = 2;
+            header('Location: ../Login.php');
+        }
+    }
+    else
+    {
+
+    }
+}
+
+
+
+/*
 foreach($result as $row)
 {
     if($row["Type"] == 1)
@@ -34,12 +57,12 @@ foreach($result as $row)
         $_SESSION['accountType'] = "admin";
         header('Location: ../index.php');    
     }   
-    if($row["Type"] == 2)
+     else if($row["Type"] == 2)
     {
         $_SESSION['accountType'] = "user";
         header('Location: ../index.php'); 
     }
-    if($row["Type"] == -1)
+    else
     {
        $_SESSION['databaseSuccess'] = 2;
        header('Location: ../Login.php');
@@ -50,3 +73,4 @@ foreach($result as $row)
         header('Location: ../SetPassword.php'); 
     }
 }
+*/
