@@ -4,6 +4,9 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<?php
+    session_start();
+?>
 <html>
     <head>
         <script src="js/jquery-3.2.1.min.js"></script>
@@ -12,72 +15,39 @@ and open the template in the editor.
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
+                {
+                    alert("Invalid Username or Password");
+                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                }
+            });
+        </script>
     </head>
-    <body>     
-        <?php
-        session_start();
-        $_SESSION['databaseSuccess'] = 0;
-        if(isset($_SESSION['accountType']) == FALSE)
-        {
-            $_SESSION['accountType'] = "guest";
-        }?>
-        <nav class="navbar navbar-inverse bg-inverse">
-            <div class="container">
+    <body>
+        <div class="navbar navbar-inverse bg-inverse">
+            <div clas="container">
                 <div class="navbar-header">
-                    <button style="background-color: #292b2c;"type="button" class="navbar-inverse-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <a class="navbar-brand" href="Index.php">AuctionIT</a>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
                     </button>
-                    <?php if ($_SESSION["accountType"] != 'guest'): ?>
-                        <form style="float: right;"action="PhpScripts/Logout.php">
-                            <input type="submit" class="btn btn-primary" value="Logout" />
-                        </form>
-                    <?php endif;?>
+                    <a class="navbar-brand" href="Index.php">AuctionIT</a>
                 </div>
-                <?php if ($_SESSION["accountType"] != 'guest'): ?>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a class="nav-link" href="index.php"><h4>Home</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
-                        </li>
-                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
-                        <li>
-                            <a class="nav-link" href="FindItem.php"><h4>Edit an Item</h4></a>
-                        </li>
-                    <?php endif; ?>
-                        <li>
-                            <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="Reports.php"><h4>Reports</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="AddBid.php"><h4>Add Bid</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="RegisterBidder.php"><h4>Bidder Registration</h4></a>
-                        </li>
-                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
-                        <li>
-                            <a class="nav-link" href="AdminPage.php"><h4>Administrator Tools</h4></a>
-                        </li>
-                    <?php endif; ?>
-                    </ul>
-                </div>
-                <?php endif; ?>
-
             </div>
-        </nav>
+        </div>
         <div class="container body-content">
-            <br>
-            <br>
-        <?php if ($_SESSION["accountType"] == 'guest'): ?>
-            <form action="Login.php">
-                <input type="submit" class="btn btn-primary" value="Login" />
+            <form class="form-group" action="PhpScripts/LoginDatabase.php" method="post">
+                <div class="form-group">
+                    <label for="userName">User Name</label>
+                    <input type="text" class="form-control" name="userName" id="userName">
+                </div>
+                <div class="form-group">
+                    <label for="description">Password</label>
+                    <input type="password" class="form-control" name="password" id="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-        <?php endif;?>
         </div>
     </body>
 </html>

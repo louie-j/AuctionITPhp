@@ -53,9 +53,9 @@ and open the template in the editor.
                 <?php if ($_SESSION["accountType"] != 'guest'): ?>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>
+                        <!-- <li>
                             <a class="nav-link" href="index.php"><h4>Home</h4></a>
-                        </li>
+                        </li> -->
                         <li>
                             <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
                         </li>

@@ -27,12 +27,12 @@ and open the template in the editor.
                     "bPaginate":true,
                     "bProcessing": true,
                     "columns": [
-                        { mData: 'ItemId', "searchable": true } ,
-                        { mData: 'Description', "searchable": false },
-                        { mData: 'DonatedBy', "searchable": false },
-                        { mData: 'Value', "searchable": false},
-                        { mData: 'CurrentWinningBidder', "searchable": false},
-                        { mData: 'CurrentWinningBid', "searchable": false}
+                        { mData: 'auctionId', "searchable": true } ,
+                        { mData: 'description', "searchable": false },
+                        { mData: 'donatedBy', "searchable": false },
+                        { mData: 'value', "searchable": false},                        
+                        // { mData: 'CurrentWinningBidder', "searchable": false},
+                        // { mData: 'CurrentWinningBid', "searchable": false}
                     ]
                 });
                 setInterval( function () {
@@ -78,9 +78,9 @@ and open the template in the editor.
                 <?php if ($_SESSION["accountType"] != 'guest'): ?>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>
+                        <!-- <li>
                             <a class="nav-link" href="index.php"><h4>Home</h4></a>
-                        </li>
+                        </li> -->
                         <li>
                             <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
                         </li>
