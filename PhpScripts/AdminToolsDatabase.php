@@ -5,9 +5,10 @@ $user = $pass = "";
 $conn = Connect();
 $user   = $conn->real_escape_string($_POST['username']);
 $pass = $conn->real_escape_string($_POST['password']);
-$pass = md5($pass);
-$sql = "CALL createPassword('" . $user . "','" . $pass . "')";
-$result = $conn->query($sql);
+$type = $conn->real_escape_string($_POST['type']);
+$pass = password_hash($pass, PASSWORD_DEFAULT);
+$sql = "CALL createAccount('" . $user . "','" . $pass . "','" . $type . "')";
+ $result = $conn->query($sql);
 session_start();
         if (!$result) {
             $_SESSION['databaseSuccess'] = 2;
