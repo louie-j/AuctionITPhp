@@ -58,13 +58,14 @@ and open the template in the editor.
             }
         </script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <link href="css/customStyles.css" text="text/css" rel="stylesheet">
         <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
+
     </head>
     <body>
     <?php include "PhpScripts/Templates/Nav.php";?>
-
         <div class="container body-content">
             <input id="clickMe" type="button" class="btn-info" value="Start/Stop Rotating Through Pages" onclick="changePagesAutomatically();" />
             <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">

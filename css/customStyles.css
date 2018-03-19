@@ -9,3 +9,11 @@
     display: table;
     clear: both;
 }
+
+.odd {
+    background-color: #ddebf7;
+}
+
+.even {
+    background-color: #ffffff;
+}
