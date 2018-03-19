@@ -52,3 +52,30 @@ foreach($result as $row)
         header('Location: ../SetPassword.php'); 
     }
 }
+/* Dans Branch
+
+$result = $conn->query($sql);
+//foreach($result as $row)
+//{
+    //if($row["Type"] == 1)
+   // {
+        $_SESSION['accountType'] = "admin";
+        header('Location: ../index.php');    
+    //}   
+    //if($row["Type"] == 2)
+    //{
+      //  $_SESSION['accountType'] = "user";
+        //header('Location: ../index.php'); 
+    //}
+    //if($row["Type"] == -1)
+    //{
+      // $_SESSION['databaseSuccess'] = 2;
+       //header('Location: ../Login.php');
+    //}
+    //if($row["Type"] == 0)
+    //{
+      //  $_SESSION['userName'] = $userName;
+       // header('Location: ../SetPassword.php'); 
+    //}
+//}
+*/

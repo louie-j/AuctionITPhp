@@ -25,17 +25,16 @@ and open the template in the editor.
             });
         </script>
     </head>
-    <body>
-        <div class="navbar navbar-inverse bg-inverse">
-            <div clas="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="Index.php">AuctionIT</a>
-                </div>
-            </div>
-        </div>
+
+    <body>     
+        <?php
+        session_start();
+        $_SESSION['databaseSuccess'] = 0;
+        if(isset($_SESSION['accountType']) == FALSE)
+        {
+            $_SESSION['accountType'] = "guest";
+        }?>
+        <?php include "PhpScripts/Templates/Nav.php";?>
         <div class="container body-content">
             <form class="form-group" action="PhpScripts/LoginDatabase.php" method="post">
                 <div class="form-group">
