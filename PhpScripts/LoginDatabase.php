@@ -47,30 +47,28 @@ while($row = $result->fetch_array(MYSQLI_BOTH))
     }
 }
 
-
-
-/*
-foreach($result as $row)
-{
-    if($row["Type"] == 1)
-    {
+$result = $conn->query($sql);
+//foreach($result as $row)
+//{
+    //if($row["Type"] == 1)
+   // {
         $_SESSION['accountType'] = "admin";
         header('Location: ../index.php');    
-    }   
-     else if($row["Type"] == 2)
-    {
-        $_SESSION['accountType'] = "user";
-        header('Location: ../index.php'); 
-    }
-    else
-    {
-       $_SESSION['databaseSuccess'] = 2;
-       header('Location: ../Login.php');
-    }
-    if($row["Type"] == 0)
-    {
-        $_SESSION['userName'] = $userName;
-        header('Location: ../SetPassword.php'); 
-    }
-}
-*/
+    //}   
+    //if($row["Type"] == 2)
+    //{
+      //  $_SESSION['accountType'] = "user";
+        //header('Location: ../index.php'); 
+    //}
+    //if($row["Type"] == -1)
+    //{
+      // $_SESSION['databaseSuccess'] = 2;
+       //header('Location: ../Login.php');
+    //}
+    //if($row["Type"] == 0)
+    //{
+      //  $_SESSION['userName'] = $userName;
+       // header('Location: ../SetPassword.php'); 
+    //}
+//}
+
