@@ -38,6 +38,7 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
+
     <?php include "PhpScripts/Templates/Nav.php";?>
         
     <div class="row">
@@ -47,6 +48,7 @@ and open the template in the editor.
         <div class="column"></div>
     </div>
          <div class="container body-content" class = "column" >
+
             <form class="form-group" action="PhpScripts/AdminToolsDatabase.php" method="post">                
                 <div class="form-group">
                     <label for="username">Username</label>

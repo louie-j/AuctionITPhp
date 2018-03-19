@@ -27,12 +27,12 @@ and open the template in the editor.
                     "bPaginate":true,
                     "bProcessing": true,
                     "columns": [
-                        { mData: 'ItemId', "searchable": true } ,
-                        { mData: 'Description', "searchable": false },
-                        { mData: 'DonatedBy', "searchable": false },
-                        { mData: 'Value', "searchable": false},
-                        { mData: 'CurrentWinningBidder', "searchable": false},
-                        { mData: 'CurrentWinningBid', "searchable": false}
+                        { mData: 'auctionId', "searchable": true } ,
+                        { mData: 'description', "searchable": false },
+                        { mData: 'donatedBy', "searchable": false },
+                        { mData: 'value', "searchable": false},                        
+                        // { mData: 'CurrentWinningBidder', "searchable": false},
+                        // { mData: 'CurrentWinningBid', "searchable": false}
                     ]
                 });
                 setInterval( function () {
@@ -64,6 +64,7 @@ and open the template in the editor.
     </head>
     <body>
     <?php include "PhpScripts/Templates/Nav.php";?>
+
         <div class="container body-content">
             <input id="clickMe" type="button" class="btn-info" value="Start/Stop Rotating Through Pages" onclick="changePagesAutomatically();" />
             <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
