@@ -1,10 +1,16 @@
-#use auctionit;
+use auctionit;
 
 /* View Donators */
 drop view if exists viewDonators;
-CREATE VIEW `viewDonators` AS
-Select distinct `DonatedBy`
-From auctionitems;
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `viewdonators` AS
+    SELECT DISTINCT
+        `auctionitems`.`DonatedBy` AS `DonatedBy`
+    FROM
+        `auctionitems`;
 
 
 /*View AuctionItemsSheet */
@@ -23,46 +29,71 @@ VIEW `viewauctionitemssheet` AS
             SEPARATOR ', ') AS `donatedBy`
     FROM auctionitems
     GROUP BY `AuctionId`;
-
+	
 
 /* viewReceipts */
 Drop view if exists viewReceipts;
-create view `viewReceipts` as
-select P.AuctionId, BidderId, Price, Quantity, ItemId, Description, DonatedBy, `Value`
-from purchases as P, auctionitems as A
-Where P.AuctionId = A.AuctionId;		
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `viewreceipts` AS
+    SELECT 
+        `p`.`AuctionId` AS `AuctionId`,
+        `p`.`BidderId` AS `BidderId`,
+        `p`.`Price` AS `Price`,
+        `p`.`Quantity` AS `Quantity`,
+        `a`.`ItemId` AS `ItemId`,
+        `a`.`Description` AS `Description`,
+        `a`.`DonatedBy` AS `DonatedBy`,
+        `a`.`Value` AS `Value`
+    FROM
+        (`purchases` `p`
+        JOIN `auctionitems` `a`)
+    WHERE
+        (`p`.`AuctionId` = `a`.`AuctionId`);
+
+		
 
 
 /*closeSilentAuction*/
 drop procedure if exists closeSilentAuction;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `closeSilentAuction`(selectAuction INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `closeSilentAuction`(in selectAuction INT)
 BEGIN
 	INSERT INTO Purchases (AuctionId, bidderId, Price, Quantity)
     SELECT AuctionId, bidderId, Amount AS Price, 1 AS Quantity
     FROM bids
 	WHERE Winning = true
-    AND AuctionId BETWEEN selectAuction AND (selectAuction + 99);
+    AND AuctionId BETWEEN (selectAuction+1) AND (selectAuction + 99);
 END $$
 
 
 /* createBid */
 Delimiter $$
 drop procedure if exists createBid $$
-create Procedure createBid (in AuctionId int(11), in BidderId int(11), in Amount decimal(10,2))
-
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createBid`(in theauctionId int(11), in thebidderId int(11), in bid decimal(10,2))
 Begin 
 	
 	Insert INTO bids (AuctionID, BidderId, Amount, Winning) 
-    Values (AuctionID, BidderId, Amount, false);
+    Values (theauctionID, thebidderId, bid, false);
+    
+    SET @WinningAmount = (SELECT MAX(Amount) FROM bids WHERE bids.AuctionId = theauctionId);
+    
+    UPDATE bids
+    SET bids.Winning = false
+    WHERE AuctionId = theauctionID;
+    
+    UPDATE bids
+    SET bids.Winning = true
+    WHERE Amount = @WinningAmount;
 End $$
 
 
 /* createBidder */
 Delimiter $$
 Drop procedure if exists createBidder $$
-create Procedure createBidder (in Phone varchar(10), in Address varchar(100), in Name varchar(45))
-
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createBidder`(in Phone varchar(10), in Address varchar(100), in Name varchar(45))
 Begin 
 	
 	Insert INTO bidders(Phone, Address, `Name`) 
@@ -70,54 +101,11 @@ Begin
 End $$
 
 
-/*Bid after update trigger*/
-DELIMITER #
-
-DROP TRIGGER IF EXISTS after_bid_update#
-
-CREATE TRIGGER after_bid_update
- AFTER UPDATE ON bids
- FOR EACH ROW
- BEGIN
-	UPDATE bids
-    SET Winning = false
-    WHERE auctionId = NEW.auctionId
-    AND Winning = true;
-    
-    UPDATE bids
-    SET Winning = true
-    WHERE auctionId = NEW.auctionId
-    AND amount = (SELECT MAX(Amount) FROM bids);
- END#
-
-/*Bid after insert trigger*/
-DELIMITER #
-
-DROP TRIGGER IF EXISTS after_bid_insert #
-
-CREATE TRIGGER after_bid_insert
- AFTER INSERT ON bids
- FOR EACH ROW
- BEGIN
-	UPDATE bids
-    SET Winning = false
-    WHERE auctionId = NEW.auctionId
-    AND Winning = true;
-    
-    UPDATE bids
-    SET Winning = true
-    WHERE auctionId = NEW.auctionId
-    AND amount = (SELECT MAX(Amount) FROM bids);
- END#
-
-
 /* createAuctionItem */
 Delimiter $$
 Drop procedure if exists createAuctionItem $$
-create Procedure createAuctionItem (in AuctionId int(11), Description varchar(500), DonatedBy varchar(500), `Value` decimal(10,2), AddedModifiedBy int(11))
-
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createAuctionItem`(in AuctionId int(11), in Description varchar(500), in DonatedBy varchar(500), in `Value` decimal(10,2), in AddedModifiedBy int(11))
 Begin 
-	
 	Insert INTO auctionitems(AuctionId, Description, DonatedBy, `Value`, AddedModifiedDate, AddedModifiedBy)
     Values (AuctionId, Description, DonatedBy, `Value`, NOW(), AddedModifiedBy);
 End $$
@@ -128,7 +116,7 @@ End $$
 /*checkPassword*/
 delimiter $$
 Drop procedure if exists checkPassword $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `checkPassword`(user VARCHAR(100), pass VARCHAR(100))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `checkPassword`(in user VARCHAR(100), in pass VARCHAR(100))
 BEGIN
 
 SELECT Username, Password_hashed, Type
@@ -147,8 +135,7 @@ ALTER TABLE `bids` ADD UNIQUE `uniqueBidAmount`(AuctionId, Amount);
 /* createAccount */
 Delimiter $$
 drop procedure if exists createAccount $$
-create Procedure createAccount (in Username varchar(100), Password_hashed varchar(256), `type` varchar(20), Active tinyint(4))
-
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createAccount`(in Username varchar(100), in Password_hashed varchar(256), in `type` varchar(20), in Active tinyint(4))
 Begin 
 	
 	Insert INTO accounts(Username, Password_hashed, `type`, Active)
@@ -159,9 +146,8 @@ End $$
 /* updateAuctionItem */
 Delimiter $$
 Drop procedure if exists updateAuctionItem $$
-create Procedure updateAuctionItem (in id int(11), AuctionId int(11), Description varchar(500), DonatedBy varchar(500), `Value` decimal(10,2), AddedModifiedDate datetime, AddedModifiedBy int(11))
-
-Begin 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAuctionItem`(in id int(11), in AuctionId int(11), in Description varchar(500), in DonatedBy varchar(500), in `Value` decimal(10,2), in AddedModifiedDate datetime, in AddedModifiedBy int(11))
+Begin
     UPDATE auctionitems
     SET    
            AuctionId = AuctionId,
@@ -170,13 +156,13 @@ Begin
            `Value` = `Value`,
            AddedModifiedDate = AddedModifiedDate,
            AddedModifiedBy = AddedModifiedBy
-    WHERE  ItemId = id ;
+    WHERE  ItemId = id;
 End $$
 
 /*updateAccount*/
 Delimiter $$
-Drop procedure if exists updateAccount $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccount`(id INT, pass VARCHAR(100), type VARCHAR(5), active BOOL)
+drop procedure if exists updateAccount $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccount`(in id INT, in pass VARCHAR(100), in type VARCHAR(5), in active BOOL)
 BEGIN
 	UPDATE ACCOUNTS as A
 	SET A.Password_hashed = IFNULL(pass, A.Password_hashed),
@@ -189,18 +175,16 @@ END $$
 /* deleteBid */
 Delimiter $$
 Drop procedure if exists deleteBid $$
-create Procedure deleteBid (in a int(11), b int(11))
-
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteBid`(in auctionid int(11), in bidderid int(11))
 Begin
 	delete from bids
-    where AuctionId = a and BidderId = b;
+    where AuctionId = auctionid and BidderId = bidderid;
 End $$
 
 /* viewSpecificItem */
 Delimiter $$
 Drop procedure if exists viewSpecificItem $$
-create Procedure viewSpecificItem(in aID int(11))
-
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewSpecificItem`(in aID int(11))
 Begin
 	select *
     from auctionitems
@@ -209,11 +193,11 @@ End $$
 
 /*buyDuck*/
 Delimiter $$
-Drop procedure if exists buyDuck $$
-CREATE PROCEDURE `buyDuck` (in bidder int(11))
+drop procedure if exists buyDuck $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `buyDuck`(in bidder int(11), in amount int(2))
 BEGIN
 	INSERT into purchases (AuctionId, BidderId, Price, Quantity)
-	VALUES(600, bidder, 10, 1);
+	VALUES(600, bidder, 10*amount, amount);
 END $$
 
 
@@ -221,12 +205,11 @@ END $$
 /*updateBidder*/
 delimiter $$
 drop procedure if exists updateBidder $$
-CREATE PROCEDURE `updateBidder` (id INT, `name` VARCHAR(100), address VARCHAR(100), phoneNumber INT(10))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateBidder`(in id INT, `name` VARCHAR(100), in address VARCHAR(100), in phoneNumber INT(10))
 BEGIN
 	UPDATE BIDDERS as B
-	SET B.`name`     = IFNULL(`name`, A.`Name`),
-		B.address    = IFNULL(address, A.address),
-		B.Phone      = IFNULL(phoneNumber, A.Phone)
+	SET B.`name`     = IFNULL(`name`, B.`Name`),
+		B.address    = IFNULL(address, B.address),
+		B.Phone      = IFNULL(phoneNumber, B.Phone)
 	WHERE B.BidderId = id;
 END $$
-
