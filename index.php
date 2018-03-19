@@ -28,7 +28,6 @@ and open the template in the editor.
 
     <body>     
         <?php
-        session_start();
         $_SESSION['databaseSuccess'] = 0;
         if(isset($_SESSION['accountType']) == FALSE)
         {
