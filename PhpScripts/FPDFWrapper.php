@@ -154,8 +154,8 @@ class FPDFWrapper {
 	// Adds the template data to the wrapper's pdf object, using the dynamicData object as needed
 	function Append($template, $dynamicData) {
 
-		// Split the template into an array of each line separated by "\n"
-		$templateLines = explode("\n", $template);
+		// Split the template into an array of each line separated by new lines
+		$templateLines = explode(PHP_EOL, $template);
 	
 		// Go through each line to pass it to the function that checks what to do with it
 		foreach ($templateLines as $line) {
@@ -165,8 +165,6 @@ class FPDFWrapper {
 				$this->CheckLineHeader($line);
 			} else if ($this->readState == 'repeatable') {
 				$this->CheckLineRepeatable($line, $dynamicData);
-			} else {
-				echo 'Unknown read state : ' + $this->readState;
 			}
 		}
 	}
@@ -181,6 +179,7 @@ class FPDFWrapper {
 		return $this->pdf->GetY() - $this->topMargin;
 	}
 
+	// Adds page to documents, not useful externally useful but needed to compute template lengths
 	function AddPage() {
 		$this->pdf->AddPage();
 	}
@@ -189,15 +188,14 @@ class FPDFWrapper {
 	// Instructions will be interpetted, otherwise the text is added to the pdf using current styles
 	private function CheckLineNormal($line, $dynamicData) {
 
-		// Check if the line has content, otherwise add new line to pdf
-		if (strlen($line) == 0) {
-			$this->pdf->Ln();
-		} else {
-
-			// Pass line to check for object and add line if it returns false
-			if (!$this->CheckForMetadata($line, $dynamicData)) {
-				$this->pdf->SetXY($this->currentLeft, $this->currentTop);
-				$this->pdf->MultiCell($this->width, $this->height, $this->ReplaceDynamicData($line, $dynamicData), $this->border, $this->align);
+		// Pass line to check for object and add line if it returns false
+		if (!$this->CheckForMetadata($line, $dynamicData)) {
+			$this->pdf->SetXY($this->currentLeft, $this->currentTop);
+			
+			$tempLine = $this->ReplaceDynamicData($line, $dynamicData);
+			
+			if (strcmp($tempLine, "!!SKIP_THIS_LINE__ERROR") != 0) {
+				$this->pdf->MultiCell($this->width, $this->height, $tempLine, $this->border, $this->align);
 
 				// Set current top to new position after adding content
 				$this->currentTop = $this->pdf->GetY();
@@ -208,63 +206,38 @@ class FPDFWrapper {
 	// Adds to header template unless the template is done being defined
 	private function CheckLineHeader($line) {
 
-		// Check if the line has content, otherwise add new line to header template
-		if (strlen($line) == 0) {
-			$this->headerTemplate = $this->headerTemplate . "\n";
+		// Pass line to check for object and add line if it returns false
+		if (!$this->CheckTemplateDefineEnded($line)) {
+			$this->headerTemplate = $this->headerTemplate . $line . PHP_EOL;
 		} else {
 
-			// Pass line to check for object and add line if it returns false
-			if (!$this->CheckTemplateDefineEnded($line)) {
-				$this->headerTemplate = $this->headerTemplate . $line . "\n";
-			} else {
+			// Remove trailing new line if end of template
+			$this->headerTemplate = substr($this->headerTemplate, 0, -2);
 
-				// Remove trailing new line if end of template
-				$this->headerTemplate = substr($this->headerTemplate, 0, -2);
-
-				// Reset the header height so it gets set for this template next time it is added
-				$this->newStartTopWithHeader = 0;
-			}
+			// Reset the header height so it gets set for this template next time it is added
+			$this->newStartTopWithHeader = 0;
 		}
 	}
 
 	// Adds to repeatable template unless the template is done being defined, then iterates over dynamic data
 	private function CheckLineRepeatable($line, $dynamicData) {
 
-		// Check if the line has content, otherwise add new line to repeatable template
-		if (strlen($line) == 0) {
-			$this->repeatableTemplates[$this->currentRepeatable] = $this->repeatableTemplates[$this->currentRepeatable] . "\n";
+		// Pass line to check for object and add line if it returns false
+		if (!$this->CheckTemplateDefineEnded($line)) {
+			$this->repeatableTemplates[$this->currentRepeatable] = $this->repeatableTemplates[$this->currentRepeatable] . $line . PHP_EOL;
 		} else {
 
-			// Pass line to check for object and add line if it returns false
-			if (!$this->CheckTemplateDefineEnded($line)) {
-				$this->repeatableTemplates[$this->currentRepeatable] = $this->repeatableTemplates[$this->currentRepeatable] . $line . "\n";
-			} else {
+			// Remove trailing new line if end of template
+			$this->repeatableTemplates[$this->currentRepeatable] = substr($this->repeatableTemplates[$this->currentRepeatable], 0, -2);
 
-				// Remove trailing new line if end of template
-				$this->repeatableTemplates[$this->currentRepeatable] = substr($this->repeatableTemplates[$this->currentRepeatable], 0, -2);
-
-				// Since we have the whole template, we can iterate over dynamic data at the repeatable value and recurisevely add the template to the current pdf
-				foreach ($dynamicData[$this->repeatableValues[$this->currentRepeatable]] as $dynamicEntry) {
-					if ($this->usingColumns > 0) {
-						if ($this->checkOverflow) {
-							$nextTemplateLength = $this->GetTemplateLength($this->repeatableTemplates[$this->currentRepeatable], $dynamicEntry);
-							
-							// Check if next item goes too far down the page and do the columns check
-							if ($this->GetCurrentY() + $nextTemplateLength > $this->pdf->GetPageHeight() - ($this->topMargin * 2)) {
-								if ($this->usingColumns == 1) {
-									$this->usingColumns = 2;
-									$this->leftMargin = $this->pdf->GetPageWidth() / 2;
-									$this->currentTop = $this->usingHeader ? $this->newStartTopWithHeader : $this->topMargin;
-									$this->pdf->SetXY($this->currentLeft, $this->currentTop);
-								} else if ($this->usingColumns == 2) {
-									$this->usingColumns = 1;
-									$this->leftMargin = $this->actualLeftMargin;
-									$this->AddNewPage($dynamicData);
-								}
-							}
-						} else {
-
-							// Check which column is currently being used and adjust positions or add pages as needed
+			// Since we have the whole template, we can iterate over dynamic data at the repeatable value and recurisevely add the template to the current pdf
+			foreach ($dynamicData[$this->repeatableValues[$this->currentRepeatable]] as $dynamicEntry) {
+				if ($this->usingColumns > 0) {
+					if ($this->checkOverflow) {
+						$nextTemplateLength = $this->GetTemplateLength($this->repeatableTemplates[$this->currentRepeatable], $dynamicEntry);
+						
+						// Check if next item goes too far down the page and do the columns check
+						if ($this->GetCurrentY() + $nextTemplateLength > $this->pdf->GetPageHeight() - ($this->topMargin * 2)) {
 							if ($this->usingColumns == 1) {
 								$this->usingColumns = 2;
 								$this->leftMargin = $this->pdf->GetPageWidth() / 2;
@@ -274,22 +247,35 @@ class FPDFWrapper {
 								$this->usingColumns = 1;
 								$this->leftMargin = $this->actualLeftMargin;
 								$this->AddNewPage($dynamicData);
-							} else if ($this->usingColumns == 3) {
-								$this->usingColumns = 1;
-								$this->leftMargin = $this->actualLeftMargin;
 							}
 						}
-					}
+					} else {
 
-					$this->Append($this->repeatableTemplates[$this->currentRepeatable], $dynamicEntry);
+						// Check which column is currently being used and adjust positions or add pages as needed
+						if ($this->usingColumns == 1) {
+							$this->usingColumns = 2;
+							$this->leftMargin = $this->pdf->GetPageWidth() / 2;
+							$this->currentTop = $this->usingHeader ? $this->newStartTopWithHeader : $this->topMargin;
+							$this->pdf->SetXY($this->currentLeft, $this->currentTop);
+						} else if ($this->usingColumns == 2) {
+							$this->usingColumns = 1;
+							$this->leftMargin = $this->actualLeftMargin;
+							$this->AddNewPage($dynamicData);
+						} else if ($this->usingColumns == 3) {
+							$this->usingColumns = 1;
+							$this->leftMargin = $this->actualLeftMargin;
+						}
+					}
 				}
 
-				// Decrease current repeatable to fall back into parent in there is one
-				$this->currentRepeatable--;
-
-				// Reset to let each repeatable set again if needed and not let avalue linger
-				$this->checkOverflow = false;
+				$this->Append($this->repeatableTemplates[$this->currentRepeatable], $dynamicEntry);
 			}
+
+			// Decrease current repeatable to fall back into parent in there is one
+			$this->currentRepeatable--;
+
+			// Reset to let each repeatable set again if needed and not let avalue linger
+			$this->checkOverflow = false;
 		}
 	}
 
@@ -297,44 +283,48 @@ class FPDFWrapper {
 	// the text style, position and add new pages
 	private function CheckForMetadata($line, $dynamicData) {
 
-		// Check if the line starts with a single bracket, meaning instructions need to be interpretted
-		if ($line[0] == '{' && $line[1] != '{') {
+		if (strlen($line) > 0) {
+			// Check if the line starts with a single bracket, meaning instructions need to be interpretted
+			if ($line[0] == '{' && $line[1] != '{') {
 
-			// Get an actual object from the json string
-			$metadata = json_decode($line, true);
+				// Get an actual object from the json string
+				$metadata = json_decode($line, true);
 
-			// Check if read state changes
-			if (!$this->CheckForReadStateChange($metadata)) {
-				
-				// Pass metadata to style and page checking functions
-				$this->SetCurrentStyle($metadata);
-				$this->CheckNewPageData($metadata, $dynamicData);
+				// Check if read state changes
+				if (!$this->CheckForReadStateChange($metadata)) {
+					
+					// Pass metadata to style and page checking functions
+					$this->SetCurrentStyle($metadata);
+					$this->CheckNewPageData($metadata, $dynamicData);
+				}
+
+				return true;
 			}
-
-			return true;
-		} else {
-			return false;
 		}
+
+		return false;
 	}
 
 	// Checks if a template is done being defined
 	private function CheckTemplateDefineEnded($line) {
 
-		// Check if the line starts with a single bracket, meaning instructions need to be interpretted
-		if ($line[0] == '{' && $line[1] != '{') {
+		if (strlen($line) > 0) {
+			// Check if the line starts with a single bracket, meaning instructions need to be interpretted
+			if ($line[0] == '{' && $line[1] != '{') {
 
-			// Get an actual object from the json string
-			$metadata = json_decode($line, true);
+				// Get an actual object from the json string
+				$metadata = json_decode($line, true);
 
-			// Check if read state changes
-			if (!$this->CheckForReadStateChange($metadata)) {
-				return false;
+				// Check if read state changes
+				if (!$this->CheckForReadStateChange($metadata)) {
+					return false;
+				}
+
+				return true;
 			}
-
-			return true;
-		} else {
-			return false;
 		}
+		
+		return false;
 	}
 
 	// Checks the metadata for a change in read state
@@ -507,6 +497,7 @@ class FPDFWrapper {
 		$characters				= str_split($line);
 		$doubleCurlyCount	= 0;
 		$dynamicVariable	= '';
+		$failedToInject		= false;
 
 		foreach ($characters as $character) {
 			if ($doubleCurlyCount == 2 && $character != '}') {
@@ -515,7 +506,7 @@ class FPDFWrapper {
 				if (isset($dynamicData[$dynamicVariable])) {
 					$tempLine .= $dynamicData[$dynamicVariable];
 				} else {
-					$tempLine .= 'Error getting value for : ' . $dynamicVariable;
+					$failedToInject = true;
 				}
 				$dynamicVariable = '';
 			}
@@ -528,6 +519,10 @@ class FPDFWrapper {
 			} else if ($doubleCurlyCount == 0) {
 				$tempLine .= $character;
 			}
+		}
+
+		if ($failedToInject && strlen($tempLine) == 0) {
+			$tempLine = "!!SKIP_THIS_LINE__ERROR";
 		}
 
 		return $tempLine;

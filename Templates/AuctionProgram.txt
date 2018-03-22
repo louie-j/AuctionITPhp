@@ -96,12 +96,14 @@ Festival Missions Auction
 {{title}}
 
 { "startRepeatable": 1 }
-{  "size": 10, "weight": "B", "width": "15" }
+{  "size": 10, "weight": "B", "width": "12" }
 {{ItemId}}.
 {  "size": 10, "left": "12", "top": "-5", "width": "60", "weight": "B" }
 {{Description}}
 {  "size": 10, "left": "12", "width": "60" }
 {{DonatedBy}}
+{  "size": 10, "left": "12", "width": "60", "weight": "I" }
+{{OtherDescription}}
 {  "size": 10, "left": "12", "width": "60", "weight": "B" }
 Retail Value: ${{Value}}.00
 
