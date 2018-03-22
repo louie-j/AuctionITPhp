@@ -1,0 +1,31 @@
+CREATE TABLE accounts 		( Id 				INT AUTO_INCREMENT,
+							Username 			VARCHAR(20),
+							Password 			VARCHAR(20),
+							Type 				ENUM('admin', 'user'),
+							PRIMARY KEY(Id));
+                        
+CREATE TABLE bidders 		( BidderId 			INT AUTO_INCREMENT,
+							Phone	 			VARCHAR(10),
+							Address 				VARCHAR(100),
+							Year 				YEAR,
+							Name 				VARCHAR(50),
+                            PRIMARY KEY (BidderId, Year));
+
+CREATE TABLE auctionItems	( ItemId 			INT AUTO_INCREMENT,
+							Description 			VARCHAR(150),
+                            DonatedBy 			VARCHAR(50),
+                            CurrentWinningBidder  INT,
+                            CurrentWinningBid 	DECIMAL(15,2),
+                            Value 				DECIMAL(15,2),
+                            Year 				YEAR,
+                            PRIMARY KEY  (ItemId, Year),
+                            FOREIGN KEY  (CurrentWinningBidder) REFERENCES bidders(BidderId));
+                            
+CREATE TABLE multiAuctionItems ( AutoId 			INT AUTO_INCREMENT,
+							ItemId 				INT,
+                            Description 			VARCHAR(150),
+                            PurchasedBy 			INT,
+                            Value 				DECIMAL(15,2),
+                            Year 				YEAR,
+                            PRIMARY KEY(AutoId, Year),
+                            FOREIGN KEY(PurchasedBy) REFERENCES bidders(BidderId));
