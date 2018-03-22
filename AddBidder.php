@@ -26,5 +26,16 @@
 	<br/>
 	<a href="UserManagement.php">User Management</a>
 	<br/>
+	<form action="PHPscripts/AddBidderToDatabase.php" method = "POST">
+		Phone:<br/>
+		<input id = "phonenumber" type="text"  class = "up" name="phonenumber">
+		<br/>
+		Address: <br/>
+		<input id = "address" type="text"  class = "up" name="address">
+		<br/>
+		Name: <br/>
+		<input id = "name" type="text"  class = "up" name="name">
+		<br/>
+		<input type = "submit" value = "Enter">
   </body>
 </html>

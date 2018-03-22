@@ -26,5 +26,16 @@
 	<br/>
 	<a href="UserManagement.php">User Management</a>
 	<br/>
+	<form action="PHPscripts/AddBidToDatabase.php" method = "POST">
+		Auction Item ID:<br/>
+		<input id = "auctionid" type="text"  class = "up" name="auctionid">
+		<br/>
+		Bidder ID: <br/>
+		<input id = "bidderid" type="text"  class = "up" name="bidderid">
+		<br/>
+		Bid: <br/>
+		<input id = "bid" type="text"  class = "up" name="bid">
+		<br/>
+		<input type = "submit" value = "Enter">
   </body>
 </html>

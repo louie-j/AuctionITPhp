@@ -15,4 +15,3 @@ $sql = "CALL createAuctionItem(207,'$itemname','$donatedby','$value', 1)";
 $result = mysqli_query($conn, $sql);
 header("Location: ../home.php?additem=success");
 exit();		
-
