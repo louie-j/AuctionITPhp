@@ -13,7 +13,9 @@ and open the template in the editor.
                 header('Location: index.php'); 
             }
         ?>
-        <script src="js/jquery-3.2.1.min.js"></script>
+		
+		
+    <!--        <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
@@ -32,24 +34,48 @@ and open the template in the editor.
                 else
                 {
                 }
-            });
-        </script>
+            });  
+			
+			
+        </script>  -->
+		
+		
+		
+		
+		
+		
         <meta charset="UTF-8">
         <title></title>
     </head>
     <body>
     <?php include "PhpScripts/Templates/Nav.php";?>
         
-    <div class="row">
-        <div class="column"></div>
-        <div class="column"></div>
-        <div class="column"></div>
-        <div class="column"></div>
-    </div>
-         <div class="container body-content" class = "column" >
+
+
+		<div class="container body-content">
+            <input id="clickMe" type="button" class="btn-info" value="Start/Stop Rotating Through Pages" onclick="changePagesAutomatically();" />
+            <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <td>Username</td>
+                        <td>State</td>
+                        <td>User Type</td>
+                        <td>Edit</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+		
+		
+        
+    </body>
+</html>
+
+
+   <!--          <div class="container body-content" >
             <form class="form-group" action="PhpScripts/AdminToolsDatabase.php" method="post">                
                 <div class="form-group">
-                    <label for="username">Username</label>
+
                     <input type="text" class="form-control" name="username" id="username" placeholder="Username">
                 </div>
                 <div class="form-group">
@@ -58,6 +84,4 @@ and open the template in the editor.
                 </div>                                
                 <button type="submit" class="btn btn-primary">Change Password</button>
             </form>
-        </div>
-    </body>
-</html>
+        </div>                   -->
