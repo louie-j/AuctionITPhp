@@ -46,3 +46,35 @@
     width: auto;
     margin: auto;
 }
+
+.page-name {
+    color:white;
+    font-family: Verdana;
+    font-size: 18px;
+    height: 100%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.header {
+    background-color: #292b2c;
+    margin-right: 0 !important;
+    font-size: 22px;
+    padding: 0;
+    height: 100%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.chevron {
+    color: white;
+    transition-duration: 0.30s;
+    display: inline-block;
+    transition-property: transform;
+    height: 35px;
+    
+}
+
+.chevron:hover {
+    transform: rotate(90deg);
+}
