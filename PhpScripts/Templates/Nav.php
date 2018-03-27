@@ -2,8 +2,8 @@
 <nav class="navbar navbar-inverse bg-inverse">
             <div class="container">
                 <div class="navbar-header">
-                    <span href="index.php" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span  class="header navbar-brand navbar-inverse-toggle">
+                    <span class="header" href="index.php" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span>
                             <span>AuctionIT</span>
                             <span class="chevron">></span>
                         </span>

@@ -48,8 +48,6 @@
 }
 
 .page-name {
-    color:white;
-    font-family: Verdana;
     font-size: 18px;
     height: 100%;
     display: inline-block;
@@ -57,13 +55,27 @@
 }
 
 .header {
-    background-color: #292b2c;
+    background-color: #000000;
+    font-family: Verdana;
     margin-right: 0 !important;
     font-size: 22px;
-    padding: 0;
+    padding: 5px;
     height: 100%;
     display: inline-block;
     cursor: pointer;
+    color: #cccccc;
+    border: 1px solid #cccccc;
+    border-radius: 3px; 
+}
+
+.header:hover {
+    color: #e6e6e6;
+    border-color: #e6e6e6;
+}
+
+.header:active {
+    color:white;
+    border-color:white; 
 }
 
 .chevron {
