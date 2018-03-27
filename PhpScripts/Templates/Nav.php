@@ -34,6 +34,9 @@
                                     case("AddItem.php"):
                                         echo("Add Item");
                                         break;
+                                    case("index.php"):
+                                        echo("Log In");
+                                        break;
                                     default:
                                         echo(basename($_SERVER['PHP_SELF']));
                                         break;
