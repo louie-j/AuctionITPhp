@@ -1,9 +1,47 @@
+<link href="css/customStyles.css" text="text/css" rel="stylesheet">
 <nav class="navbar navbar-inverse bg-inverse">
             <div class="container">
                 <div class="navbar-header">
-                    <button style="background-color: #292b2c;"type="button" class="navbar-inverse-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <a class="navbar-brand" href="index.php">AuctionIT</a>
-                    </button>
+                    <span href="index.php" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span  class="header navbar-brand navbar-inverse-toggle">
+                            <span>AuctionIT</span>
+                            <span class="chevron">></span>
+                        </span>
+                        <span class="page-name">
+                            <?php 
+                                switch(basename($_SERVER['PHP_SELF'])) {
+                                    case("ViewAllItems.php"):
+                                        echo("View All Items");
+                                        break;
+                                    case("AddBid.php"):
+                                        echo("Add Bid");
+                                        break;
+                                    case("AdminPage.php"):
+                                        echo("User Management");
+                                        break;
+                                    case("EditItem.php"):
+                                        echo("Edit Item");
+                                        break;
+                                    case("PhpScripts/FindItem.php"):
+                                        echo("Find Item");
+                                        break;
+                                    case("Reports.php"):
+                                        echo("Reports");
+                                        break;
+                                    case("RegisterBidder.php"):
+                                        echo("Register Bidder");
+                                        break;
+                                    case("AddItem.php"):
+                                        echo("Add Item");
+                                        break;
+                                    default:
+                                        echo(basename($_SERVER['PHP_SELF']));
+                                        break;
+                                        
+                                } 
+                            ?>
+                        </span>
+                    </span>
                     <?php if ($_SESSION["accountType"] != 'guest'): ?>
                         <form style="float: right;"action="PhpScripts/Logout.php">
                             <input type="submit" class="btn btn-primary" value="Logout" />
