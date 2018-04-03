@@ -87,17 +87,17 @@ END $$
 /* createBid */
 Delimiter $$
 drop procedure if exists createBid $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createBid`(in theauctionId int(11), in thebidderId int(11), in bid decimal(10,2))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createBid`(in auctionId int(11), in bidderId int(11), in bid decimal(10,2))
 Begin 
 	
 	Insert INTO bids (AuctionID, BidderId, Amount, Winning) 
-    Values (theauctionID, thebidderId, bid, false);
+    Values (auctionID, bidderId, bid, false);
     
-    SET @WinningAmount = (SELECT MAX(Amount) FROM bids WHERE bids.AuctionId = theauctionId);
+    SET @WinningAmount = (SELECT MAX(Amount) FROM bids WHERE bids.AuctionId = auctionId);
     
     UPDATE bids
     SET bids.Winning = false
-    WHERE AuctionId = theauctionID;
+    WHERE AuctionId = auctionID;
     
     UPDATE bids
     SET bids.Winning = true

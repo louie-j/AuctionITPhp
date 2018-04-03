@@ -47,6 +47,44 @@
     margin: auto;
 }
 
+.forty {
+    display: inline-block !important;
+    width: 40% !important;
+    vertical-align: top;
+}
+
+.description-search {
+    margin-left: 10%;
+}
+
+.dropdown {
+    border: 1px solid rgba(0,0,0,.15);
+    border-top: none;
+    cursor: pointer;
+}
+
+.dropdown:hover {
+    background-color: rgba(0,0,0, .05);
+}
+
+.drop {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    margin-top: .5rem;
+}
+
+.block {
+    display: block !important;
+}
+
+.error {
+    color: red;
+}
+
+.none {
+    display: none !important;
+}
+
 .page-name {
     font-size: 18px;
     height: 100%;
