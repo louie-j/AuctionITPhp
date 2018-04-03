@@ -85,7 +85,8 @@ and open the template in the editor.
             function changeValue(value) {
                 if(document.getElementById("auctionID")) {
                     document.getElementById("auctionID").value = value;
-                    manipulateHtml(doesAuctionIdExist(value));
+                    document.getElementById("searchText").value = "";
+                    doesAuctionIdExist(value);
                 }
             };
 
@@ -154,7 +155,7 @@ and open the template in the editor.
                     </div>
                     <button id="disabled" disabled type="submit" class="btn btn-primary">Submit</button>
                     <button id="enabled" type="submit" class="btn none btn-primary">Submit</button>
-                    <div class="error" id="auctionError">That Auction Number does not exist</div>
+                    <div class="error none" id="auctionError">That Auction Number does not exist</div>
                 </form>
             </div>
             <div class="forty description-search">
