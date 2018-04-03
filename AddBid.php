@@ -22,6 +22,7 @@ and open the template in the editor.
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <script type="text/javascript">
             var items;
+            var bidders;
             $( document ).ready(function() {
 
                 if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
@@ -42,63 +43,107 @@ and open the template in the editor.
                 };
                 oReq.open("get", "PhpScripts/ViewItemTable.php", true);
                 oReq.send();
+
+                var oReq2 = new XMLHttpRequest();
+                oReq2.onload = function() {
+                    bidders = JSON.parse(this.responseText).aaData;
+                };
+                oReq2.open("get", "PhpScripts/ViewBidders.php", true);
+                oReq2.send();
             });
 
 
-            function searchDescriptions(filterText) {
+            function searchDescriptions(filterText, type) {
                 if (filterText == "") {
-                    closeDropdown();
+                    closeDropdown(type);
                 }
                 else {
                     var possible = [];
-                    var drop = document.getElementById("description");
+                    var id = "description" + type;
+                    var drop = document.getElementById(id);
                     while (drop.firstChild) {
                         drop.removeChild(drop.firstChild);
                     }
                     filterText = filterText.toLowerCase();
-                    for (var i = 0; i < items.length; i++) {
-                        var description = items[i].description.toLowerCase();
-                        if (description.indexOf(filterText) !== -1) {
-                            possible.push(items[i]);
-                            var el = document.createElement("div");
-                            el.textContent = items[i].description;
-                            el.value = items[i].auctionId;
-                            el.onclick = function() { 
-                                changeValue(this.value); 
-                                closeDropdown();
+                    var arr = type == "Item" ? items : bidders;
+                    for (var i = 0; i < arr.length; i++) {
+                        if (type == "Item") {
+                            var description = arr[i].description.toLowerCase();
+                            if (description.indexOf(filterText) !== -1) {
+                                possible.push(arr[i]);
+                                var el = document.createElement("div");
+                                el.textContent = arr[i].description;
+                                el.value = arr[i].auctionId;
+                                el.onclick = function() { 
+                                    changeValue(this.value); 
+                                    closeDropdown(type);
+                                }
+                                el.classList.add("dropdown");
+                                drop.appendChild(el);
                             }
-                            el.classList.add("dropdown");
-                            drop.appendChild(el);
+                        }
+                        else {
+                            var name = arr[i].Name;
+                            if (name && name.toLowerCase().indexOf(filterText) !== -1) {
+                                possible.push(arr[i]);
+                                var el = document.createElement("div");
+                                el.textContent = arr[i].Name;
+                                el.value = arr[i].BidderId;
+                                el.onclick = function() { 
+                                    changeValue(this.value, type); 
+                                    closeDropdown(type);
+                                }
+                                el.classList.add("dropdown");
+                                drop.appendChild(el);
+                            }
                         }
                     }
                 }
-
             }
 
-            function closeDropdown(){
-                var drop = document.getElementById("description");
+            function closeDropdown(type) {
+                var id = "description" + type;
+                var drop = document.getElementById(id);
                 while (drop.firstChild) {
                     drop.removeChild(drop.firstChild);
                 }
             }
 
-            function changeValue(value) {
-                if(document.getElementById("auctionID")) {
-                    document.getElementById("auctionID").value = value;
-                    document.getElementById("searchText").value = "";
-                    doesAuctionIdExist(value);
+            function changeValue(value, type) {
+                if (type == "Item") {
+                    if(document.getElementById("auctionID")) {
+                        document.getElementById("auctionID").value = value;
+                        document.getElementById("searchTextItem").value = "";
+                        doesAuctionIdExist(value, type);
+                    }
+                } 
+                else {
+                    if(document.getElementById("bidderID")) {
+                        document.getElementById("bidderID").value = value;
+                        document.getElementById("searchTextBidder").value = "";
+                        doesAuctionIdExist(value, type);
+                    }
                 }
+
             };
 
-            function doesAuctionIdExist(id) {
-                for(var i = 0; i < items.length; i++) {
+            function doesAuctionIdExist(id, type) {
+                if (type == "Item") {
+                    for(var i = 0; i < items.length; i++) {
                     if (items[i].auctionId == id) {
                         return manipulateHtml(true);
                     }
                 }
-                return manipulateHtml(false);
+                    return manipulateHtml(false);
+                }
+                else {
+                    for(var i = 0; i < bidders.length; i++) {
+                        if (bidders[i].bidderId == id) {
+                            return manipulateHtml(true);
+                        }   
+                    }
+                }
             }
-
             function manipulateHtml(valid) {
                 if (valid) {
                     hideOrShowElement("hide", "auctionError");
@@ -159,10 +204,15 @@ and open the template in the editor.
                 </form>
             </div>
             <div class="forty description-search">
-                <div>Search By Description<div>
-                <input type="text" placeholder="Search..." class="form-control drop" id="searchText" 
-                onkeyup="searchDescriptions(document.getElementById('searchText').value)">
-                <div id="description"></div>
+                <div>Search By Auction Description<div>
+                <input type="text" placeholder="Search..." class="form-control drop" id="searchTextItem" 
+                onkeyup="searchDescriptions(document.getElementById('searchTextItem').value, 'Item')">
+                <div id="descriptionItem"></div>
+
+                <div style="margin-top: 1rem">Search By Bidder Name<div>
+                <input type="text" placeholder="Search..." class="form-control drop" id="searchTextBidder" 
+                onkeyup="searchDescriptions(document.getElementById('searchTextBidder').value, 'Bidder')">
+                <div id="descriptionBidder"></div>
             </div>
 
         </div>
