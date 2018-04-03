@@ -13,15 +13,15 @@ $sql = "CALL createBid(" . $auctionID. "," . $bidderID . "," . $amount .")";
 $result = $conn->query($sql);
 session_start();
 
-// if (!$result) {
-//     $_SESSION['databaseSuccess'] = 2;
-//     die("Couldn't enter data: ".$conn->error);
-// }
-// else {
+if (!$result) {
+    $_SESSION['databaseSuccess'] = 2;
+    die("Couldn't enter data: ".$conn->error);
+}
+else {
 $_SESSION['databaseSuccess'] = 1;
 $_SESSION["result"] = $result;
 
-// }
+}
 
  
 $conn->close();

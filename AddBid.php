@@ -45,6 +45,7 @@ and open the template in the editor.
                 oReq.send();
 
                 var oReq2 = new XMLHttpRequest();
+                
                 oReq2.onload = function() {
                     bidders = JSON.parse(this.responseText).aaData;
                 };
@@ -75,7 +76,7 @@ and open the template in the editor.
                                 el.textContent = arr[i].description;
                                 el.value = arr[i].auctionId;
                                 el.onclick = function() { 
-                                    changeValue(this.value); 
+                                    changeValue(this.value, type); 
                                     closeDropdown(type);
                                 }
                                 el.classList.add("dropdown");
@@ -188,7 +189,7 @@ and open the template in the editor.
                     <div class="form-group">
                         <label for="auctionID">Auction Number</label>
                         <input type="number" class="form-control" name="auctionID" id="auctionID"
-                        onkeyup="doesAuctionIdExist(document.getElementById('auctionID').value)">
+                        onkeyup="doesAuctionIdExist(document.getElementById('auctionID').value, 'item')">
                     </div>
                     <div class="form-group">
                         <label for="bidderID">Bidder ID</label>
