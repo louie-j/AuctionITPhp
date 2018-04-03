@@ -84,3 +84,47 @@
 .none {
     display: none !important;
 }
+
+.page-name {
+    font-size: 18px;
+    height: 100%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.header {
+    background-color: #000000;
+    font-family: Verdana;
+    margin-right: 0 !important;
+    font-size: 22px;
+    padding: 5px;
+    height: 100%;
+    display: inline-block;
+    cursor: pointer;
+    color: #cccccc;
+    border: 1px solid #cccccc;
+    border-radius: 3px; 
+}
+
+.header:hover {
+    color: #e6e6e6;
+    border-color: #e6e6e6;
+}
+
+.header:active {
+    color:white;
+    border-color:white; 
+}
+
+.chevron {
+    color: white;
+    transition-duration: 0.30s;
+    display: inline-block;
+    transition-property: transform;
+    height: 35px;
+    
+}
+
+.chevron:hover {
+    transform: rotate(90deg);
+}
