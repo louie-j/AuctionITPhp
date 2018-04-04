@@ -23,6 +23,8 @@ and open the template in the editor.
         <script type="text/javascript">
             var items;
             var bidders;
+            var userValid = false;
+            var itemValid = false;
             $( document ).ready(function() {
 
                 if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
@@ -118,7 +120,7 @@ and open the template in the editor.
                         doesAuctionIdExist(value, type);
                     }
                 } 
-                else {
+                else if (type == "Bidder") {
                     if(document.getElementById("bidderID")) {
                         document.getElementById("bidderID").value = value;
                         document.getElementById("searchTextBidder").value = "";
@@ -132,27 +134,35 @@ and open the template in the editor.
                 if (type == "Item") {
                     for(var i = 0; i < items.length; i++) {
                     if (items[i].auctionId == id) {
-                        return manipulateHtml(true);
+                        itemValid = true;
+                        return manipulateHtml(true, "Item");
                     }
                 }
-                    return manipulateHtml(false);
+                    itemValid = false;
+                    return manipulateHtml(false, type);
                 }
-                else {
+                else if (type == "Bidder") {
                     for(var i = 0; i < bidders.length; i++) {
-                        if (bidders[i].bidderId == id) {
-                            return manipulateHtml(true);
+                        if (bidders[i].BidderId == id) {
+                            userValid = true;
+                            return manipulateHtml(true, "Bidder");
                         }   
                     }
+                    userValid = false;
+                    return manipulateHtml(false, type)
                 }
             }
-            function manipulateHtml(valid) {
+            function manipulateHtml(valid, type) {
+                var errorMessage = type === "Item" ? "auctionError" : "bidderError";
                 if (valid) {
-                    hideOrShowElement("hide", "auctionError");
-                    hideOrShowElement("show", "enabled");
-                    hideOrShowElement("hide", "disabled");
+                    hideOrShowElement("hide", errorMessage);
+                    if (userValid && itemValid) {
+                        hideOrShowElement("show", "enabled");
+                        hideOrShowElement("hide", "disabled");
+                    }
                 }
                 else {
-                    hideOrShowElement("show", "auctionError");
+                    hideOrShowElement("show", errorMessage);
                     hideOrShowElement("hide", "enabled");
                     hideOrShowElement("show", "disabled");
                 }
@@ -189,11 +199,12 @@ and open the template in the editor.
                     <div class="form-group">
                         <label for="auctionID">Auction Number</label>
                         <input type="number" class="form-control" name="auctionID" id="auctionID"
-                        onkeyup="doesAuctionIdExist(document.getElementById('auctionID').value, 'item')">
+                        onkeyup="doesAuctionIdExist(document.getElementById('auctionID').value, 'Item')">
                     </div>
                     <div class="form-group">
                         <label for="bidderID">Bidder ID</label>
-                        <input type="number" class="form-control" name="bidderID" id="bidderID">
+                        <input type="number" class="form-control" name="bidderID" id="bidderID"
+                        onkeyup="doesAuctionIdExist(document.getElementById('bidderID').value, 'Bidder')">
                     </div>
                     <div class="form-group">
                         <label for="amount">Bid Amount</label>
@@ -202,8 +213,10 @@ and open the template in the editor.
                     <button id="disabled" disabled type="submit" class="btn btn-primary">Submit</button>
                     <button id="enabled" type="submit" class="btn none btn-primary">Submit</button>
                     <div class="error none" id="auctionError">That Auction Number does not exist</div>
+                    <div class="error none" id="bidderError">That Bidder Number does not exist</div>
                 </form>
             </div>
+
             <div class="forty description-search">
                 <div>Search By Auction Description<div>
                 <input type="text" placeholder="Search..." class="form-control drop" id="searchTextItem" 
