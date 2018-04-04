@@ -30,10 +30,8 @@ and open the template in the editor.
                     "columns": [
                         { mData: 'Username', "searchable": true } ,
                         { mData: 'Type', "searchable": false },
-                        { mData: 'Active', "searchable": false },
-                        {  "targets": -1,
-                            "data": null,
-                            "defaultContent": "<button>Edit</button>"} ] 
+                        { mData: 'Active', "searchable": false }
+                         ] 
                 } );
 
                 //Function that responds to user clicking edit button

@@ -32,7 +32,6 @@ function Connect()
     return $conn;
 }
 
-?>
 
 
 
