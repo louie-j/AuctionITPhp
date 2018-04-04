@@ -18,9 +18,7 @@ and open the template in the editor.
         <script src ="js/bootstrap.min.js"></script>
         <script src="DataTables/datatables.min.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
-
         <script type="text/javascript">
-<<<<<<< HEAD
             var interval;
 
             $( document ).ready(function()
@@ -69,7 +67,6 @@ and open the template in the editor.
             {
                 var table = $('#myDataTable').DataTable();
                 if(interval)
-=======
             $( document ).ready(function() {
                 if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
                 {
@@ -77,7 +74,6 @@ and open the template in the editor.
                     <?php $_SESSION['databaseSuccess'] = 0 ?>
                 }
                 else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
->>>>>>> dev
                 {
                     clearInterval(interval);
                     interval = null;
@@ -98,7 +94,6 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
     </head>
-<<<<<<< HEAD
     <body id = "UserManagementBody">
     <?php include "PhpScripts/Templates/Nav.php";?>
         
@@ -115,38 +110,7 @@ and open the template in the editor.
                     </tr>
                 </thead>
             </table>
-=======
-    <body>
-
-    <?php include "PhpScripts/Templates/Nav.php";?>
-        
-    <div class="row">
-        <div class="column"></div>
-        <div class="column"></div>
-        <div class="column"></div>
-        <div class="column"></div>
-    </div>
-         <div class="container body-content" class = "column" >
-
-            <form class="form-group" action="PhpScripts/AdminToolsDatabase.php" method="post">                
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" name="username" id="username" placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="text" class="form-control" name="password" id="password" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <input type="radio" class="form-control" name="type" id="type" value="1">Admin
-                    <input type="radio" class="form-control" name="type" id="type" value="2">Regular
-                </div>                                 
-                <button type="submit" class="btn btn-primary">Add user</button>
-            </form>
->>>>>>> dev
-        </div>
-		
-    
     </body>
+
 </html>
 
