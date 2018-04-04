@@ -69,9 +69,9 @@ and open the template in the editor.
                     } );    
                     //intialializeRadioBtns(); 
 
-                // setInterval( function () {
-                //     table.ajax.reload(null, false);
-                // }, 10000 );
+                    setInterval( function () {
+                    table.ajax.reload(null, false);
+                }, 10000 );
             });
 		
 		</script>
