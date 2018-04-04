@@ -17,25 +17,53 @@ and open the template in the editor.
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
         <script src="DataTables/datatables.min.js"></script>
+        <script src="js/jquery.dataTables.min.js"></script>
+
         <script type="text/javascript">
             var interval;
-            $( document ).ready(function() {
-                
+
+            $( document ).ready(function()
+            {
                 var table = $('#myDataTable').DataTable( {
-                    "ajax": "phpScripts/viewAccountsTable.php",
+                    "ajax": "phpScripts/viewAccountsTable.php", 
                     "bPaginate":true,
                     "bProcessing": true,
                     "columns": [
                         { mData: 'Username', "searchable": true } ,
                         { mData: 'Type', "searchable": false },
                         { mData: 'Active', "searchable": false },
-						{ mData: document.createElement('input'), "searchable": false }
-                    ]
-                });
+                        {  "targets": -1,
+                            "data": null,
+                            "defaultContent": "<button>Edit</button>"} ] 
+                } );
+
+                //Function that responds to user clicking edit button
+                $('#myDataTable tbody').on( 'click', 'button', function () {
+                    var dataObj = table.row( $(this).parents('td') ).data();
+                       
+                    //alert( JSON.stringify(data));//alert( JSON.stringify(data));
+                    var data    = Object.values(dataObj);
+
+                    $('#UserManagementBody').data( 'accType', data[3] );
+                    $('#UserManagementBody').data( 'status', data[4] );
+
+                    //var accType =data[3]; 
+                    //var status = data[4];
+                   // alert("test" + data[4]);
+                    $("#UserManagementBody").load("AccountEditor.php").dialog({
+                        appendTo: "#UserManagementBody"
+                        
+                        });
+                    } );
+                    //intialializeRadioBtns(); 
+
                 setInterval( function () {
                     table.ajax.reload(null, false);
                 }, 10000 );
             });
+
+
+
             function changePagesAutomatically()
             {
                 var table = $('#myDataTable').DataTable();
@@ -60,7 +88,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
     </head>
-    <body>
+    <body id = "UserManagementBody">
     <?php include "PhpScripts/Templates/Nav.php";?>
         
 		<div class="container body-content">
