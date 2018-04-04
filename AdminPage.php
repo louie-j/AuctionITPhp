@@ -19,8 +19,6 @@ and open the template in the editor.
         <script src="DataTables/datatables.min.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript">
-            var interval;
-
             $( document ).ready(function()
             {
                 var table = $('#myDataTable').DataTable( {
@@ -62,6 +60,7 @@ and open the template in the editor.
             });
 
 
+            var interval;
 
             function changePagesAutomatically()
             {
