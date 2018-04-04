@@ -1,4 +1,4 @@
-use auctionit;
+use fbcmtown_auctionitdb;
 
 /* View Donators */
 drop view if exists viewDonators;
@@ -38,11 +38,10 @@ VIEW `viewauctionitemssheet` AS
             SEPARATOR ', ') AS `description`,
         GROUP_CONCAT(DISTINCT `auctionitems`.`DonatedBy`
             SEPARATOR ', ') AS `donatedBy`,
-		bidders.name as `winningbidder`,
+		b.bidderid as `winningbidder`,
         b.amount as `winningbid`
     FROM auctionitems
     left join viewWinningBids as b on b.auctionid = auctionitems.auctionid
-    left join bidders on b.bidderid = bidders.bidderid
     GROUP BY `AuctionId`;
 	
 
@@ -90,18 +89,27 @@ drop procedure if exists createBid $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `createBid`(in auctionId int(11), in bidderId int(11), in bid decimal(10,2))
 Begin 
 	
-	Insert INTO bids (AuctionID, BidderId, Amount, Winning) 
-    Values (auctionID, bidderId, bid, false);
+	IF EXISTS (SELECT * FROM bids AS B WHERE B.auctionId = auctionId AND B.bidderId = bidderId) THEN 
+		UPDATE bids
+        SET amount = bid
+        WHERE bids.auctionId = auctionId
+        AND bids.bidderId = bidderId;
+    ELSE
+		Insert INTO bids (AuctionID, BidderId, Amount, Winning) 
+		Values (auctionID, bidderId, bid, false);
+    END IF;
     
     SET @WinningAmount = (SELECT MAX(Amount) FROM bids WHERE bids.AuctionId = auctionId);
     
     UPDATE bids
     SET bids.Winning = false
-    WHERE AuctionId = auctionID;
+    WHERE bids.Winning = true
+    AND bids.auctionId = auctionId;
     
     UPDATE bids
     SET bids.Winning = true
-    WHERE Amount = @WinningAmount;
+    WHERE Amount = @WinningAmount
+    AND bids.auctionId = auctionId;
 End $$
 
 
