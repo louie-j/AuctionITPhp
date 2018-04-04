@@ -134,7 +134,7 @@ Drop procedure if exists checkPassword $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `checkPassword`(in user VARCHAR(100), in pass VARCHAR(100))
 BEGIN
 
-SELECT Username, Password_hashed, Type
+SELECT Username, Password_hashed, Type, AutoId
  FROM ACCOUNTS as A
 	WHERE A.Username = user
     AND   A.Password_hashed = pass
