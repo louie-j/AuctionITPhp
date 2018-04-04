@@ -35,10 +35,10 @@ and open the template in the editor.
             function validate()
             {
                 var error="";
-                var number = document.getElementById( "itemNumber" );
+                var number = document.getElementById( "auctionid" );
                 if( number.value === "" )
                 {
-                    error = "You have to enter an Item Number.";
+                    error = "You have to enter an Auction ID.";
                     document.getElementById( "error_para" ).innerHTML = error;
                     return false;
                 }
@@ -72,10 +72,10 @@ and open the template in the editor.
         <div class="container body-content">
             <form class="form-group" action="PhpScripts/AddItemDatabase.php" onsubmit="return validate();"  method="post">
                 <div class="form-group">
-                    <label for="itemNumber">Item Number</label>
-                    <input type="text" class="form-control" name="itemNumber" id="itemNumber" placeholder="Item Number">
+                    <label for="description">Auction ID</label>
+                    <input type="text" class="form-control" name="auctionid" id="auctionid" placeholder="AuctionID">
                 </div>
-                <div class="form-group">
+				<div class="form-group">
                     <label for="description">Description</label>
                     <input type="text" class="form-control" name="description" id="description" placeholder="Description">
                 </div>
