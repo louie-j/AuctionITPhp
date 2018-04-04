@@ -6,7 +6,7 @@ function Connect()
     $dbhost = "localhost";
     $dbuser = "root";
     $dbpass = "";
-    $dbname = "auctionit";
+    $dbname = "fbcmtown_auctionitdb";
 
     /* Ellie
     $dbhost = "localhost";
