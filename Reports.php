@@ -21,7 +21,9 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
+
     <?php include "PhpScripts/Templates/Nav.php";?>
+
         <div class="container body-content">
             <form class="form-group" action="PhpScripts/GenerateAuctionNumSheet.php" method="post">
                 <input class="btn btn-primary" type="submit" value="Auction Numbering Sheet">

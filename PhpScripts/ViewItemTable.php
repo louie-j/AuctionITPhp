@@ -2,7 +2,7 @@
     require 'DatabaseConnection.php';
     $conn = Connect();
     $year = date("Y");
-    $query = "CALL viewItemTable(".$year.")";
+    $query = "select * from viewauctionitemssheet";
     $result = $conn->query($query);
     $data = array();
     while( $rows = mysqli_fetch_assoc($result) ) {

@@ -9,3 +9,40 @@
     display: table;
     clear: both;
 }
+
+.odd {
+    background-color: #ddebf7;
+}
+
+.even {
+    background-color: #ffffff;
+}
+
+.head {
+    border: 1px solid black;
+    border-left: none;
+    padding-left: 5px;
+    height: 48px;
+}
+
+.first {
+    border-left: 1px solid black !important;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.last {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.top {
+    margin-top: 10px;
+}
+
+.center {
+    border-radius: 5px;
+    display: block;
+    width: auto;
+    margin: auto;
+}

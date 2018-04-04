@@ -45,7 +45,9 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
+
     <?php include "PhpScripts/Templates/Nav.php";?>
+
         <div class="container body-content">
         <?php
             require 'PhpScripts/DatabaseConnection.php';

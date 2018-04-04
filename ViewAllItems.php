@@ -27,28 +27,38 @@ and open the template in the editor.
                     "bPaginate":true,
                     "bProcessing": true,
                     "columns": [
-                        { mData: 'ItemId', "searchable": true } ,
-                        { mData: 'Description', "searchable": false },
-                        { mData: 'DonatedBy', "searchable": false },
-                        { mData: 'Value', "searchable": false},
-                        { mData: 'CurrentWinningBidder', "searchable": false},
-                        { mData: 'CurrentWinningBid', "searchable": false}
+                        { mData: 'auctionId', "searchable": true } ,
+                        { mData: 'description', "searchable": true },
+                        { mData: 'donatedBy', "searchable": false },
+                        { mData: 'value', "searchable": false},                        
+                        { mData: 'winningbidder', "searchable": false},
+                        { mData: 'winningbid', "searchable": false}
                     ]
                 });
+
+                $('select').on('change', function() {
+                    if (table.page.info().pages == 1) document.getElementById("start").style.display = "none";
+                    else document.getElementById("start").style.display = "block";
+                });
+
                 setInterval( function () {
-                    table.ajax.reload(null, false);
+                    table.ajax.reload(null, false);                    
                 }, 10000 );
+
+
             });
             function changePagesAutomatically()
             {
                 var table = $('#myDataTable').DataTable();
                 if(interval)
                 {
+                    document.getElementById("start").value = "Start Rotating Pages";
                     clearInterval(interval);
                     interval = null;
                 }
                 else
                 {
+                    document.getElementById("start").value = "Stop Rotating Pages";
                     interval = setInterval( function () {
                         var info = table.page.info();
                         var pageNum = (info.page < info.pages) ? info.page + 1 : 1;
@@ -58,26 +68,28 @@ and open the template in the editor.
             }
         </script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <link href="css/customStyles.css" text="text/css" rel="stylesheet">
         <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
+
     </head>
     <body>
     <?php include "PhpScripts/Templates/Nav.php";?>
-        <div class="container body-content">
-            <input id="clickMe" type="button" class="btn-info" value="Start/Stop Rotating Through Pages" onclick="changePagesAutomatically();" />
+        <div class="container body-content top">
             <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <td>ItemId</td>
-                        <td>Description</td>
-                        <td>Donated By</td>
-                        <td>Value</td>
-                        <td>Winning Bidder</td>
-                        <td>Winning Bid</td>
+                        <td class="first head">ItemId</td>
+                        <td class="head">Description</td>
+                        <td class="head">Donated By</td>
+                        <td class="head">Value</td>
+                        <td class="head">Winning Bidder</td>
+                        <td class="last head">Winning Bid</td>
                     </tr>
                 </thead>
             </table>
+            <input id="start" type="button" class="btn-info center" value="Start Rotating Pages" onclick="changePagesAutomatically();" />
         </div>
     </body>
 </html>

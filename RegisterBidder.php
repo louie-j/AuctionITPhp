@@ -78,9 +78,6 @@ and open the template in the editor.
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a class="nav-link" href="index.php"><h4>Home</h4></a>
-                        </li>
-                        <li>
                             <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
                         </li>
                     <?php if ($_SESSION["accountType"] == 'admin'): ?>

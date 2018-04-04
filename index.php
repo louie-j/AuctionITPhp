@@ -4,6 +4,9 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<?php
+    session_start();
+?>
 <html>
     <head>
         <script src="js/jquery-3.2.1.min.js"></script>
@@ -12,10 +15,19 @@ and open the template in the editor.
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
+                {
+                    alert("Invalid Username or Password");
+                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                }
+            });
+        </script>
     </head>
+
     <body>     
         <?php
-        session_start();
         $_SESSION['databaseSuccess'] = 0;
         if(isset($_SESSION['accountType']) == FALSE)
         {
@@ -23,13 +35,17 @@ and open the template in the editor.
         }?>
         <?php include "PhpScripts/Templates/Nav.php";?>
         <div class="container body-content">
-            <br>
-            <br>
-        <?php if ($_SESSION["accountType"] == 'guest'): ?>
-            <form action="Login.php">
-                <input type="submit" class="btn btn-primary" value="Login" />
+            <form class="form-group" action="PhpScripts/LoginDatabase.php" method="post">
+                <div class="form-group">
+                    <label for="userName">User Name</label>
+                    <input type="text" class="form-control" name="userName" id="userName">
+                </div>
+                <div class="form-group">
+                    <label for="description">Password</label>
+                    <input type="password" class="form-control" name="password" id="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-        <?php endif;?>
         </div>
     </body>
 </html>

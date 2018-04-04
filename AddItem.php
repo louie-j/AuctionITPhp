@@ -68,6 +68,7 @@ and open the template in the editor.
     </head>
     <body>
     <?php include "PhpScripts/Templates/Nav.php";?>
+
         <div class="container body-content">
             <form class="form-group" action="PhpScripts/AddItemDatabase.php" onsubmit="return validate();"  method="post">
                 <div class="form-group">
