@@ -37,6 +37,9 @@
                                     case("index.php"):
                                         echo("Log In");
                                         break;
+                                    case("AccountEditor.php")
+                                        echo("Account Editor");
+                                    break;
                                     default:
                                         echo(basename($_SERVER['PHP_SELF']));
                                         break;

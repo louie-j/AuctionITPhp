@@ -1,7 +1,3 @@
-
-
-     
-
          <?php
             session_start();
             if($_SESSION["accountType"] != 'admin')
@@ -11,17 +7,46 @@
         ?>
 
         <script type="text/javascript">
+        var radioStatusActive = document.getElementById("statusARadioBtn");
         
+        //radioStatusActive.
+
         function intialializeRadioBtns() 
             {
                 alert( "Satans testicle");
-
+                
                 document.getElementById("statusARadioBtn").checked = true;
+
                 var status =  $('#UserManagementBody').data( 'status');
                 var accType =  $('#UserManagementBody').data( 'accType');
                 alert( "test" + status + accType);
             }
-          
+
+            function updateRadioBtns() 
+            {
+
+                alert( "!!!!!!!!!!!!!!!!!!!!!");
+                if(document.getElementById("statusARadioBtn").checked == true)
+                {
+                    document.getElementById("statusInARadioBtn").checked = false;
+                }
+                else if(document.getElementById("statusInARadioBtn").checked == true)
+                {
+                    document.getElementById("statusARadioBtn").checked = false;
+                }
+
+
+                if(document.getElementById("type1RadioBtn").checked == true)
+                {
+                    document.getElementById("type2RadioBtn").checked = false;
+                }
+                else if(document.getElementById("type2RadioBtn").checked == true)
+                {
+                    document.getElementById("type1RadioBtn").checked = false;
+                }
+
+            }
+
         </script>
 
 
