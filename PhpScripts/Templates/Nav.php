@@ -37,7 +37,7 @@
                                     case("index.php"):
                                         echo("Log In");
                                         break;
-                                    case("AccountEditor.php")
+                                    case("AccountEditor.php"):
                                         echo("Account Editor");
                                     break;
                                     default:
