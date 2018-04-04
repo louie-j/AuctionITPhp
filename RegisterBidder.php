@@ -37,13 +37,6 @@ and open the template in the editor.
             function validate()
             {
                 var error="";
-                var number = document.getElementById( "bidderID" );
-                if( number.value === "" )
-                {
-                    error = "You have to enter an Bidder Number.";
-                    document.getElementById( "error_para" ).innerHTML = error;
-                    return false;
-                }
                 var year = document.getElementById( "year" );
                 if( year.value === "" )
                 {
@@ -65,10 +58,6 @@ and open the template in the editor.
     <?php include "PhpScripts/Templates/Nav.php";?>
          <div class="container body-content">
             <form class="form-group" action="PhpScripts/RegisterBidderDatabase.php" method="post">                
-                <div class="form-group">
-                    <label for="bidderID">Bidder ID</label>
-                    <input type="text" class="form-control" name="bidderID" id="bidderID" placeholder="Bidder ID">
-                </div>
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" name="name" id="name" placeholder="Name">
