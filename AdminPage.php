@@ -41,6 +41,7 @@ and open the template in the editor.
                     //alert( JSON.stringify(data));//alert( JSON.stringify(data));
                     var data    = Object.values(dataObj);
 
+                    //$('#UserManagementBody').data( 'id', data[0]] );
                     $('#UserManagementBody').data( 'accType', data[3] );
                     $('#UserManagementBody').data( 'status', data[4] );
 
@@ -54,7 +55,7 @@ and open the template in the editor.
                     } );
                     //intialializeRadioBtns(); 
 
-                setInterval( function () {
+                    setInterval( function () {
                     table.ajax.reload(null, false);
                 }, 10000 );
             });

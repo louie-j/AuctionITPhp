@@ -7,10 +7,8 @@
         ?>
 
         <script type="text/javascript">
-        var radioStatusActive = document.getElementById("statusARadioBtn");
-        radioStatusActive.addEventListener("click", updateRadioBtns());
-
-      
+        // var radioStatusActive = document.getElementById("statusARadioBtn");
+        // radioStatusActive.addEventListener("click", updateRadioBtns());
 
             function intialializeRadioBtns() 
             {
@@ -23,32 +21,15 @@
                 alert( "test" + status + accType);
             }
 
-            function updateRadioBtns() 
-            {
+            //Radio button action buttons
+            function clickActive() {document.getElementById("statusInARadioBtn").checked = false;}
+            function clickInActive() {document.getElementById("statusARadioBtn").checked = false;}
+            function clickAdmin(){document.getElementById("type2RadioBtn").checked = false;}
+            function clickRegular(){document.getElementById("type1RadioBtn").checked = false}
 
-                alert( "!!!!!!!!!!!!!!!!!!!!!");
-                
+            function update(){}
 
-                if(document.getElementById("statusARadioBtn").checked == false)
-                {
-                    document.getElementById("statusInARadioBtn").checked = true;
-                }
-                else if(document.getElementById("statusInARadioBtn").checked == true)
-                {
-                    document.getElementById("statusARadioBtn").checked = false;
-                }
-
-
-                if(document.getElementById("type1RadioBtn").checked == false)
-                {
-                    document.getElementById("type2RadioBtn").checked = true;
-                }
-                else if(document.getElementById("type2RadioBtn").checked == true)
-                {
-                    document.getElementById("type1RadioBtn").checked = false;
-                }
-
-            }
+                //alert( "!!!!!!!!!!!!!!!!!!!!!");
 
         </script>
 
@@ -57,11 +38,13 @@
         <?php include "PhpScripts/Templates/Nav.php";?>
         
         <form id = "radioBtnForm" action="" >
-            <input id = "statusARadioBtn" type="radio" name="statusA" value="Active"> Active<br>
-            <input id = "statusInARadioBtn" type="radio" name="statusInA" value="Inactive"> Inactive<br>
+        <label>Status</label><br>
+            <input onclick="clickActive()" id = "statusARadioBtn" type="radio" name="statusA" value="Active"> Active<br>
+            <input onclick="clickInActive()" id = "statusInARadioBtn" type="radio" name="statusInA" value="Inactive"> Inactive<br>
 
-            <input id = "type1RadioBtn" type="radio" name="type1" value="Admin"> Admin <br>
-            <input id = "type2RadioBtn" type="radio" name="type2" value="Pleb"> Pleb <br>
+            <label>Type of User</label><br>
+            <input onclick="clickAdmin()" id = "type1RadioBtn" type="radio" name="type1" value="Admin"> Admin <br>
+            <input onclick="clickRegular()" id = "type2RadioBtn" type="radio" name="type2" value="Regular"> Regular <br>
         </form>
 
           <form action="">
@@ -71,9 +54,9 @@
         </form>
 
           <form action="">
-            <button id = "updateButton" type="button">Update</button>
-            <button id = "deleteButton" type="button">Delete</button>
-            <button id = "cancelButton" type="button">Cancel</button>
+            <button onclick="location.href = 'AdminPage.php';" id = "updateButton" type="button">Update</button>
+            <button onclick="location.href = 'AdminPage.php';" id = "deleteButton" type="button">Delete</button>
+            <button onclick="location.href = 'AdminPage.php';" id = "cancelButton" type="button">Cancel</button>
         </form>
         
         
