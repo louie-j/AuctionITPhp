@@ -228,3 +228,12 @@ BEGIN
 		B.Phone      = IFNULL(phoneNumber, B.Phone)
 	WHERE B.BidderId = id;
 END $$
+
+
+/*viewAccounts*/
+delimiter $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAccounts`()
+ BEGIN
+ 	SELECT *
+     FROM ACCOUNTS;
+END $$

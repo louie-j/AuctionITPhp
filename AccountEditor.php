@@ -8,10 +8,11 @@
 
         <script type="text/javascript">
         var radioStatusActive = document.getElementById("statusARadioBtn");
-        
-        //radioStatusActive.
+        radioStatusActive.addEventListener("click", updateRadioBtns());
 
-        function intialializeRadioBtns() 
+      
+
+            function intialializeRadioBtns() 
             {
                 alert( "Satans testicle");
                 
@@ -26,9 +27,11 @@
             {
 
                 alert( "!!!!!!!!!!!!!!!!!!!!!");
-                if(document.getElementById("statusARadioBtn").checked == true)
+                
+
+                if(document.getElementById("statusARadioBtn").checked == false)
                 {
-                    document.getElementById("statusInARadioBtn").checked = false;
+                    document.getElementById("statusInARadioBtn").checked = true;
                 }
                 else if(document.getElementById("statusInARadioBtn").checked == true)
                 {
@@ -36,9 +39,9 @@
                 }
 
 
-                if(document.getElementById("type1RadioBtn").checked == true)
+                if(document.getElementById("type1RadioBtn").checked == false)
                 {
-                    document.getElementById("type2RadioBtn").checked = false;
+                    document.getElementById("type2RadioBtn").checked = true;
                 }
                 else if(document.getElementById("type2RadioBtn").checked == true)
                 {
