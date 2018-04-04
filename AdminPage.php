@@ -31,7 +31,23 @@ and open the template in the editor.
                         { mData: 'Active', "searchable": false },
                         {  "targets": -1,
                             "data": null,
-                            "defaultContent": "<button>Edit</button>"} ] 
+                            "defaultContent": "<button>Edit</button>"}         
+                    ],
+                    "columnDefs": [
+                        {
+                            "render": function(data,type,row) {
+                                 return data == 1 ? 'Active' : 'Inactive';
+                            },
+                            "targets":1
+                        },
+                        {
+                            "render": function(data,type,row) {
+                                 return data == 1 ? 'User' : 'Admin';
+                            },
+                            "targets":2
+                        }
+                    ]
+                    
                 } );
 
                 //Function that responds to user clicking edit button
@@ -40,8 +56,6 @@ and open the template in the editor.
                        
                     //alert( JSON.stringify(data));//alert( JSON.stringify(data));
                     var data    = Object.values(dataObj);
-
-                    //$('#UserManagementBody').data( 'id', data[0]] );
                     $('#UserManagementBody').data( 'accType', data[3] );
                     $('#UserManagementBody').data( 'status', data[4] );
 
@@ -52,14 +66,13 @@ and open the template in the editor.
                         appendTo: "#UserManagementBody"
                         
                         });
-                    } );
+                    } );    
                     //intialializeRadioBtns(); 
 
                     setInterval( function () {
                     table.ajax.reload(null, false);
                 }, 10000 );
             });
-
 		
 		</script>
 		<link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
@@ -67,7 +80,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
     </head>
-    <body id = "UserManagementBody">
+    <body id="UserManagementBody">
     <?php include "PhpScripts/Templates/Nav.php";?>
         
 		<div class="container body-content">
@@ -79,7 +92,6 @@ and open the template in the editor.
                         <td>State</td>
                         <td>User Type</td>
                         <td>Edit</td>
-						
                     </tr>
                 </thead>
             </table>

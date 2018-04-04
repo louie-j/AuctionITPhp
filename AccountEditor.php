@@ -12,13 +12,9 @@
 
             function intialializeRadioBtns() 
             {
-                alert( "Satans testicle");
-                
                 document.getElementById("statusARadioBtn").checked = true;
-
                 var status =  $('#UserManagementBody').data( 'status');
                 var accType =  $('#UserManagementBody').data( 'accType');
-                alert( "test" + status + accType);
             }
 
             //Radio button action buttons
@@ -28,8 +24,6 @@
             function clickRegular(){document.getElementById("type1RadioBtn").checked = false}
 
             function update(){}
-
-                //alert( "!!!!!!!!!!!!!!!!!!!!!");
 
         </script>
 
