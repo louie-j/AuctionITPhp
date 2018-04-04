@@ -11,7 +11,7 @@ $year = $conn->real_escape_string($_POST['year']);
 $address   = $conn->real_escape_string($_POST['address']);
 $name = $conn->real_escape_string($_POST['name']);
 
-$sql = "CALL insertBidder(" . $bidderID . ",'" . $phone . "','" . $address . "'," . $year . ",'" . $name . "')";
+$sql = "CALL createBidder('$phone','$address','$name')";
 $result = $conn->query($sql);
 session_start();
 foreach($result as $row)
@@ -26,5 +26,4 @@ foreach($result as $row)
     }
 }
 $conn->close();
-?>
 
