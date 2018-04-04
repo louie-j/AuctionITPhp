@@ -59,34 +59,6 @@ and open the template in the editor.
                 }, 10000 );
             });
 
-
-            var interval;
-
-            function changePagesAutomatically()
-            {
-                    var table = $('#myDataTable').DataTable();
-                    if(interval)
-                $( document ).ready(function() {
-                    if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
-                    {
-                        alert("User created");
-                        <?php $_SESSION['databaseSuccess'] = 0 ?>
-                    }
-                    else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
-                    {
-                        clearInterval(interval);
-                        interval = null;
-                    }
-                    else
-                    {
-                        interval = setInterval( function () {
-                            var info = table.page.info();
-                            var pageNum = (info.page < info.pages) ? info.page + 1 : 1;
-                            table.page(pageNum).draw(false); 
-                        }, 10000);                   
-                    }
-                }
-            }
 		
 		</script>
 		<link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
