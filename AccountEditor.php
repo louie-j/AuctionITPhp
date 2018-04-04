@@ -14,21 +14,13 @@
 
             function intialializeRadioBtns() 
             {
-                alert( "Satans testicle");
-                
                 document.getElementById("statusARadioBtn").checked = true;
-
                 var status =  $('#UserManagementBody').data( 'status');
                 var accType =  $('#UserManagementBody').data( 'accType');
-                alert( "test" + status + accType);
             }
 
             function updateRadioBtns() 
             {
-
-                alert( "!!!!!!!!!!!!!!!!!!!!!");
-                
-
                 if(document.getElementById("statusARadioBtn").checked == false)
                 {
                     document.getElementById("statusInARadioBtn").checked = true;
