@@ -24,6 +24,16 @@ VIEW `viewWinningBids` AS
     where winning = 1;
 
 
+drop view if exists viewBidders;
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `viewBidders` AS
+    SELECT *
+    FROM `bidders`
+
+
 /*View AuctionItemsSheet */
 drop view if exists viewauctionitemssheet;
 CREATE 
