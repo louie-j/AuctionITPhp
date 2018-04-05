@@ -48,10 +48,11 @@ VIEW `viewauctionitemssheet` AS
             SEPARATOR ', ') AS `description`,
         GROUP_CONCAT(DISTINCT `auctionitems`.`DonatedBy`
             SEPARATOR ', ') AS `donatedBy`,
-		b.bidderid as `winningbidder`,
+		bidders.name as `winningbidder`,
         b.amount as `winningbid`
     FROM auctionitems
     left join viewWinningBids as b on b.auctionid = auctionitems.auctionid
+    left join bidders on bidders.bidderId = b.bidderid
     GROUP BY `AuctionId`;
 	
 
