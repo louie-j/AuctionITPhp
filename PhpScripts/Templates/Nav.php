@@ -40,6 +40,9 @@
                                     case("AccountEditor.php"):
                                         echo("Account Editor");
                                     break;
+                                    case("FindItem.php"):
+                                        echo("Find Item");
+                                    break;
                                     default:
                                         echo(basename($_SERVER['PHP_SELF']));
                                         break;
