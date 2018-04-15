@@ -24,6 +24,16 @@ VIEW `viewWinningBids` AS
     where winning = 1;
 
 
+drop view if exists viewBidders;
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `viewBidders` AS
+    SELECT *
+    FROM `bidders`
+
+
 /*View AuctionItemsSheet */
 drop view if exists viewauctionitemssheet;
 CREATE 
@@ -38,10 +48,11 @@ VIEW `viewauctionitemssheet` AS
             SEPARATOR ', ') AS `description`,
         GROUP_CONCAT(DISTINCT `auctionitems`.`DonatedBy`
             SEPARATOR ', ') AS `donatedBy`,
-		b.bidderid as `winningbidder`,
+		bidders.name as `winningbidder`,
         b.amount as `winningbid`
     FROM auctionitems
     left join viewWinningBids as b on b.auctionid = auctionitems.auctionid
+    left join bidders on bidders.bidderId = b.bidderid
     GROUP BY `AuctionId`;
 	
 

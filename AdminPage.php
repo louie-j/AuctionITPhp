@@ -17,7 +17,6 @@ and open the template in the editor.
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
         <script src="DataTables/datatables.min.js"></script>
-        <script src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript">
             $( document ).ready(function()
             {
@@ -31,6 +30,7 @@ and open the template in the editor.
                         { mData: 'Active', "searchable": false },
                         {  "targets": -1,
                             "data": null,
+                            "orderable":false,
                             "defaultContent": "<button>Edit</button>"}         
                     ],
                     "columnDefs": [
@@ -73,6 +73,26 @@ and open the template in the editor.
                     table.ajax.reload(null, false);
                 }, 10000 );
             });
+            var interval;
+            function changePagesAutomatically()
+            {
+                var table = $('#myDataTable').DataTable();
+                if(interval)
+                {
+                    document.getElementById("start").value = "Start Rotating Pages";
+                    clearInterval(interval);
+                    interval = null;
+                }
+                else
+                {
+                    document.getElementById("start").value = "Stop Rotating Pages";
+                    interval = setInterval( function () {
+                        var info = table.page.info();
+                        var pageNum = (info.page < info.pages) ? info.page + 1 : 1;
+                        table.page(pageNum).draw(false); 
+                    }, 10000);                   
+                }
+            }
 		
 		</script>
 		<link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
@@ -83,18 +103,18 @@ and open the template in the editor.
     <body id="UserManagementBody">
     <?php include "PhpScripts/Templates/Nav.php";?>
         
-		<div class="container body-content">
-            <input id="clickMe" type="button" class="btn-info" value="Start/Stop Rotating Through Pages" onclick="changePagesAutomatically();" />
+		<div class="container body-content top">
             <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <td>Username</td>
-                        <td>State</td>
-                        <td>User Type</td>
-                        <td>Edit</td>
+                        <td class="first head">Username</td>
+                        <td class="head">State</td>
+                        <td class="head">User Type</td>
+                        <td class="last head">Edit</td>
                     </tr>
                 </thead>
             </table>
+        <input id="start" type="button" class="center btn-info" value="Start Rotating Through Pages" onclick="changePagesAutomatically();" />
     </body>
 
 </html>

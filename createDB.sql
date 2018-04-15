@@ -1,8 +1,33 @@
-CREATE DATABASE  IF NOT EXISTS `fbcmtown_auctionitdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `fbcmtown_auctionitdb`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: fbcmtown_auctionitdb
+-- Host: 127.0.0.1    Database: test
+-- ------------------------------------------------------
+-- Server version	5.5.5-10.1.30-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-04-04 22:25:36
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: auctionit
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.1.30-MariaDB
 
@@ -32,7 +57,7 @@ CREATE TABLE `accounts` (
   `Active` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`AutoId`),
   UNIQUE KEY `Username_UNIQUE` (`Username`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +66,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,'admin','1a1dc91c907325c69271ddf0c944bc72','1',1),(2,'user','1a1dc91c907325c69271ddf0c944bc72','2',1),(3,'admin2','1a1dc91c907325c69271ddf0c944bc72','1',1);
+INSERT INTO `accounts` VALUES (2,'TestUser1','23fd44228071730e3457dc5de887b3ae','1',1),(4,'TestUser2','THISISATEST','1',1),(5,'NoPassword','Test','1',1),(6,'Level2User','level2','2',1),(7,'User','6f9dff5af05096ea9f23cc7bedd65683','2',1),(8,'NoPassword2','0cbc6611f5540bd0809a388dc95a615b','1',1),(9,'NoPassword3','961a66d498d155c1e8322bb261666dfa','1',1),(10,'NoPassword4','0cbc6611f5540bd0809a388dc95a615b','1',1),(11,'NoPassword5','0cbc6611f5540bd0809a388dc95a615b','1',1),(12,'NoPassword6','0cbc6611f5540bd0809a388dc95a615b','1',1),(13,'tyler','1a1dc91c907325c69271ddf0c944bc72','1',1);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +124,7 @@ CREATE TABLE `auctionitems` (
 
 LOCK TABLES `auctionitems` WRITE;
 /*!40000 ALTER TABLE `auctionitems` DISABLE KEYS */;
-INSERT INTO `auctionitems` VALUES (151,150,'Htc 11','HTC',700.00,'0000-00-00 00:00:00',0),(150,150,'Iphone X','Apple',1000.00,'0000-00-00 00:00:00',0),(111,111,'Test Item','Betty and Ryan Wright',225.00,'0000-00-00 00:00:00',0),(201,201,'Dirt Bike','Sports Store',300.00,'0000-00-00 00:00:00',0),(109,109,'100 Macy\'s Girftcard','Melinda Bryant',100.00,'0000-00-00 00:00:00',0),(108,108,'iPhone X','Dr. and Mrs. Smith',850.00,'0000-00-00 00:00:00',0),(107,107,'60-inch Plasma TV','The Carter Foundation',1050.00,'0000-00-00 00:00:00',0),(106,106,'1 Week Cleaning Service','John and Linda Nelson',120.00,'0000-00-00 00:00:00',0),(105,105,'Deluxe Blender','Patrick Hernandez',50.00,'0000-00-00 00:00:00',0),(104,104,'Golf Trip','Palm Resort Golf Club',150.00,'0000-00-00 00:00:00',0),(103,103,'Bahamas Cruise','Betty and Ryan Wright',700.00,'0000-00-00 00:00:00',0),(102,102,'Video Game Console','Bryan Johnson',299.00,'0000-00-00 00:00:00',0),(101,101,'Motorized Dirtbike','Randy Holland',550.00,'0000-00-00 00:00:00',0),(100,100,'Spa Weekend','Sally Brown',298.00,'0000-00-00 00:00:00',0),(110,110,'Home Gym Equipment','Total Rip Fitness',225.00,'0000-00-00 00:00:00',0),(160,160,'Speakers','Logitech',150.00,'0000-00-00 00:00:00',0),(205,205,'Mini Fridge','Sears',700.00,'0000-00-00 00:00:00',0),(170,170,'Dryer','Sears',550.00,'0000-00-00 00:00:00',0),(180,180,'Test Item and Test Again','Test Donor and Someone Else',600.00,'0000-00-00 00:00:00',0);
+INSERT INTO `auctionitems` VALUES (151,101,'Htc 11','HTC',700.00,'0000-00-00 00:00:00',0),(150,102,'Iphone X','Apple',1000.00,'0000-00-00 00:00:00',0),(111,103,'Test Item','Betty and Ryan Wright',225.00,'0000-00-00 00:00:00',0),(201,103,'Dirt Bike','Sports Store',300.00,'0000-00-00 00:00:00',0),(109,103,'100 Macy\'s Girftcard','Melinda Bryant',100.00,'0000-00-00 00:00:00',0),(108,104,'iPhone X','Dr. and Mrs. Smith',850.00,'0000-00-00 00:00:00',0),(107,201,'60-inch Plasma TV','The Carter Foundation',1050.00,'0000-00-00 00:00:00',0),(106,202,'1 Week Cleaning Service','John and Linda Nelson',120.00,'0000-00-00 00:00:00',0),(105,203,'Deluxe Blender','Patrick Hernandez',50.00,'0000-00-00 00:00:00',0),(104,203,'Golf Trip','Palm Resort Golf Club',150.00,'0000-00-00 00:00:00',0),(103,204,'Bahamas Cruise','Betty and Ryan Wright',700.00,'0000-00-00 00:00:00',0),(102,205,'Video Game Console','Bryan Johnson',299.00,'0000-00-00 00:00:00',0),(101,206,'Motorized Dirtbike','Randy Holland',550.00,'0000-00-00 00:00:00',0),(100,301,'Spa Weekend','Sally Brown',298.00,'0000-00-00 00:00:00',0),(110,301,'Home Gym Equipment','Total Rip Fitness',225.00,'0000-00-00 00:00:00',0),(160,302,'Speakers','Logitech',150.00,'0000-00-00 00:00:00',0),(205,303,'Mini Fridge','Sears',700.00,'0000-00-00 00:00:00',0),(170,304,'Dryer','Sears',550.00,'0000-00-00 00:00:00',0),(180,305,'Test Item and Test Again','Test Donor and Someone Else',600.00,'0000-00-00 00:00:00',0);
 /*!40000 ALTER TABLE `auctionitems` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +176,7 @@ CREATE TABLE `bidders` (
 
 LOCK TABLES `bidders` WRITE;
 /*!40000 ALTER TABLE `bidders` DISABLE KEYS */;
-INSERT INTO `bidders` VALUES (123,'5021345678','123 Test Street','Bill Smith'),(124,'5025551234','124 Test Street',NULL),(128,'5025551234','124 Test Street',NULL),(130,'5025551234','124 Test Street',NULL),(131,'5025551234','124 Test Street',NULL),(133,'1234567890','Test',NULL),(134,'1234567890','Test',NULL),(300,'1234567890','12 main st',NULL),(301,'2589631470','56 melwood ave',NULL),(1234,'','',NULL),(456,'8124568907','Test','John'),(1235,'Test','Test','Test'),(567,'Test','Test','Test'),(4862,'8125556789','123 Test St.','Bob Smith'),(2684,'123','123','John Doe'),(8526,'test','test','Test'),(15832,'test','test','test'),(1982,'test','test','test'),(1973,'test','test','test'),(1789,'test','test','test'),(1754,'test','test','test'),(1812,'test','test','test'),(1672,'te','te','te'),(1763,'t','t','t'),(1692,'t','t','t'),(15732,'t','t','t'),(1987456,'t','t','t'),(159357,'t','t','t'),(147852,'t','t','t'),(139746,'t','t','t'),(1478965,'t','t','t'),(123654,'t','t','t'),(168473258,'t','t','t'),(2121,'5025555555','7000 Sunny Lane','John'),(2129,'4035555555','6000 Sunny Lane','Chris'),(2929,'5005555555','600 Stary Lane','Bob Smith'),(4040,'','','Cody Becht');
+INSERT INTO `bidders` VALUES (123,'5021345678','123 Test Street','Bill Smith'),(456,'8124568907','Test','John'),(1235,'Test','Test','Test'),(567,'Test','Test','Test'),(4862,'8125556789','123 Test St.','Bob Smith'),(2684,'123','123','John Doe'),(8526,'test','test','Test'),(15832,'test','test','test'),(1982,'test','test','test'),(1973,'test','test','test'),(1789,'test','test','test'),(1754,'test','test','test'),(1812,'test','test','test'),(1672,'te','te','te'),(1763,'t','t','t'),(1692,'t','t','t'),(15732,'t','t','t'),(1987456,'t','t','t'),(159357,'t','t','t'),(147852,'t','t','t'),(139746,'t','t','t'),(1478965,'t','t','t'),(123654,'t','t','t'),(168473258,'t','t','t'),(2121,'5025555555','7000 Sunny Lane','John'),(2129,'4035555555','6000 Sunny Lane','Chris'),(2929,'5005555555','600 Stary Lane','Bob Smith'),(4040,'','','Cody Becht');
 /*!40000 ALTER TABLE `bidders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +202,7 @@ CREATE TABLE `bids` (
 
 LOCK TABLES `bids` WRITE;
 /*!40000 ALTER TABLE `bids` DISABLE KEYS */;
-INSERT INTO `bids` VALUES (100,133,750.00,1),(100,134,500.00,0),(110,123,1000.00,0),(110,133,1200.00,1),(110,134,600.00,0),(110,135,200.00,0);
+INSERT INTO `bids` VALUES (101,102,700.00,0),(101,123,900.00,1),(102,101,1234.00,0),(102,102,1500.00,1),(102,123,1345.00,0),(105,102,100.00,1);
 /*!40000 ALTER TABLE `bids` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,6 +275,21 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary view structure for view `viewbidders`
+--
+
+DROP TABLE IF EXISTS `viewbidders`;
+/*!50001 DROP VIEW IF EXISTS `viewbidders`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `viewbidders` AS SELECT 
+ 1 AS `BidderId`,
+ 1 AS `Phone`,
+ 1 AS `Address`,
+ 1 AS `Name`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary view structure for view `viewdonators`
 --
 
@@ -296,327 +336,6 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping routines for database 'fbcmtown_auctionitdb'
---
-/*!50003 DROP PROCEDURE IF EXISTS `buyDuck` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `buyDuck`(in bidder int(11), in amount int(2))
-BEGIN
-	INSERT into purchases (AuctionId, BidderId, Price, Quantity)
-	VALUES(600, bidder, 10*amount, amount);
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `checkPassword` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `checkPassword`(in user VARCHAR(100), in pass VARCHAR(100))
-BEGIN
-
-SELECT Username, Password_hashed, Type, AutoId
- FROM ACCOUNTS as A
-	WHERE A.Username = user
-    AND   A.Password_hashed = pass
-    AND   A.Active = true;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `closeSilentAuction` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `closeSilentAuction`(in selectAuction INT)
-BEGIN
-	INSERT INTO Purchases (AuctionId, bidderId, Price, Quantity)
-    SELECT AuctionId, bidderId, Amount AS Price, 1 AS Quantity
-    FROM bids
-	WHERE Winning = true
-    AND AuctionId BETWEEN (selectAuction+1) AND (selectAuction + 99);
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `createAccount` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createAccount`(in Username varchar(100), in Password_hashed varchar(256), in `type` varchar(20), in Active tinyint(4))
-Begin 
-	
-	Insert INTO accounts(Username, Password_hashed, `type`, Active)
-    Values (Username, Password_hashed, `type`, Active);
-End ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `createAuctionItem` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createAuctionItem`(in AuctionId int(11), in Description varchar(500), in DonatedBy varchar(500), in `Value` decimal(10,2), in AddedModifiedBy int(11))
-Begin 
-	Insert INTO auctionitems(AuctionId, Description, DonatedBy, `Value`, AddedModifiedDate, AddedModifiedBy)
-    Values (AuctionId, Description, DonatedBy, `Value`, NOW(), AddedModifiedBy);
-End ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `createBid` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createBid`(in auctionId int(11), in bidderId int(11), in bid decimal(10,2))
-Begin 
-	
-	IF EXISTS (SELECT * FROM bids AS B WHERE B.auctionId = auctionId AND B.bidderId = bidderId) THEN 
-		UPDATE bids
-        SET amount = bid
-        WHERE bids.auctionId = auctionId
-        AND bids.bidderId = bidderId;
-    ELSE
-		Insert INTO bids (AuctionID, BidderId, Amount, Winning) 
-		Values (auctionID, bidderId, bid, false);
-    END IF;
-    SET @WinningAmount = (SELECT MAX(Amount) FROM bids WHERE bids.AuctionId = auctionId);
-    
-    UPDATE bids
-    SET bids.Winning = false
-    WHERE bids.Winning = true
-    AND bids.auctionId = auctionId;
-    
-    UPDATE bids
-    SET bids.Winning = true
-    WHERE Amount = @WinningAmount
-    AND bids.auctionId = auctionId;
-End ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `createBidder` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createBidder`(in Phone varchar(10), in Address varchar(100), in Name varchar(45))
-Begin 
-	
-	Insert INTO bidders(Phone, Address, `Name`) 
-    Values (Phone, Address, `Name`);
-End ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `createHistory` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createHistory`()
-BEGIN
-	INSERT INTO auctionitem_history
-    SELECT ItemId, AuctionId, Description, DonatedBy, `Value`, AddedModifiedDate, AddedModifiedBy, YEAR(CURDATE())
-    FROM auctionitems;
-    
-    TRUNCATE auctionitems;
-    
-    INSERT INTO bidder_history
-    SELECT Year(CURDATE()), bidderId, `Name`, Address, Phone
-    FROM bidders;
-    
-    TRUNCATE bidders;
-    
-    INSERT INTO purchase_history
-    SELECT AuctionId, BidderId, Price, Quantity, YEAR(CURDATE())
-    FROM purchases;
-    
-    TRUNCATE purchases;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `deleteBid` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteBid`(in auctionid int(11), in bidderid int(11))
-Begin
-	delete from bids
-    where AuctionId = auctionid and BidderId = bidderid;
-End ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `updateAccount` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccount`(in id INT, in pass VARCHAR(100), in type VARCHAR(5), in active BOOL)
-BEGIN
-	UPDATE ACCOUNTS as A
-	SET A.Password_hashed = IFNULL(pass, A.Password_hashed),
-		A.`Type`          = IFNULL(`type`, A.`Type`),
-		A.active          = IFNULL(active, A.Active)
-	WHERE A.AutoId = id;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `updateAuctionItem` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAuctionItem`(in id int(11), in AuctionId int(11), in Description varchar(500), in DonatedBy varchar(500), in `Value` decimal(10,2), in AddedModifiedDate datetime, in AddedModifiedBy int(11))
-Begin
-    UPDATE auctionitems
-    SET    
-           AuctionId = AuctionId,
-           Description = Description,
-           DonatedBy = DonatedBy,
-           `Value` = `Value`,
-           AddedModifiedDate = AddedModifiedDate,
-           AddedModifiedBy = AddedModifiedBy
-    WHERE  ItemId = id;
-End ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `updateBidder` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateBidder`(in id INT, `name` VARCHAR(100), in address VARCHAR(100), in phoneNumber INT(10))
-BEGIN
-	UPDATE BIDDERS as B
-	SET B.`name`     = IFNULL(`name`, B.`Name`),
-		B.address    = IFNULL(address, B.address),
-		B.Phone      = IFNULL(phoneNumber, B.Phone)
-	WHERE B.BidderId = id;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `viewSpecificItem` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `viewSpecificItem`(in aID int(11))
-Begin
-	select *
-    from auctionitems
-    where AuctionId = aID;
-End ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-
---
 -- Final view structure for view `viewauctionitemssheet`
 --
 
@@ -629,7 +348,25 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `viewauctionitemssheet` AS select `auctionitems`.`AuctionId` AS `auctionId`,sum(`auctionitems`.`Value`) AS `value`,group_concat(distinct `auctionitems`.`Description` separator ', ') AS `description`,group_concat(distinct `auctionitems`.`DonatedBy` separator ', ') AS `donatedBy`,`b`.`BidderId` AS `winningbidder`,`b`.`Amount` AS `winningbid` from (`auctionitems` left join `viewwinningbids` `b` on((`b`.`AuctionId` = `auctionitems`.`AuctionId`))) group by `auctionitems`.`AuctionId` */;
+/*!50001 VIEW `viewauctionitemssheet` AS select `auctionitems`.`AuctionId` AS `auctionId`,sum(`auctionitems`.`Value`) AS `value`,group_concat(distinct `auctionitems`.`Description` separator ', ') AS `description`,group_concat(distinct `auctionitems`.`DonatedBy` separator ', ') AS `donatedBy`,`bidders`.`Name` AS `winningbidder`,`b`.`Amount` AS `winningbid` from ((`auctionitems` left join `viewwinningbids` `b` on((`b`.`AuctionId` = `auctionitems`.`AuctionId`))) left join `bidders` on((`bidders`.`BidderId` = `b`.`BidderId`))) group by `auctionitems`.`AuctionId` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `viewbidders`
+--
+
+/*!50001 DROP VIEW IF EXISTS `viewbidders`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `viewbidders` AS select `bidders`.`BidderId` AS `BidderId`,`bidders`.`Phone` AS `Phone`,`bidders`.`Address` AS `Address`,`bidders`.`Name` AS `Name` from `bidders` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -697,4 +434,527 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-04 13:52:57
+-- Dump completed on 2018-04-04 22:25:36
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: phpmyadmin
+-- ------------------------------------------------------
+-- Server version	5.5.5-10.1.30-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `pma__bookmark`
+--
+
+DROP TABLE IF EXISTS `pma__bookmark`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__bookmark` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dbase` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `user` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `label` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `query` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Bookmarks';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__bookmark`
+--
+
+LOCK TABLES `pma__bookmark` WRITE;
+/*!40000 ALTER TABLE `pma__bookmark` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__bookmark` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__central_columns`
+--
+
+DROP TABLE IF EXISTS `pma__central_columns`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__central_columns` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_type` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_length` text COLLATE utf8_bin,
+  `col_collation` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_isNull` tinyint(1) NOT NULL,
+  `col_extra` varchar(255) COLLATE utf8_bin DEFAULT '',
+  `col_default` text COLLATE utf8_bin,
+  PRIMARY KEY (`db_name`,`col_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Central list of columns';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__central_columns`
+--
+
+LOCK TABLES `pma__central_columns` WRITE;
+/*!40000 ALTER TABLE `pma__central_columns` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__central_columns` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__column_info`
+--
+
+DROP TABLE IF EXISTS `pma__column_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__column_info` (
+  `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `column_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `comment` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `mimetype` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `input_transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `input_transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `db_name` (`db_name`,`table_name`,`column_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Column information for phpMyAdmin';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__column_info`
+--
+
+LOCK TABLES `pma__column_info` WRITE;
+/*!40000 ALTER TABLE `pma__column_info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__column_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__designer_settings`
+--
+
+DROP TABLE IF EXISTS `pma__designer_settings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__designer_settings` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `settings_data` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Settings related to Designer';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__designer_settings`
+--
+
+LOCK TABLES `pma__designer_settings` WRITE;
+/*!40000 ALTER TABLE `pma__designer_settings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__designer_settings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__export_templates`
+--
+
+DROP TABLE IF EXISTS `pma__export_templates`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__export_templates` (
+  `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `export_type` varchar(10) COLLATE utf8_bin NOT NULL,
+  `template_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `template_data` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `u_user_type_template` (`username`,`export_type`,`template_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved export templates';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__export_templates`
+--
+
+LOCK TABLES `pma__export_templates` WRITE;
+/*!40000 ALTER TABLE `pma__export_templates` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__export_templates` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__favorite`
+--
+
+DROP TABLE IF EXISTS `pma__favorite`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__favorite` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tables` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Favorite tables';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__favorite`
+--
+
+LOCK TABLES `pma__favorite` WRITE;
+/*!40000 ALTER TABLE `pma__favorite` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__favorite` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__history`
+--
+
+DROP TABLE IF EXISTS `pma__history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__history` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `timevalue` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `sqlquery` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `username` (`username`,`db`,`table`,`timevalue`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='SQL history for phpMyAdmin';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__history`
+--
+
+LOCK TABLES `pma__history` WRITE;
+/*!40000 ALTER TABLE `pma__history` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__navigationhiding`
+--
+
+DROP TABLE IF EXISTS `pma__navigationhiding`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__navigationhiding` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `item_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `item_type` varchar(64) COLLATE utf8_bin NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`username`,`item_name`,`item_type`,`db_name`,`table_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Hidden items of navigation tree';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__navigationhiding`
+--
+
+LOCK TABLES `pma__navigationhiding` WRITE;
+/*!40000 ALTER TABLE `pma__navigationhiding` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__navigationhiding` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__pdf_pages`
+--
+
+DROP TABLE IF EXISTS `pma__pdf_pages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__pdf_pages` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `page_nr` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `page_descr` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  PRIMARY KEY (`page_nr`),
+  KEY `db_name` (`db_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='PDF relation pages for phpMyAdmin';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__pdf_pages`
+--
+
+LOCK TABLES `pma__pdf_pages` WRITE;
+/*!40000 ALTER TABLE `pma__pdf_pages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__pdf_pages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__recent`
+--
+
+DROP TABLE IF EXISTS `pma__recent`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__recent` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tables` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Recently accessed tables';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__recent`
+--
+
+LOCK TABLES `pma__recent` WRITE;
+/*!40000 ALTER TABLE `pma__recent` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__recent` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__relation`
+--
+
+DROP TABLE IF EXISTS `pma__relation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__relation` (
+  `master_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `master_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `master_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`master_db`,`master_table`,`master_field`),
+  KEY `foreign_field` (`foreign_db`,`foreign_table`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Relation table';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__relation`
+--
+
+LOCK TABLES `pma__relation` WRITE;
+/*!40000 ALTER TABLE `pma__relation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__relation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__savedsearches`
+--
+
+DROP TABLE IF EXISTS `pma__savedsearches`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__savedsearches` (
+  `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `search_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `search_data` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `u_savedsearches_username_dbname` (`username`,`db_name`,`search_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved searches';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__savedsearches`
+--
+
+LOCK TABLES `pma__savedsearches` WRITE;
+/*!40000 ALTER TABLE `pma__savedsearches` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__savedsearches` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__table_coords`
+--
+
+DROP TABLE IF EXISTS `pma__table_coords`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__table_coords` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `pdf_page_number` int(11) NOT NULL DEFAULT '0',
+  `x` float unsigned NOT NULL DEFAULT '0',
+  `y` float unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`db_name`,`table_name`,`pdf_page_number`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table coordinates for phpMyAdmin PDF output';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__table_coords`
+--
+
+LOCK TABLES `pma__table_coords` WRITE;
+/*!40000 ALTER TABLE `pma__table_coords` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__table_coords` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__table_info`
+--
+
+DROP TABLE IF EXISTS `pma__table_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__table_info` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `display_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`db_name`,`table_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table information for phpMyAdmin';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__table_info`
+--
+
+LOCK TABLES `pma__table_info` WRITE;
+/*!40000 ALTER TABLE `pma__table_info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__table_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__table_uiprefs`
+--
+
+DROP TABLE IF EXISTS `pma__table_uiprefs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__table_uiprefs` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `prefs` text COLLATE utf8_bin NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`username`,`db_name`,`table_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Tables'' UI preferences';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__table_uiprefs`
+--
+
+LOCK TABLES `pma__table_uiprefs` WRITE;
+/*!40000 ALTER TABLE `pma__table_uiprefs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__table_uiprefs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__tracking`
+--
+
+DROP TABLE IF EXISTS `pma__tracking`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__tracking` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `version` int(10) unsigned NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_updated` datetime NOT NULL,
+  `schema_snapshot` text COLLATE utf8_bin NOT NULL,
+  `schema_sql` text COLLATE utf8_bin,
+  `data_sql` longtext COLLATE utf8_bin,
+  `tracking` set('UPDATE','REPLACE','INSERT','DELETE','TRUNCATE','CREATE DATABASE','ALTER DATABASE','DROP DATABASE','CREATE TABLE','ALTER TABLE','RENAME TABLE','DROP TABLE','CREATE INDEX','DROP INDEX','CREATE VIEW','ALTER VIEW','DROP VIEW') COLLATE utf8_bin DEFAULT NULL,
+  `tracking_active` int(1) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`db_name`,`table_name`,`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Database changes tracking for phpMyAdmin';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__tracking`
+--
+
+LOCK TABLES `pma__tracking` WRITE;
+/*!40000 ALTER TABLE `pma__tracking` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__tracking` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__userconfig`
+--
+
+DROP TABLE IF EXISTS `pma__userconfig`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__userconfig` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `timevalue` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `config_data` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User preferences storage for phpMyAdmin';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__userconfig`
+--
+
+LOCK TABLES `pma__userconfig` WRITE;
+/*!40000 ALTER TABLE `pma__userconfig` DISABLE KEYS */;
+INSERT INTO `pma__userconfig` VALUES ('root','2018-02-22 21:47:05','{\"collation_connection\":\"utf8mb4_unicode_ci\"}');
+/*!40000 ALTER TABLE `pma__userconfig` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__usergroups`
+--
+
+DROP TABLE IF EXISTS `pma__usergroups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__usergroups` (
+  `usergroup` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tab` varchar(64) COLLATE utf8_bin NOT NULL,
+  `allowed` enum('Y','N') COLLATE utf8_bin NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`usergroup`,`tab`,`allowed`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User groups with configured menu items';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__usergroups`
+--
+
+LOCK TABLES `pma__usergroups` WRITE;
+/*!40000 ALTER TABLE `pma__usergroups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__usergroups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pma__users`
+--
+
+DROP TABLE IF EXISTS `pma__users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pma__users` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `usergroup` varchar(64) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`username`,`usergroup`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Users and their assignments to user groups';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pma__users`
+--
+
+LOCK TABLES `pma__users` WRITE;
+/*!40000 ALTER TABLE `pma__users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pma__users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-04-04 22:25:36
