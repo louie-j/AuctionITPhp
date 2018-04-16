@@ -2,8 +2,16 @@
     require 'DatabaseConnection.php';
     $conn = Connect();
     $year = date("Y");
-    $query = "select * from viewauctionitemssheet";
-    $result = $conn->query($query);
+
+    $hundred = $conn->real_escape_string($_GET['hundred']);
+    $twohundred = $conn->real_escape_string($_GET['twohundred']);
+    $threehundred = $conn->real_escape_string($_GET['threehundred']);
+    $sixhundred = $conn->real_escape_string($_GET['sixhundred']);
+    $unmarked = $conn->real_escape_string($_GET['unmarked']);
+
+
+    $sql = "call viewAuctionItemGroups(" . $hundred . "," . $twohundred . "," . $threehundred . "," . $sixhundred . "," . $unmarked .")";
+    $result = $conn->query($sql);
     $data = array();
     while( $rows = mysqli_fetch_assoc($result) ) {
         $data[] = $rows;

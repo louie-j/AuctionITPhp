@@ -61,6 +61,7 @@
     border: 1px solid rgba(0,0,0,.15);
     border-top: none;
     cursor: pointer;
+    padding-left: 5px;
 }
 
 .dropdown:hover {
@@ -127,4 +128,44 @@
 
 .chevron:hover {
     transform: rotate(90deg);
+}
+
+
+.groups {
+    border: 1px solid black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;    
+    width: 140px;
+    text-align: center;
+    padding: 5px;
+    position: absolute;
+    left: 40%;
+    cursor: pointer !important;
+    z-index: 40;
+}
+
+.dropper {
+    overflow: hidden;
+    width: 140px;
+    height: 0px;
+    transition: all 1s linear;
+    -webkit-transition: all 1s linear;
+
+    position: absolute;
+    left: 40%;
+    z-index: 41;
+    background-color: white;
+    top: 36px;
+}
+
+.auto-height {
+    height:auto;
+    transition: all 1s linear;
+    -webkit-transition: all 1s linear;
+}
+
+.check-boxes {
+    float: right;
+    margin-right: 5px;
+    margin-top: 6px;
 }
