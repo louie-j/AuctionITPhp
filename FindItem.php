@@ -23,7 +23,9 @@ and open the template in the editor.
                 var table = $('#myDataTable').DataTable( {
                     ajax: "phpScripts/viewAllItems.php", 
                     resposive: true,
+
                     columns: [
+                        { mData: 'ItemId', visible: false},
                         { mData: 'AuctionId'  } ,
                         { mData: 'Description' },
                         { mData: 'DonatedBy' },
@@ -37,7 +39,7 @@ and open the template in the editor.
                                 var date = new Date(data.LastModified).toLocaleDateString();
                                  return data.LastModifiedBy + ' on ' + date;
                             },
-                            "targets":4
+                            "targets":5
                         }
                     ]
                 } );
@@ -55,7 +57,10 @@ and open the template in the editor.
                             document.getElementById("btn-delete").style.display = "none";
                             break;
                         case 1:
-                            document.getElementById("btn-edit").style.display = "inline";
+                            if (table.rows('.selected').data()[0].ItemId > -1)
+                                document.getElementById("btn-edit").style.display = "inline";
+                            else
+                                document.getElementById("btn-edit").style.display = "none";    
                             document.getElementById("btn-merge").style.display = "none";
                             document.getElementById("btn-separate").style.display = "inline";
                             document.getElementById("btn-delete").style.display = "inline";
@@ -70,10 +75,31 @@ and open the template in the editor.
                     }
                 } );
 
+                $('button#btn-edit').click( function () {
+                     document.getElementById("auctionId").value = table.rows('.selected').data()[0].AuctionId;
+                     document.getElementById("description").value = table.rows('.selected').data()[0].Description;
+                     document.getElementById("donatedBy").value = table.rows('.selected').data()[0].DonatedBy;
+                     document.getElementById("value").value = table.rows('.selected').data()[0].Value;
+                     document.getElementById("itemId").value = table.rows('.selected').data()[0].ItemId;
+                } );    
+
                  $('button#btn-merge').click( function () {
                      console.log("Merge");
                     console.log( table.rows('.selected').data()[0]);
-                } );               
+                } );
+                $("button#submit").click(function(){
+                    console.log("Save Button");
+                    console.log($('form.edit').serialize());
+                    $.ajax( {
+                        type: "POST",
+                        url: "phpScripts/EditItemDatabase.php",
+                        data: $('form.edit').serialize(),
+                        success: function(data) {
+                            $('#myDataTable').DataTable().ajax.reload();
+                            $("#edit-modal").modal('hide'); 
+                        }
+                    });
+                });               
             });         
 		</script>
 		<link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
@@ -89,7 +115,8 @@ and open the template in the editor.
             <table id="myDataTable"  class="display stripe" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <td class="first head">AuctionId</td>
+                        <td ></td>
+                        <td class=" first head">AuctionId</td>
                         <td class="head">Description</td>
                         <td class="head">Donated By</td>
                         <td class="head">Value</td>
@@ -104,32 +131,35 @@ and open the template in the editor.
          
 	
 	        
-            <div id="edit-modal" class="modal fade" role="dialog">
+    <div id="edit-modal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">				
 				<div class="modal-header">
-					<a class="close" data-dismiss="modal">�</a>
-					<h3>Send Feedback</h3>
+					<h3>Edit Item</h3>
 				</div>				
 				<div class="modal-body">
 					<form class="edit" name="edit">
+                        <input id="itemId", name="itemId" type="hidden">
 						<strong>AuctionId</strong>
 						<br />
-						<input type="text" name="auctionId" class="input-xlarge" value="Laeeq">
-						<br /><br /><strong>Email</strong><br />
-						<input type="email" name="email" class="input-xlarge" value="phpzag@gmail.com">
-						<br /><br /><strong>Message</strong><br />					
-						<textarea name="message" class="input-xlarge">Thanks for tutorials and demos!</textarea>
+						<input id="auctionId" type="number" name="auctionId" class="input-xlarge" value=0>
+						<br /><br /><strong>Description</strong><br />
+						<textarea id="description" name="description" class="input-xlarge"></textarea>
+						<br /><br /><strong>Donated By</strong><br />					
+                        <input id="donatedBy" name="donatedBy" type="text" class="input-xlarge" value="">
+                        <br /><br /> <strong>Value</strong>
+						<br />
+                        <input id="value" type="number" name="value" step="0.01" class="input-xlarge" value=0>
 					</form>
 				</div>			
 				<div class="modal-footer">
-					<button class="btn btn-success" id="submit">Send</button>
+					<button class="btn btn-success" id="submit">Save</button>
 					<a href="#" class="btn" data-dismiss="modal">Close</a>
 				</div>
 			</div>
-		</div>
-	</div>
         </div>
+    </div> 
+    <div id='response'></div>   
      </body>
 </html>
 
