@@ -31,8 +31,6 @@ and open the template in the editor.
                         { mData: null },
        
                     ],
-                    select: true,
-                    responsive: true,
                     columnDefs: [
                         {
                             "render": function(data,type,row) {
@@ -47,41 +45,18 @@ and open the template in the editor.
                  $('#myDataTable tbody').on('click', 'tr', function () {
                     var data = table.row( this ).data();
                     console.log(data);
-                    alert( 'You clicked on '+data.AuctionId+'\'s row' );
+                    //alert( 'You clicked on '+data.AuctionId+'\'s row' );
                     $(this).toggleClass('selected');
                 } );
 
-                 $('#button').click( function () {
-                    table.row('.selected').remove().draw( false );
-                } );
-
-                //Function that responds to user clicking edit button
-                $('#myDataTable tbody').on( 'click', 'button', function () {
-                    var dataObj = table.row( $(this).parents('td') ).data();
-                       
-                    //alert( JSON.stringify(data));//alert( JSON.stringify(data));
-                    var data    = Object.values(dataObj);
-                    $('#UserManagementBody').data( 'accType', data[3] );
-                    $('#UserManagementBody').data( 'status', data[4] );
-
-                    //var accType =data[3]; 
-                    //var status = data[4];
-                   // alert("test" + data[4]);
-                    $("#UserManagementBody").load("AccountEditor.php").dialog({
-                        appendTo: "#UserManagementBody"
-                        
-                        });
-                    } );    
-                    //intialializeRadioBtns(); 
-
-                    setInterval( function () {
-                    table.ajax.reload(null, false);
-                }, 10000 );
-            });
-           
+                 $('button#edit').click( function () {
+                    console.log( table.rows('.selected').data().length +' row(s) selected' )
+                } );               
+            });         
 		</script>
 		<link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
+        <link href="DataTables/DataTables-1.10.16/css/dataTables.jqueryui.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
     </head>
@@ -100,6 +75,8 @@ and open the template in the editor.
                     </tr>
                 </thead>
             </table>
+            <button id="edit" class="btn btn-primary">Edit</button>
+            <button id="merge" class="btn btn-primary">Merge</button>
      </body>
 
 </html>
