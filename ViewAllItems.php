@@ -128,11 +128,11 @@ and open the template in the editor.
         <div class="container body-content top">
             <div onclick="openCheckBoxDropdown()" class="groups">Select Groups ↓</div>
             <div class="dropper">
-                <div onclick="clickInput('1')" class="dropdown">100's <input onchange="changeDataTable()" id="1" class="check-boxes" checked type="checkbox"></div>
-                <div onclick="clickInput('2')" class="dropdown">200's <input onchange="changeDataTable()" id="2" class="check-boxes" checked type="checkbox"></div>
-                <div onclick="clickInput('3')" class="dropdown">300's <input onchange="changeDataTable()" id="3" class="check-boxes" checked type="checkbox"></div>
-                <div onclick="clickInput('6')" class="dropdown">600's <input onchange="changeDataTable()" id="6" class="check-boxes" checked type="checkbox"></div>
-                <div onclick="clickInput('-1')" class="dropdown">Not Numbered<input onchange="changeDataTable()" id="-1" class="check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('1')" class="dropdown">100's <input onclick="clickInput('1')" onchange="changeDataTable()" id="1" class="check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('2')" class="dropdown">200's <input onclick="clickInput('2')" onchange="changeDataTable()" id="2" class="check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('3')" class="dropdown">300's <input onclick="clickInput('3')" onchange="changeDataTable()" id="3" class="check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('6')" class="dropdown">600's <input onclick="clickInput('6')" onchange="changeDataTable()" id="6" class="check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('-1')" class="dropdown">Not Numbered<input onclick="clickInput('-1')" onchange="changeDataTable()" id="-1" class="check-boxes" checked type="checkbox"></div>
             </div>
 
             
