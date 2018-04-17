@@ -137,15 +137,16 @@ and open the template in the editor.
                         var isAssigned = true;
                     }
                     var auctionId = table.rows('.selected').data()[0].AuctionId;
-                    $.ajax ( {
-                        type: "POST",
-                        url: "phpScripts/deleteAuctionItem.php",
-                        data: {auctionId: id, isAssigned: isAssigned },
-                        success: function(data) {
-                            alert(data);
-                            $('#myDataTable').DataTable().ajax.reload();
-                        }
-                    });
+                    if (confirm("Are you sure you want to delete the selected item?")) {
+                        $.ajax ( {
+                            type: "POST",
+                            url: "phpScripts/deleteAuctionItem.php",
+                            data: {auctionId: id, isAssigned: isAssigned },
+                            success: function(data) {
+                                $('#myDataTable').DataTable().ajax.reload();
+                            }
+                        });
+                    }
                 } ); 
 
                 $("button#submit").click(function(){
