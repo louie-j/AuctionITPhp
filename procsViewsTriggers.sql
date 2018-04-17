@@ -139,8 +139,8 @@ BEGIN
 END $$
 
 /*updateAuctionItem*/
-Delimiter $$
-drop procedure if exists updateAuctionItem $$
+DELIMITER $$
+DROP PROCEDURE IF EXISTS updateAuctionItem $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAuctionItem`(in id int(11), in AuctionId int(11), in Description varchar(500), in DonatedBy varchar(500), in `Value` decimal(10,2), in AddedModifiedBy int(11))
 Begin
     UPDATE auctionitems
@@ -152,7 +152,9 @@ Begin
            AddedModifiedDate = NOW(),
            AddedModifiedBy = AddedModifiedBy
     WHERE  ItemId = id;
-End
+End$$
+DELIMITER ;
+
 
 /*deleteAuctionItem*/
 DELIMITER $$
