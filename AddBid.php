@@ -25,6 +25,8 @@ and open the template in the editor.
             var bidders;
             var userValid = false;
             var itemValid = false;
+            var bidValid = false;
+            var minBid;
             $( document ).ready(function() {
 
                 if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
@@ -78,7 +80,7 @@ and open the template in the editor.
                                 el.textContent = arr[i].description;
                                 el.value = arr[i].auctionId;
                                 el.onclick = function() { 
-                                    changeValue(this.value, type); 
+                                    changeValue(this.value, type, this.textContent); 
                                     closeDropdown(type);
                                 }
                                 el.classList.add("dropdown");
@@ -93,7 +95,7 @@ and open the template in the editor.
                                 el.textContent = arr[i].Name;
                                 el.value = arr[i].BidderId;
                                 el.onclick = function() { 
-                                    changeValue(this.value, type); 
+                                    changeValue(this.value, type, this.textContent); 
                                     closeDropdown(type);
                                 }
                                 el.classList.add("dropdown");
@@ -112,29 +114,40 @@ and open the template in the editor.
                 }
             }
 
-            function changeValue(value, type) {
+            function changeValue(value, type, name="") {
                 if (type == "Item") {
                     if(document.getElementById("auctionID")) {
                         document.getElementById("auctionID").value = value;
-                        document.getElementById("searchTextItem").value = "";
+                        document.getElementById("searchTextItem").value = name;
                         doesAuctionIdExist(value, type);
                     }
                 } 
                 else if (type == "Bidder") {
                     if(document.getElementById("bidderID")) {
                         document.getElementById("bidderID").value = value;
-                        document.getElementById("searchTextBidder").value = "";
+                        document.getElementById("searchTextBidder").value = name;
                         doesAuctionIdExist(value, type);
                     }
                 }
 
-            };
+            }
+
+            function getBidderName(id) {
+                bidders.forEach((bidder) => {
+                    if (bidder.BidderId == id) {
+                        return bidder.Name;
+                    }
+                });
+            }
 
             function doesAuctionIdExist(id, type) {
                 if (type == "Item") {
                     for(var i = 0; i < items.length; i++) {
                     if (items[i].auctionId == id) {
                         itemValid = true;
+                        if (items[i].winningbid) minBid = parseInt(items[i].winningbid) + 5;
+                        else minBid = null;
+                        document.getElementById("searchTextItem").value = items[i].description;
                         return manipulateHtml(true, "Item");
                     }
                 }
@@ -145,6 +158,7 @@ and open the template in the editor.
                     for(var i = 0; i < bidders.length; i++) {
                         if (bidders[i].BidderId == id) {
                             userValid = true;
+                            document.getElementById("searchTextBidder").value = bidders[i].Name;
                             return manipulateHtml(true, "Bidder");
                         }   
                     }
@@ -156,7 +170,7 @@ and open the template in the editor.
                 var errorMessage = type === "Item" ? "auctionError" : "bidderError";
                 if (valid) {
                     hideOrShowElement("hide", errorMessage);
-                    if (userValid && itemValid) {
+                    if (userValid && itemValid && bidValid) {
                         hideOrShowElement("show", "enabled");
                         hideOrShowElement("hide", "disabled");
                     }
@@ -184,6 +198,34 @@ and open the template in the editor.
                 }
             }
 
+            function checkBid(bid) {
+                if (minBid == null) minBid = 5;
+                if (bid >= minBid) {
+                    hideOrShowElement("hide", "minBidError");
+                    if (bid % 5 == 0) {
+                        bidValid = true;
+                        hideOrShowElement("hide", "multipleOfFiveError")
+                        if (userValid && itemValid) {
+                            hideOrShowElement("show", "enabled");
+                            hideOrShowElement("hide", "disabled");
+                        }
+                    }
+                    else {
+                        bidValid = false;
+                        hideOrShowElement("show", "multipleOfFiveError")
+                        hideOrShowElement("hide", "enabled");
+                        hideOrShowElement("show", "disabled");
+                    }
+                } 
+                else {
+                    bidValid = false;
+                    document.getElementById("minBidError").textContent = "Bid must be at least $" + minBid.toString();
+                    hideOrShowElement("show", "minBidError");
+                    hideOrShowElement("hide", "enabled");
+                    hideOrShowElement("show", "disabled"); 
+                }
+            }
+
         </script>
         <meta charset="UTF-8">
         <title></title>
@@ -208,12 +250,14 @@ and open the template in the editor.
                     </div>
                     <div class="form-group">
                         <label for="amount">Bid Amount</label>
-                        <input type="number" class="form-control" name="amount" id="amount">
+                        <input onkeyup="checkBid(document.getElementById('amount').value)" type="number" class="form-control" name="amount" id="amount">
                     </div>
                     <button id="disabled" disabled type="submit" class="btn btn-primary">Submit</button>
                     <button id="enabled" type="submit" class="btn none btn-primary">Submit</button>
                     <div class="error none" id="auctionError">That Auction Number does not exist</div>
                     <div class="error none" id="bidderError">That Bidder Number does not exist</div>
+                    <div class="error none" id="minBidError"></div>
+                    <div class="error none" id="multipleOfFiveError">Bids must be multiples of 5</div>
                 </form>
             </div>
 

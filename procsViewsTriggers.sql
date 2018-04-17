@@ -1,4 +1,4 @@
-use fbcmtown_auctionitdb;
+use auctionIT;
 
 /* View Donators */
 drop view if exists viewDonators;
@@ -31,7 +31,7 @@ CREATE
     SQL SECURITY DEFINER
 VIEW `viewBidders` AS
     SELECT *
-    FROM `bidders`
+    FROM `bidders`;
 
 
 /*View AuctionItemsSheet */
@@ -78,6 +78,45 @@ VIEW `viewreceipts` AS
     WHERE
         (`p`.`AuctionId` = `a`.`AuctionId`);
 
+/*viewItems*/
+CREATE 
+     OR REPLACE ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `viewitems` AS
+    (SELECT 
+        (CASE
+            WHEN (COUNT(0) > 1) THEN -(1)
+            ELSE `ai`.`ItemId`
+        END) AS `ItemId`,
+        `ai`.`AuctionId` AS `AuctionId`,
+        SUM(`ai`.`Value`) AS `Value`,
+        GROUP_CONCAT(DISTINCT `ai`.`Description`
+            SEPARATOR ', ') AS `Description`,
+        GROUP_CONCAT(DISTINCT `ai`.`DonatedBy`
+            SEPARATOR ', ') AS `DonatedBy`,
+        MAX(`ai`.`AddedModifiedDate`) AS `LastModified`,
+        GROUP_CONCAT(DISTINCT `a`.`Username`
+            SEPARATOR ', ') AS `LastModifiedBy`
+    FROM
+        (`auctionitems` `ai`
+        LEFT JOIN `accounts` `a` ON ((`a`.`AutoId` = `ai`.`AddedModifiedBy`)))
+    WHERE
+        (`ai`.`AuctionId` IS NOT NULL)
+    GROUP BY `ai`.`AuctionId`) UNION 
+    (SELECT 
+        `ai`.`ItemId` AS `ItemId`,
+        `ai`.`AuctionId` AS `auctionId`,
+        `ai`.`Value` AS `Value`,
+        `ai`.`Description` AS `Description`,
+        `ai`.`DonatedBy` AS `DonatedBy`,
+        `ai`.`AddedModifiedDate` AS `LastModified`,
+        `a`.`Username` AS `LastModifiedBy`
+    FROM
+        (`auctionitems` `ai`
+        LEFT JOIN `accounts` `a` ON ((`a`.`AutoId` = `ai`.`AddedModifiedBy`)))
+    WHERE
+        ISNULL(`ai`.`AuctionId`));
 		
 
 
@@ -93,6 +132,47 @@ BEGIN
     AND AuctionId BETWEEN (selectAuction+1) AND (selectAuction + 99);
 END $$
 
+/*updateAuctionItem*/
+Delimiter $$
+drop procedure if exists updateAuctionItem $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAuctionItem`(in id int(11), in AuctionId int(11), in Description varchar(500), in DonatedBy varchar(500), in `Value` decimal(10,2), in AddedModifiedBy int(11))
+Begin
+    UPDATE auctionitems
+    SET    
+           AuctionId = AuctionId,
+           Description = Description,
+           DonatedBy = DonatedBy,
+           `Value` = `Value`,
+           AddedModifiedDate = NOW(),
+           AddedModifiedBy = AddedModifiedBy
+    WHERE  ItemId = id;
+End
+
+/*deleteAuctionItem*/
+DELIMITER $$
+drop procedure if exists deleteAuctionItem $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteAuctionItem`(in Id INT, in UserId INT, in isAuctionId BOOL)
+BEGIN
+IF (!isAuctionId) THEN
+	DELETE FROM auctionItems
+    WHERE itemId IN (Id);
+ELSE 
+	DELETE FROM auctionItems
+    WHERE auctionId IN (Id);
+END IF;	
+END$$
+
+/*unassignAuctionItems*/
+DELIMITER $$
+drop procedure if exists unassignAuctionItems $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `unassignAuctionItems`(in Id INT, in UserId INT)
+BEGIN
+	UPDATE AuctionItems
+	SET AddedModifiedBy = UserId,
+		AddedModifiedDate = NOW(),
+        AuctionId = NULL
+    WHERE AuctionId IN (Id);
+END$$
 
 /* createBid */
 Delimiter $$
@@ -257,3 +337,218 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAccounts`()
  	SELECT *
      FROM ACCOUNTS;
 END $$
+
+
+drop view if exists viewHundreds;
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `viewHundreds` AS
+    SELECT 
+        `auctionitems`.`AuctionId` AS `auctionId`,
+        SUM(`auctionitems`.`Value`) AS `value`,
+        GROUP_CONCAT(DISTINCT `auctionitems`.`Description`
+            SEPARATOR ', ') AS `description`,
+        GROUP_CONCAT(DISTINCT `auctionitems`.`DonatedBy`
+            SEPARATOR ', ') AS `donatedBy`,
+		bidders.name as `winningbidder`,
+        b.amount as `winningbid`
+    FROM auctionitems
+    left join viewWinningBids as b on b.auctionid = auctionitems.auctionid
+    left join bidders on bidders.bidderId = b.bidderid
+    where auctionitems.auctionid >= 100 and auctionitems.auctionid < 200
+    GROUP BY `AuctionId`;
+    
+drop view if exists viewTwoHundreds;
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `viewTwoHundreds` AS
+    SELECT 
+        `auctionitems`.`AuctionId` AS `auctionId`,
+        SUM(`auctionitems`.`Value`) AS `value`,
+        GROUP_CONCAT(DISTINCT `auctionitems`.`Description`
+            SEPARATOR ', ') AS `description`,
+        GROUP_CONCAT(DISTINCT `auctionitems`.`DonatedBy`
+            SEPARATOR ', ') AS `donatedBy`,
+		bidders.name as `winningbidder`,
+        b.amount as `winningbid`
+    FROM auctionitems
+    left join viewWinningBids as b on b.auctionid = auctionitems.auctionid
+    left join bidders on bidders.bidderId = b.bidderid
+    where auctionitems.auctionid >= 200 and auctionitems.auctionid < 300
+    GROUP BY `AuctionId`;
+    
+drop view if exists viewThreeHundreds;
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `viewThreeHundreds` AS
+    SELECT 
+        `auctionitems`.`AuctionId` AS `auctionId`,
+        SUM(`auctionitems`.`Value`) AS `value`,
+        GROUP_CONCAT(DISTINCT `auctionitems`.`Description`
+            SEPARATOR ', ') AS `description`,
+        GROUP_CONCAT(DISTINCT `auctionitems`.`DonatedBy`
+            SEPARATOR ', ') AS `donatedBy`,
+		bidders.name as `winningbidder`,
+        b.amount as `winningbid`
+    FROM auctionitems
+    left join viewWinningBids as b on b.auctionid = auctionitems.auctionid
+    left join bidders on bidders.bidderId = b.bidderid
+    where auctionitems.auctionid >= 300 and auctionitems.auctionid < 400
+    GROUP BY `AuctionId`;
+
+drop view if exists viewSixHundreds;
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `viewSixHundreds` AS
+    SELECT 
+        `auctionitems`.`AuctionId` AS `auctionId`,
+        SUM(`auctionitems`.`Value`) AS `value`,
+        GROUP_CONCAT(DISTINCT `auctionitems`.`Description`
+            SEPARATOR ', ') AS `description`,
+        GROUP_CONCAT(DISTINCT `auctionitems`.`DonatedBy`
+            SEPARATOR ', ') AS `donatedBy`,
+		bidders.name as `winningbidder`,
+        b.amount as `winningbid`
+    FROM auctionitems
+    left join viewWinningBids as b on b.auctionid = auctionitems.auctionid
+    left join bidders on bidders.bidderId = b.bidderid
+    where auctionitems.auctionid >= 600 and auctionitems.auctionid < 700
+    GROUP BY `AuctionId`;
+
+    
+drop view if exists viewUnMarked;
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `viewUnMarked` AS
+    SELECT 
+        `auctionitems`.`AuctionId` AS `auctionId`,
+        `auctionitems`.`Value` AS `value`,
+        `auctionitems`.`Description` AS `description`,
+        `auctionitems`.`DonatedBy` AS `donatedBy`,
+		bidders.name as `winningbidder`,
+        b.amount as `winningbid`
+    FROM auctionitems
+    left join viewWinningBids as b on b.auctionid = auctionitems.auctionid
+    left join bidders on bidders.bidderId = b.bidderid
+    where auctionitems.auctionid is null;
+
+
+/* this proc is absolutely discusting */
+Delimiter $$
+drop procedure if exists viewAuctionItemGroups $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAuctionItemGroups`(in hundred bool, in twohundred bool, in threehundred bool, in sixhundred bool, in unmarked bool)
+Begin 
+	if sixhundred=false then
+		if hundred=true and twohundred=true and threehundred=true and unmarked=true then
+			select * from viewhundreds union select * from viewtwohundreds union
+			select * from viewthreehundreds union select * from viewunmarked;
+		END if;	
+		if hundred=true and twohundred=true and threehundred=true and unmarked=false then
+			select * from viewhundreds union select * from viewtwohundreds union
+			select * from viewthreehundreds;
+		END if;
+		if hundred=true and twohundred=true and threehundred=false and unmarked=true then
+			select * from viewhundreds union select * from viewtwohundreds union
+			select * from viewunmarked;
+		END if;
+		if hundred=true and twohundred=false and threehundred=true and unmarked=true then
+			select * from viewhundreds union
+			select * from viewthreehundreds union select * from viewunmarked;
+		END if;	
+		if hundred=false and twohundred=false and threehundred=true and unmarked=true then
+			select * from viewTwohundreds union
+			select * from viewthreehundreds union select * from viewunmarked;
+		END if;
+		if hundred=true and twohundred=true and threehundred=false and unmarked=false then
+			select * from viewhundreds union select * from viewtwohundreds;
+		END if;	
+		if hundred=true and twohundred=false and threehundred=true and unmarked=false then
+			select * from viewhundreds union select * from viewthreehundreds;
+		END if;		
+		if hundred=false and twohundred=true and threehundred=true and unmarked=false then
+			select * from viewtwohundreds union select * from viewthreehundreds;
+		END if;	
+		if hundred=true and twohundred=false and threehundred=false and unmarked=true then
+			select * from viewhundreds union select * from viewunmarked;
+		END if;	
+		if hundred=false and twohundred=true and threehundred=false and unmarked=true then
+			select * from viewtwohundreds union select * from viewunmarked;
+		END if;	
+		if hundred=false and twohundred=false and threehundred=true and unmarked=true then
+			select * from viewthreehundreds union select * from viewunmarked;
+		END if;
+		if hundred=true and twohundred=false and threehundred=false and unmarked=false then
+			select * from viewhundreds;
+		END if;	
+		if hundred=false and twohundred=true and threehundred=false and unmarked=false then
+			select * from viewtwohundreds;
+		END if;
+		if hundred=false and twohundred=false and threehundred=true and unmarked=false then
+			select * from viewthreehundreds;
+		END if;	
+		if hundred=false and twohundred=false and threehundred=false and unmarked=true then
+			select * from viewunmarked;
+		END if;
+	ELSE
+		if hundred=true and twohundred=true and threehundred=true and unmarked=true then
+			select * from viewhundreds union select * from viewtwohundreds union
+			select * from viewthreehundreds union select * from viewunmarked union select * from viewSixHundreds;
+		END if;	
+		if hundred=true and twohundred=true and threehundred=true and unmarked=false then
+			select * from viewhundreds union select * from viewtwohundreds union
+			select * from viewthreehundreds union select * from viewSixHundreds;
+		END if;
+		if hundred=true and twohundred=true and threehundred=false and unmarked=true then
+			select * from viewhundreds union select * from viewtwohundreds union
+			select * from viewunmarked union select * from viewSixHundreds;
+		END if;
+		if hundred=true and twohundred=false and threehundred=true and unmarked=true then
+			select * from viewhundreds union
+			select * from viewthreehundreds union select * from viewunmarked union select * from viewSixHundreds;
+		END if;	
+		if hundred=false and twohundred=true and threehundred=true and unmarked=true then
+			select * from viewTwohundreds union
+			select * from viewthreehundreds union select * from viewunmarked union select * from viewSixHundreds;
+		END if;
+		if hundred=true and twohundred=true and threehundred=false and unmarked=false then
+			select * from viewhundreds union select * from viewtwohundreds union select * from viewSixHundreds;
+		END if;	
+		if hundred=true and twohundred=false and threehundred=true and unmarked=false then
+			select * from viewhundreds union select * from viewthreehundreds union select * from viewSixHundreds;
+		END if;		
+		if hundred=false and twohundred=true and threehundred=true and unmarked=false then
+			select * from viewtwohundreds union select * from viewthreehundreds union select * from viewSixHundreds;
+		END if;	
+		if hundred=true and twohundred=false and threehundred=false and unmarked=true then
+			select * from viewhundreds union select * from viewunmarked union select * from viewSixHundreds;
+		END if;	
+		if hundred=false and twohundred=true and threehundred=false and unmarked=true then
+			select * from viewtwohundreds union select * from viewunmarked union select * from viewSixHundreds;
+		END if;	
+		if hundred=false and twohundred=false and threehundred=true and unmarked=true then
+			select * from viewthreehundreds union select * from viewunmarked union select * from viewSixHundreds;
+		END if;
+		if hundred=true and twohundred=false and threehundred=false and unmarked=false then
+			select * from viewhundreds union select * from viewSixHundreds;
+		END if;	
+		if hundred=false and twohundred=true and threehundred=false and unmarked=false then
+			select * from viewtwohundreds union select * from viewSixHundreds;
+		END if;
+		if hundred=false and twohundred=false and threehundred=true and unmarked=false then
+			select * from viewthreehundreds union select * from viewSixHundreds;
+		END if;	
+		if hundred=false and twohundred=false and threehundred=false and unmarked=true then
+			select * from viewunmarked union select * from viewSixHundreds;
+		END if;
+	END IF;
+End $$

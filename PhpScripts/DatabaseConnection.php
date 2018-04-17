@@ -3,10 +3,10 @@
 
 function Connect()
 {
-    $dbhost = "localhost";
-    $dbuser = "root";
-    $dbpass = "";
-    $dbname = "fbcmtown_auctionitdb";
+    // $dbhost = "localhost";
+    // $dbuser = "root";
+    // $dbpass = "";
+    // $dbname = "fbcmtown_auctionitdb";
 
     /* Ellie
     $dbhost = "localhost";
@@ -21,10 +21,10 @@ function Connect()
     $dbname = "fbcmtown_auctionITdb"; */
     
     /* Tyler */
-    //$dbhost = "localhost";
-    //$dbuser = "root";
-    //$dbpass = "";
-    //$dbname = "AuctionIT";
+    $dbhost = "localhost";
+    $dbuser = "root";
+    $dbpass = "";
+    $dbname = "AuctionIT";
 
     // Create connection
     $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname) or die($conn->connect_error);
