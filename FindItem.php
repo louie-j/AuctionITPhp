@@ -78,13 +78,36 @@ and open the template in the editor.
                     }
                 } );
 
+                $('input#noId').click( function () {
+                     //alert("No Auction Id");
+                    document.getElementById('auctionId').readOnly = document.getElementById('noId').checked;
+                    document.getElementById("auctionId").value = document.getElementById('noId').checked ?
+                        null :
+                        table.rows('.selected').data()[0].AuctionId;
+
+                } ); 
+                
+                $('button#btn-new').click( function () {
+                    $("#title").text("New Item");
+                })
+
                 $('button#btn-edit').click( function () {
-                     document.getElementById("auctionId").value = table.rows('.selected').data()[0].AuctionId;
+                    if (table.rows('.selected').data()[0].AuctionId) {
+                        document.getElementById("auctionId").value = table.rows('.selected').data()[0].AuctionId;
+                        document.getElementById('noId').checked = false;
+                    }
+                     else{
+                        document.getElementById("auctionId").value = null;
+                        document.getElementById('auctionId').readOnly = true;
+                        document.getElementById('noId').checked = true;
+                     }
+
                      document.getElementById("description").value = table.rows('.selected').data()[0].Description;
                      document.getElementById("donatedBy").value = table.rows('.selected').data()[0].DonatedBy;
                      document.getElementById("value").value = table.rows('.selected').data()[0].Value;
                      document.getElementById("itemId").value = table.rows('.selected').data()[0].ItemId;
-                } );  
+                     $("#title").text("Edit Item");
+                } );   
 
                 $('button#btn-unassign').click( function () {
                     console.log("Unassign Button");
@@ -123,17 +146,30 @@ and open the template in the editor.
                 } ); 
 
                 $("button#submit").click(function(){
+                   
+                    var url = document.getElementById("itemId").value == null 
+                        ? "phpScripts/AddItemDatabase.php"
+                        : "phpScripts/EditItemDatabase.php" ;
+                        
                     console.log("Save Button");
+                    console.log(url);
                     console.log($('form.edit').serialize());
                     $.ajax( {
                         type: "POST",
-                        url: "phpScripts/EditItemDatabase.php",
+                        url: url,
                         data: $('form.edit').serialize(),
                         success: function(data) {
+                            //alert(data);
+                            $('#edit').trigger("reset");
                             $('#myDataTable').DataTable().ajax.reload();
                             $("#edit-modal").modal('hide'); 
                         }
                     });
+                });
+
+                $('.modal').on('hidden.bs.modal', function(){
+                    //alert("Modal closed");
+                    document.getElementById("edit").reset();
                 });               
             });         
 		</script>
@@ -159,6 +195,7 @@ and open the template in the editor.
                     </tr>
                 </thead>
             </table>
+                <button type="button" id="btn-new" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal">New</button>
                 <button type="button" id="btn-edit" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal">Edit</button>
                 <button type="button" id="btn-delete" class="btn btn-danger">Delete</button>
                 <button type="button" id="btn-unassign" class="btn btn-warning">Unassign</button>           
@@ -169,14 +206,15 @@ and open the template in the editor.
 		<div class="modal-dialog">
 			<div class="modal-content">				
 				<div class="modal-header">
-					<h3>Edit Item</h3>
+					<h3 id="title"></h3>
 				</div>				
 				<div class="modal-body">
-					<form class="edit" name="edit">
+					<form class="edit" name="edit" id="edit">
                         <input id="itemId", name="itemId" type="hidden">
 						<strong>AuctionId</strong>
 						<br />
                         <input id="auctionId" type="number" name="auctionId" class="input-xlarge" value=0>
+                        <label><input type="checkbox" value="true" class="input-xlarge" name="noId" id="noId">No AuctionId</label>
 						<br /><br /><strong>Description</strong><br />
 						<textarea id="description" name="description" class="input-xlarge"></textarea>
 						<br /><br /><strong>Donated By</strong><br />					
