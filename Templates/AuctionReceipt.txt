@@ -5,7 +5,7 @@ Purchased By ID Number: {{BuyerId}}
 
 
 { "startRepeatable": 1 }
-{ "size": 15, "weight": "B", "align": "C", "height": "10", "width": "-60", "left": "30" }
+{ "size": 15, "weight": "B", "align": "L", "height": "10", "width": "-60", "left": "30" }
 {{ItemId}}. {{Description}}
 { "size": 15, "weight": "B", "height": "10", "align": "R", "top": "-10" }
 ${{Value}}.00
