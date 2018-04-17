@@ -188,31 +188,25 @@ and open the template in the editor.
     <?php include "PhpScripts/Templates/Nav.php";?>
         
 		<div class="container body-content top">
-            <div class="text-center">
+            <div>
                 <button type="button" id="btn-new" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal" style="display: inline;">New Item</button>
                 <button type="button" id="btn-edit" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal" style="display: none;">Edit Item</button>
                 <button type="button" id="btn-delete" class="btn btn-danger" style="display: none;">Delete Item</button>
                 <button type="button" id="btn-unassign" class="btn btn-warning" style="display: none;">Unassign Item</button> 
             </div>
+            <br />
             <div class="dropdown text-center">
-            <div class="groups dropdown-toggle" data-toggle="dropdown">Select Groups ↓</div>
-            <div class="dropdown-menu">
-                <div class="dropdown">100's <input id="one" class="idFilter check-boxes" checked type="checkbox"></div>
-                <div class="dropdown">200's <input id="two" class="idFilter check-boxes" checked type="checkbox"></div>
-                <div class="dropdown">300's <input id="three" class="idFilter check-boxes" checked type="checkbox"></div>
-                <div class="dropdown">600's <input id="six" class="idFilter check-boxes" checked type="checkbox"></div>
-                <div class="dropdown">Not Numbered<input id="unassigned" class="idFilter check-boxes" checked type="checkbox"></div>
-            </div>
+                <div class="groups dropdown-toggle" data-toggle="dropdown">Select Groups ↓</div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown">100's <input id="one" class="idFilter check-boxes" checked type="checkbox"></div>
+                        <div class="dropdown">200's <input id="two" class="idFilter check-boxes" checked type="checkbox"></div>
+                        <div class="dropdown">300's <input id="three" class="idFilter check-boxes" checked type="checkbox"></div>
+                        <div class="dropdown">600's <input id="six" class="idFilter check-boxes" checked type="checkbox"></div>
+                        <div class="dropdown">Not Numbered<input id="unassigned" class="idFilter check-boxes" checked type="checkbox"></div>
+                    </div>
+                </div>
             </div>
             <table id="myDataTable"  class="display stripe" cellspacing="0" width="100%">
-            <!-- <div align="center"><br>
-                <label class="checkbox-inline"><input type="checkbox" class="idFilter" id="unassigned" checked>Unassigned</label>
-                <label class="checkbox-inline"><input type="checkbox" class="idFilter" id="one">100's</label>
-                <label class="checkbox-inline"><input type="checkbox" class="idFilter" id="two">200's</label>
-                <label class="checkbox-inline"><input type="checkbox" class="idFilter" id="three">300's</label>
-                <label class="checkbox-inline"><input type="checkbox" class="idFilter" id="six">600's</label>
-            <br>
-            </div> -->
                 <thead>
                     <tr>
                         <td ></td>

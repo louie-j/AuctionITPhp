@@ -5,7 +5,10 @@ $.fn.dataTable.ext.search.push(
         var two = document.getElementById('two').checked;
         var three = document.getElementById('three').checked;
         var six = document.getElementById('six').checked;
-        var id = parseInt( data[1] ); 
+        var id = window.location.pathname == '/AuctionITPhp/FindItem.php' ?
+            parseInt( data[1] ) : 
+            parseInt( data[0] );
+        console.log(window.location.pathname);
         if (unassigned && isNaN(id))
             return true;
         else if (one && !isNaN(id) && id >= 100 && id < 200)
@@ -19,8 +22,3 @@ $.fn.dataTable.ext.search.push(
         return false;
     }
 );
-
-function openCheckBoxDropdown() {
-    if (!document.getElementsByClassName("dropper")[0].classList.contains("auto-height")) document.getElementsByClassName("dropper")[0].classList.add("auto-height");
-    else document.getElementsByClassName("dropper")[0].classList.remove("auto-height");
-};
