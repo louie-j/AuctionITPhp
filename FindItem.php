@@ -47,33 +47,37 @@ and open the template in the editor.
                             },
                             "targets":1
                         }
-                    ]
+                    ],
+                    select: {
+                        style:    'os',
+                        selector: 'td:first-child'
+                    },
                 } );
 
                  $('#myDataTable tbody').on('click', 'tr', function () {
-                    var data = table.row( this ).data();
-                    //alert( 'You clicked on '+data.AuctionId+'\'s row' );
-                    $(this).toggleClass('selected');
+                    if ( $(this).hasClass('selected') ) {
+                        $(this).removeClass('selected');
+                    }
+                    else {
+                        table.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
                     switch (table.rows('.selected').data().length) {
                         case 0:
+                            document.getElementById("btn-new").style.display = "inline";
                             document.getElementById("btn-edit").style.display = "none";
                             document.getElementById("btn-unassign").style.display = "none";
                             document.getElementById("btn-delete").style.display = "none";
                             break;
                         case 1:
+                            document.getElementById("btn-new").style.display = "none";
                             if (table.rows('.selected').data()[0].ItemId > -1)
                                 document.getElementById("btn-edit").style.display = "inline";
                             else
                                 document.getElementById("btn-edit").style.display = "none"; 
                             document.getElementById("btn-unassign").style.display = "inline";
                             document.getElementById("btn-delete").style.display = "inline";
-                            break;
-                        default:
-                            document.getElementById("btn-edit").style.display = "none";
-                            document.getElementById("btn-unassign").style.display = "none";
-                            document.getElementById("btn-delete").style.display = "inline";
-                            break;    
-
+                            break; 
                     }
                 } );
 
@@ -178,6 +182,12 @@ and open the template in the editor.
     <?php include "PhpScripts/Templates/Nav.php";?>
         
 		<div class="container body-content top">
+            <div class="text-center">
+                <button type="button" id="btn-new" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal" style="display: inline;">New Item</button>
+                <button type="button" id="btn-edit" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal" style="display: none;">Edit Item</button>
+                <button type="button" id="btn-delete" class="btn btn-danger" style="display: none;">Delete Item</button>
+                <button type="button" id="btn-unassign" class="btn btn-warning" style="display: none;">Unassign Item</button> 
+            </div>
             <table id="myDataTable"  class="display stripe" cellspacing="0" width="100%">
                 <thead>
                     <tr>
@@ -189,11 +199,7 @@ and open the template in the editor.
                         <td class="last head">Last Edited By</td>
                     </tr>
                 </thead>
-            </table>
-                <button type="button" id="btn-new" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal">New</button>
-                <button type="button" id="btn-edit" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal">Edit</button>
-                <button type="button" id="btn-delete" class="btn btn-danger">Delete</button>
-                <button type="button" id="btn-unassign" class="btn btn-warning">Unassign</button>           
+            </table>    
          
 	
 	        
