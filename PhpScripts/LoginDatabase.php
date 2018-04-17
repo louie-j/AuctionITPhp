@@ -31,7 +31,8 @@ foreach($result as $row)
         header('Location: ../ViewAllItems.php');
         $loginSuccess = true;
     }
-
+    $_SESSION['autoID'] = $row["AutoId"];
+    $_SESSION['username'] = $row["Username"];
 }
 
 if (!$loginSuccess) {

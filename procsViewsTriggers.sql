@@ -251,6 +251,7 @@ END $$
 
 /*viewAccounts*/
 delimiter $$
+drop procedure if exists viewAccounts $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAccounts`()
  BEGIN
  	SELECT *
