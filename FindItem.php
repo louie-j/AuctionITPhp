@@ -40,6 +40,12 @@ and open the template in the editor.
                                  return data.LastModifiedBy + ' on ' + date;
                             },
                             "targets":5
+                        },
+                        {
+                            "render": function(data,type,row) {
+                                 return data == null ? "Unassigned" : data;
+                            },
+                            "targets":1
                         }
                     ]
                 } );
@@ -52,23 +58,20 @@ and open the template in the editor.
                     switch (table.rows('.selected').data().length) {
                         case 0:
                             document.getElementById("btn-edit").style.display = "none";
-                            document.getElementById("btn-merge").style.display = "none";
-                            document.getElementById("btn-separate").style.display = "none";
+                            document.getElementById("btn-unassign").style.display = "none";
                             document.getElementById("btn-delete").style.display = "none";
                             break;
                         case 1:
                             if (table.rows('.selected').data()[0].ItemId > -1)
                                 document.getElementById("btn-edit").style.display = "inline";
                             else
-                                document.getElementById("btn-edit").style.display = "none";    
-                            document.getElementById("btn-merge").style.display = "none";
-                            document.getElementById("btn-separate").style.display = "inline";
+                                document.getElementById("btn-edit").style.display = "none"; 
+                            document.getElementById("btn-unassign").style.display = "inline";
                             document.getElementById("btn-delete").style.display = "inline";
                             break;
                         default:
                             document.getElementById("btn-edit").style.display = "none";
-                            document.getElementById("btn-merge").style.display = "inline";
-                            document.getElementById("btn-separate").style.display = "none";
+                            document.getElementById("btn-unassign").style.display = "none";
                             document.getElementById("btn-delete").style.display = "inline";
                             break;    
 
@@ -81,12 +84,44 @@ and open the template in the editor.
                      document.getElementById("donatedBy").value = table.rows('.selected').data()[0].DonatedBy;
                      document.getElementById("value").value = table.rows('.selected').data()[0].Value;
                      document.getElementById("itemId").value = table.rows('.selected').data()[0].ItemId;
-                } );    
+                } );  
 
-                 $('button#btn-merge').click( function () {
-                     console.log("Merge");
-                    console.log( table.rows('.selected').data()[0]);
-                } );
+                $('button#btn-unassign').click( function () {
+                    console.log("Unassign Button");
+                    var auctionId = table.rows('.selected').data()[0].AuctionId;
+                    $.ajax ( {
+                        type: "Post",
+                        url: "phpScripts/unassignAuctionItems.php",
+                        data: {auctionId: auctionId },
+                        success: function(data) {
+                           // alert(data);
+                            $('#myDataTable').DataTable().ajax.reload();
+                        }
+                    });
+                } ); 
+
+                $('button#btn-delete').click( function () {
+                    console.log("Delete Button");
+                    if (table.rows('.selected').data()[0].AuctionId == null) {
+                        var id = table.rows('.selected').data()[0].ItemId;
+                        var isAssigned = false;
+                    }
+                    else {
+                        var id = table.rows('.selected').data()[0].ItemId;
+                        var isAssigned = true;
+                    }
+                    var auctionId = table.rows('.selected').data()[0].AuctionId;
+                    $.ajax ( {
+                        type: "POST",
+                        url: "phpScripts/deleteAuctionItem.php",
+                        data: {auctionId: id, isAssigned: isAssigned },
+                        success: function(data) {
+                            alert(data);
+                            $('#myDataTable').DataTable().ajax.reload();
+                        }
+                    });
+                } ); 
+
                 $("button#submit").click(function(){
                     console.log("Save Button");
                     console.log($('form.edit').serialize());
@@ -125,9 +160,8 @@ and open the template in the editor.
                 </thead>
             </table>
                 <button type="button" id="btn-edit" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal">Edit</button>
-                <button type="button" id="btn-merge" class="btn btn-primary">Merge</button>
                 <button type="button" id="btn-delete" class="btn btn-danger">Delete</button>
-                <button type="button" id="btn-separate" class="btn btn-warning">Separate</button>           
+                <button type="button" id="btn-unassign" class="btn btn-warning">Unassign</button>           
          
 	
 	        
@@ -142,7 +176,7 @@ and open the template in the editor.
                         <input id="itemId", name="itemId" type="hidden">
 						<strong>AuctionId</strong>
 						<br />
-						<input id="auctionId" type="number" name="auctionId" class="input-xlarge" value=0>
+                        <input id="auctionId" type="number" name="auctionId" class="input-xlarge" value=0>
 						<br /><br /><strong>Description</strong><br />
 						<textarea id="description" name="description" class="input-xlarge"></textarea>
 						<br /><br /><strong>Donated By</strong><br />					
