@@ -26,12 +26,12 @@ and open the template in the editor.
                     "bProcessing": true,
                     "columns": [
                         { mData: 'Username', "searchable": true } ,
-                        { mData: 'Type', "searchable": false },
                         { mData: 'Active', "searchable": false },
+                        { mData: 'Type', "searchable": false },
                         {  "targets": -1,
                             "data": null,
                             "orderable":false,
-                            "defaultContent": "<button>Edit</button>"}         
+                            "defaultContent": "<button class=>Edit</button>"}
                     ],
                     "columnDefs": [
                         {
@@ -42,7 +42,7 @@ and open the template in the editor.
                         },
                         {
                             "render": function(data,type,row) {
-                                 return data == 1 ? 'User' : 'Admin';
+                                 return data == 0 ? 'User' : 'Admin';
                             },
                             "targets":2
                         }
