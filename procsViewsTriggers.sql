@@ -1,5 +1,11 @@
 use auctionIT;
 
+drop view if exists viewunmarked;
+drop view if exists viewtwohundreds;
+drop view if exists viewthreehundreds;
+drop view if exists viewsixhundreds;
+drop procedure if exists viewAuctionItemGroups;
+
 /* View Donators */
 drop view if exists viewDonators;
 CREATE 

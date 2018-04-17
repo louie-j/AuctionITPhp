@@ -22,18 +22,9 @@ and open the template in the editor.
         <script type="text/javascript">
             var interval;
             var table;
-            $( document ).ready(function() {                
+            $( document ).ready(function() {                      
                 table = $('#myDataTable').DataTable( {
-                    "ajax": {
-                        "url": "phpScripts/ViewItemTable.php",
-                        "data": {
-                            "hundred": true,
-                            "twohundred": true,
-                            "threehundred": true,
-                            "sixhundred": true,
-                            "unmarked": true,
-                        }
-                    },
+                    "ajax": "phpScripts/ViewItemTable.php",
                     "bPaginate":true,
                     "bProcessing": true,
                     "columns": [
