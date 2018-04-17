@@ -19,11 +19,8 @@
                                     case("AdminPage.php"):
                                         echo("User Management");
                                         break;
-                                    case("EditItem.php"):
-                                        echo("Edit Item");
-                                        break;
-                                    case("PhpScripts/FindItem.php"):
-                                        echo("Find Item");
+                                    case("FindItem.php"):
+                                        echo("Item Management");
                                         break;
                                     case("Reports.php"):
                                         echo("Reports");
@@ -31,17 +28,11 @@
                                     case("RegisterBidder.php"):
                                         echo("Register Bidder");
                                         break;
-                                    case("AddItem.php"):
-                                        echo("Add Item");
-                                        break;
                                     case("index.php"):
                                         echo("Log In");
                                         break;
                                     case("AccountEditor.php"):
                                         echo("Account Editor");
-                                    break;
-                                    case("FindItem.php"):
-                                        echo("Find Item");
                                     break;
                                     default:
                                         echo(basename($_SERVER['PHP_SELF']));
@@ -61,13 +52,8 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
+                            <a class="nav-link" href="FindItem.php"><h4>Item Management</h4></a>
                         </li>
-                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
-                        <li>
-                            <a class="nav-link" href="FindItem.php"><h4>Edit an Item</h4></a>
-                        </li>
-                    <?php endif; ?>
                         <li>
                             <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
                         </li>

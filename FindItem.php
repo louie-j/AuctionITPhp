@@ -17,6 +17,7 @@ and open the template in the editor.
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
         <script src="DataTables/datatables.min.js"></script>
+        <script src="js/customItemFilter.js"></script>
         <script type="text/javascript">
             $( document ).ready(function()
             {
@@ -47,44 +48,75 @@ and open the template in the editor.
                             },
                             "targets":1
                         }
-                    ]
+                    ],
+                    select: {
+                        style:    'os',
+                        selector: 'td:first-child'
+                    },
+                } );
+
+                $('.idFilter').click( function() {
+                    console.log("Filter?");
+                    table.draw();
                 } );
 
                  $('#myDataTable tbody').on('click', 'tr', function () {
-                    var data = table.row( this ).data();
-                    console.log(data);
-                    //alert( 'You clicked on '+data.AuctionId+'\'s row' );
-                    $(this).toggleClass('selected');
+                    if ( $(this).hasClass('selected') ) {
+                        $(this).removeClass('selected');
+                    }
+                    else {
+                        table.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
                     switch (table.rows('.selected').data().length) {
                         case 0:
+                            document.getElementById("btn-new").style.display = "inline";
                             document.getElementById("btn-edit").style.display = "none";
                             document.getElementById("btn-unassign").style.display = "none";
                             document.getElementById("btn-delete").style.display = "none";
                             break;
                         case 1:
+                            document.getElementById("btn-new").style.display = "none";
                             if (table.rows('.selected').data()[0].ItemId > -1)
                                 document.getElementById("btn-edit").style.display = "inline";
                             else
                                 document.getElementById("btn-edit").style.display = "none"; 
                             document.getElementById("btn-unassign").style.display = "inline";
                             document.getElementById("btn-delete").style.display = "inline";
-                            break;
-                        default:
-                            document.getElementById("btn-edit").style.display = "none";
-                            document.getElementById("btn-unassign").style.display = "none";
-                            document.getElementById("btn-delete").style.display = "inline";
-                            break;    
-
+                            break; 
                     }
                 } );
 
+                $('input#noId').click( function () {
+                     //alert("No Auction Id");
+                    document.getElementById('auctionId').readOnly = document.getElementById('noId').checked;
+                    document.getElementById("auctionId").value = document.getElementById('noId').checked ?
+                        null :
+                        table.rows('.selected').data()[0].AuctionId;
+
+                } ); 
+                
+                $('button#btn-new').click( function () {
+                    $("#title").text("New Item");
+                })
+
                 $('button#btn-edit').click( function () {
-                     document.getElementById("auctionId").value = table.rows('.selected').data()[0].AuctionId;
+                    if (table.rows('.selected').data()[0].AuctionId) {
+                        document.getElementById("auctionId").value = table.rows('.selected').data()[0].AuctionId;
+                        document.getElementById('noId').checked = false;
+                    }
+                     else{
+                        document.getElementById("auctionId").value = null;
+                        document.getElementById('auctionId').readOnly = true;
+                        document.getElementById('noId').checked = true;
+                     }
+
                      document.getElementById("description").value = table.rows('.selected').data()[0].Description;
                      document.getElementById("donatedBy").value = table.rows('.selected').data()[0].DonatedBy;
                      document.getElementById("value").value = table.rows('.selected').data()[0].Value;
                      document.getElementById("itemId").value = table.rows('.selected').data()[0].ItemId;
-                } );  
+                     $("#title").text("Edit Item");
+                } );   
 
                 $('button#btn-unassign').click( function () {
                     console.log("Unassign Button");
@@ -111,29 +143,38 @@ and open the template in the editor.
                         var isAssigned = true;
                     }
                     var auctionId = table.rows('.selected').data()[0].AuctionId;
-                    $.ajax ( {
-                        type: "POST",
-                        url: "phpScripts/deleteAuctionItem.php",
-                        data: {auctionId: id, isAssigned: isAssigned },
-                        success: function(data) {
-                            alert(data);
-                            $('#myDataTable').DataTable().ajax.reload();
-                        }
-                    });
+                    if (confirm("Are you sure you want to delete the selected item?")) {
+                        $.ajax ( {
+                            type: "POST",
+                            url: "phpScripts/deleteAuctionItem.php",
+                            data: {auctionId: id, isAssigned: isAssigned },
+                            success: function(data) {
+                                $('#myDataTable').DataTable().ajax.reload();
+                            }
+                        });
+                    }
                 } ); 
 
                 $("button#submit").click(function(){
-                    console.log("Save Button");
-                    console.log($('form.edit').serialize());
+                   
+                    var url = document.getElementById("itemId").value == null 
+                        ? "phpScripts/AddItemDatabase.php"
+                        : "phpScripts/EditItemDatabase.php" ;
                     $.ajax( {
                         type: "POST",
-                        url: "phpScripts/EditItemDatabase.php",
+                        url: url,
                         data: $('form.edit').serialize(),
                         success: function(data) {
+                            document.getElementById("edit").reset();
                             $('#myDataTable').DataTable().ajax.reload();
                             $("#edit-modal").modal('hide'); 
+                            table.rows('.selected').remove();
                         }
                     });
+                });
+
+                $('.modal').on('hidden.bs.modal', function(){
+                    document.getElementById("edit").reset();
                 });               
             });         
 		</script>
@@ -147,6 +188,24 @@ and open the template in the editor.
     <?php include "PhpScripts/Templates/Nav.php";?>
         
 		<div class="container body-content top">
+            <div>
+                <button type="button" id="btn-new" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal" style="display: inline;">New Item</button>
+                <button type="button" id="btn-edit" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal" style="display: none;">Edit Item</button>
+                <button type="button" id="btn-delete" class="btn btn-danger" style="display: none;">Delete Item</button>
+                <button type="button" id="btn-unassign" class="btn btn-warning" style="display: none;">Unassign Item</button> 
+            </div>
+            <br />
+            <div class="dropdown text-center">
+                <div class="groups dropdown-toggle" data-toggle="dropdown">Select Groups ↓</div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown">100's <input id="one" class="idFilter check-boxes" type="checkbox"></div>
+                        <div class="dropdown">200's <input id="two" class="idFilter check-boxes" type="checkbox"></div>
+                        <div class="dropdown">300's <input id="three" class="idFilter check-boxes" type="checkbox"></div>
+                        <div class="dropdown">600's <input id="six" class="idFilter check-boxes" type="checkbox"></div>
+                        <div class="dropdown">Not Numbered<input id="unassigned" class="idFilter check-boxes" checked type="checkbox"></div>
+                    </div>
+                </div>
+            </div>
             <table id="myDataTable"  class="display stripe" cellspacing="0" width="100%">
                 <thead>
                     <tr>
@@ -158,10 +217,7 @@ and open the template in the editor.
                         <td class="last head">Last Edited By</td>
                     </tr>
                 </thead>
-            </table>
-                <button type="button" id="btn-edit" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal">Edit</button>
-                <button type="button" id="btn-delete" class="btn btn-danger">Delete</button>
-                <button type="button" id="btn-unassign" class="btn btn-warning">Unassign</button>           
+            </table>    
          
 	
 	        
@@ -169,14 +225,15 @@ and open the template in the editor.
 		<div class="modal-dialog">
 			<div class="modal-content">				
 				<div class="modal-header">
-					<h3>Edit Item</h3>
+					<h3 id="title"></h3>
 				</div>				
 				<div class="modal-body">
-					<form class="edit" name="edit">
+					<form class="edit" name="edit" id="edit">
                         <input id="itemId", name="itemId" type="hidden">
 						<strong>AuctionId</strong>
 						<br />
-                        <input id="auctionId" type="number" name="auctionId" class="input-xlarge" value=0>
+                        <input id="auctionId" type="number" name="auctionId" class="input-xlarge" readonly>
+                        <label><input type="checkbox" value="true" class="input-xlarge" name="noId" id="noId" checked>No AuctionId</label>
 						<br /><br /><strong>Description</strong><br />
 						<textarea id="description" name="description" class="input-xlarge"></textarea>
 						<br /><br /><strong>Donated By</strong><br />					
