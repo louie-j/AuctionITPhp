@@ -52,7 +52,6 @@ and open the template in the editor.
 
                  $('#myDataTable tbody').on('click', 'tr', function () {
                     var data = table.row( this ).data();
-                    console.log(data);
                     //alert( 'You clicked on '+data.AuctionId+'\'s row' );
                     $(this).toggleClass('selected');
                     switch (table.rows('.selected').data().length) {
@@ -150,19 +149,15 @@ and open the template in the editor.
                     var url = document.getElementById("itemId").value == null 
                         ? "phpScripts/AddItemDatabase.php"
                         : "phpScripts/EditItemDatabase.php" ;
-                        
-                    console.log("Save Button");
-                    console.log(url);
-                    console.log($('form.edit').serialize());
                     $.ajax( {
                         type: "POST",
                         url: url,
                         data: $('form.edit').serialize(),
                         success: function(data) {
-                            //alert(data);
-                            $('#edit').trigger("reset");
+                            document.getElementById("edit").reset();
                             $('#myDataTable').DataTable().ajax.reload();
                             $("#edit-modal").modal('hide'); 
+                            table.rows('.selected').remove();
                         }
                     });
                 });
@@ -213,8 +208,8 @@ and open the template in the editor.
                         <input id="itemId", name="itemId" type="hidden">
 						<strong>AuctionId</strong>
 						<br />
-                        <input id="auctionId" type="number" name="auctionId" class="input-xlarge" value=0>
-                        <label><input type="checkbox" value="true" class="input-xlarge" name="noId" id="noId">No AuctionId</label>
+                        <input id="auctionId" type="number" name="auctionId" class="input-xlarge" readonly>
+                        <label><input type="checkbox" value="true" class="input-xlarge" name="noId" id="noId" checked>No AuctionId</label>
 						<br /><br /><strong>Description</strong><br />
 						<textarea id="description" name="description" class="input-xlarge"></textarea>
 						<br /><br /><strong>Donated By</strong><br />					
