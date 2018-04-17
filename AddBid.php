@@ -199,6 +199,7 @@ and open the template in the editor.
             }
 
             function checkBid(bid) {
+                if (minBid == null) minBid = 5;
                 if (bid >= minBid) {
                     hideOrShowElement("hide", "minBidError");
                     if (bid % 5 == 0) {
@@ -212,12 +213,16 @@ and open the template in the editor.
                     else {
                         bidValid = false;
                         hideOrShowElement("show", "multipleOfFiveError")
+                        hideOrShowElement("hide", "enabled");
+                        hideOrShowElement("show", "disabled");
                     }
                 } 
                 else {
                     bidValid = false;
                     document.getElementById("minBidError").textContent = "Bid must be at least $" + minBid.toString();
                     hideOrShowElement("show", "minBidError");
+                    hideOrShowElement("hide", "enabled");
+                    hideOrShowElement("show", "disabled"); 
                 }
             }
 
