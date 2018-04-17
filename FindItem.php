@@ -198,10 +198,10 @@ and open the template in the editor.
             <div class="dropdown text-center">
                 <div class="groups dropdown-toggle" data-toggle="dropdown">Select Groups ↓</div>
                     <div class="dropdown-menu">
-                        <div class="dropdown">100's <input id="one" class="idFilter check-boxes" checked type="checkbox"></div>
-                        <div class="dropdown">200's <input id="two" class="idFilter check-boxes" checked type="checkbox"></div>
-                        <div class="dropdown">300's <input id="three" class="idFilter check-boxes" checked type="checkbox"></div>
-                        <div class="dropdown">600's <input id="six" class="idFilter check-boxes" checked type="checkbox"></div>
+                        <div class="dropdown">100's <input id="one" class="idFilter check-boxes" type="checkbox"></div>
+                        <div class="dropdown">200's <input id="two" class="idFilter check-boxes" type="checkbox"></div>
+                        <div class="dropdown">300's <input id="three" class="idFilter check-boxes" type="checkbox"></div>
+                        <div class="dropdown">600's <input id="six" class="idFilter check-boxes" type="checkbox"></div>
                         <div class="dropdown">Not Numbered<input id="unassigned" class="idFilter check-boxes" checked type="checkbox"></div>
                     </div>
                 </div>
