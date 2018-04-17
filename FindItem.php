@@ -168,7 +168,6 @@ and open the template in the editor.
                 });
 
                 $('.modal').on('hidden.bs.modal', function(){
-                    //alert("Modal closed");
                     document.getElementById("edit").reset();
                 });               
             });         
