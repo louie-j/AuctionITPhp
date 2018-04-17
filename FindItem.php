@@ -18,6 +18,28 @@ and open the template in the editor.
         <script src ="js/bootstrap.min.js"></script>
         <script src="DataTables/datatables.min.js"></script>
         <script type="text/javascript">
+
+            $.fn.dataTable.ext.search.push(
+                function( settings, data, dataIndex ) {
+                    var unassigned = document.getElementById('unassigned').checked
+                    var one = document.getElementById('one').checked;
+                    var two = document.getElementById('two').checked;
+                    var three = document.getElementById('three').checked;
+                    var six = document.getElementById('six').checked;
+                    var id = parseFloat( data[1] ); //|| 0; // use data for the age column
+                    if (unassigned && isNaN(id))
+                        return true;
+                    else if (one && !isNaN(id) && id >= 100 && id < 200)
+                        return true;
+                    else if (two && !isNaN(id) && id >= 200 && id < 300)
+                        return true;   
+                    else if (three && !isNaN(id) && id >= 300 && id < 400)
+                        return true;         
+                    else if (six && !isNaN(id) && id >= 600 && id < 700)
+                        return true;    
+                    return false;
+                }
+            );
             $( document ).ready(function()
             {
                 var table = $('#myDataTable').DataTable( {
@@ -52,6 +74,11 @@ and open the template in the editor.
                         style:    'os',
                         selector: 'td:first-child'
                     },
+                } );
+
+                $('.idFilter').click( function() {
+                    console.log("Filter?");
+                    table.draw();
                 } );
 
                  $('#myDataTable tbody').on('click', 'tr', function () {
@@ -189,6 +216,14 @@ and open the template in the editor.
                 <button type="button" id="btn-unassign" class="btn btn-warning" style="display: none;">Unassign Item</button> 
             </div>
             <table id="myDataTable"  class="display stripe" cellspacing="0" width="100%">
+            <div align="center"><br>
+                <label class="checkbox-inline"><input type="checkbox" class="idFilter" id="unassigned" checked>Unassigned</label>
+                <label class="checkbox-inline"><input type="checkbox" class="idFilter" id="one">100's</label>
+                <label class="checkbox-inline"><input type="checkbox" class="idFilter" id="two">200's</label>
+                <label class="checkbox-inline"><input type="checkbox" class="idFilter" id="three">300's</label>
+                <label class="checkbox-inline"><input type="checkbox" class="idFilter" id="six">600's</label>
+            <br>
+            </div>
                 <thead>
                     <tr>
                         <td ></td>
