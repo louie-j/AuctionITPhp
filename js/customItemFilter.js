@@ -8,7 +8,6 @@ $.fn.dataTable.ext.search.push(
         var id = window.location.pathname == '/AuctionITPhp/FindItem.php' ?
             parseInt( data[1] ) : 
             parseInt( data[0] );
-        console.log(window.location.pathname);
         if (unassigned && isNaN(id))
             return true;
         else if (one && !isNaN(id) && id >= 100 && id < 200)

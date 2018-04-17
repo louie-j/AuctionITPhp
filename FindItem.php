@@ -56,7 +56,6 @@ and open the template in the editor.
                 } );
 
                 $('.idFilter').click( function() {
-                    console.log("Filter?");
                     table.draw();
                 } );
 
@@ -119,7 +118,6 @@ and open the template in the editor.
                 } );   
 
                 $('button#btn-unassign').click( function () {
-                    console.log("Unassign Button");
                     var auctionId = table.rows('.selected').data()[0].AuctionId;
                     $.ajax ( {
                         type: "Post",
@@ -133,7 +131,6 @@ and open the template in the editor.
                 } ); 
 
                 $('button#btn-delete').click( function () {
-                    console.log("Delete Button");
                     if (table.rows('.selected').data()[0].AuctionId == null) {
                         var id = table.rows('.selected').data()[0].ItemId;
                         var isAssigned = false;
@@ -175,12 +172,22 @@ and open the template in the editor.
 
                 $('.modal').on('hidden.bs.modal', function(){
                     document.getElementById("edit").reset();
-                });               
+                });   
             });         
+
+            function openCheckBoxDropdown() {
+                if (!document.getElementsByClassName("dropper")[0].classList.contains("auto-height")) document.getElementsByClassName("dropper")[0].classList.add("auto-height");
+                else document.getElementsByClassName("dropper")[0].classList.remove("auto-height");
+            }
+
+            function clickInput(id) {
+                document.getElementById(id).click();
+            }
 		</script>
 		<link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
-        <link href="DataTables/DataTables-1.10.16/css/dataTables.jqueryui.min.css" text="text/css" rel="stylesheet">
+        <link href="css/customStyles.css" text="text/css" rel="stylesheet">
+        <!-- <link href="DataTables/DataTables-1.10.16/css/dataTables.jqueryui.min.css" text="text/css" rel="stylesheet"> -->
         <meta charset="UTF-8">
         <title></title>
     </head>
@@ -195,16 +202,13 @@ and open the template in the editor.
                 <button type="button" id="btn-unassign" class="btn btn-warning" style="display: none;">Unassign Item</button> 
             </div>
             <br />
-            <div class="dropdown text-center">
-                <div class="groups dropdown-toggle" data-toggle="dropdown">Select Groups ↓</div>
-                    <div class="dropdown-menu">
-                        <div class="dropdown">100's <input id="one" class="idFilter check-boxes" type="checkbox"></div>
-                        <div class="dropdown">200's <input id="two" class="idFilter check-boxes" type="checkbox"></div>
-                        <div class="dropdown">300's <input id="three" class="idFilter check-boxes" type="checkbox"></div>
-                        <div class="dropdown">600's <input id="six" class="idFilter check-boxes" type="checkbox"></div>
-                        <div class="dropdown">Not Numbered<input id="unassigned" class="idFilter check-boxes" checked type="checkbox"></div>
-                    </div>
-                </div>
+            <div onclick="openCheckBoxDropdown()" class="groups" data-toggle="dropdown">Select Groups ↓</div>
+            <div class="dropper" style="top: 98px !important">
+                <div onclick="clickInput('one')" class="dropdown">100's <input id="one" class="idFilter check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('two')" class="dropdown">200's <input id="two" class="idFilter check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('three')" class="dropdown">300's <input id="three" class="idFilter check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('six')" class="dropdown">600's <input id="six" class="idFilter check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('unassigned')" class="dropdown">Not Numbered<input id="unassigned" class="idFilter check-boxes" checked type="checkbox"></div>
             </div>
             <table id="myDataTable"  class="display stripe" cellspacing="0" width="100%">
                 <thead>

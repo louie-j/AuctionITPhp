@@ -38,7 +38,6 @@ and open the template in the editor.
                 }); // end data table
 
                 $('.idFilter').click( function() {
-                    console.log("Filter?");
                     table.draw();
                 } );
 
@@ -69,6 +68,15 @@ and open the template in the editor.
                 }
             }
 
+            function openCheckBoxDropdown() {
+                if (!document.getElementsByClassName("dropper")[0].classList.contains("auto-height")) document.getElementsByClassName("dropper")[0].classList.add("auto-height");
+                else document.getElementsByClassName("dropper")[0].classList.remove("auto-height");
+            }
+
+            function clickInput(id) {
+                document.getElementById(id).click();
+            }
+
         </script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <link href="css/customStyles.css" text="text/css" rel="stylesheet">
@@ -80,30 +88,28 @@ and open the template in the editor.
     <body>
     <?php include "PhpScripts/Templates/Nav.php";?>
         <div class="container body-content top">
-            <div class="dropdown text-center">
-                  <div class="groups dropdown-toggle" data-toggle="dropdown">Select Groups ↓</div>
-                    <div class="dropdown-menu">
-                        <div class="dropdown">100's <input id="one" class="idFilter check-boxes" checked type="checkbox"></div>
-                        <div class="dropdown">200's <input id="two" class="idFilter check-boxes" checked type="checkbox"></div>
-                        <div class="dropdown">300's <input id="three" class="idFilter check-boxes" checked type="checkbox"></div>
-                        <div class="dropdown">600's <input id="six" class="idFilter check-boxes" checked type="checkbox"></div>
-                        <div class="dropdown">Not Numbered<input id="unassigned" class="idFilter check-boxes" checked type="checkbox"></div>
-                    </div>
-                </div>
+            <div onclick="openCheckBoxDropdown()" class="groups" data-toggle="dropdown">Select Groups ↓</div>
+            <div class="dropper">
+                <div onclick="clickInput('one')" class="dropdown">100's <input id="one" class="idFilter check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('two')" class="dropdown">200's <input id="two" class="idFilter check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('three')" class="dropdown">300's <input id="three" class="idFilter check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('six')" class="dropdown">600's <input id="six" class="idFilter check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('unassigned')" class="dropdown">Not Numbered<input id="unassigned" class="idFilter check-boxes" checked type="checkbox"></div>
             </div>
+        </div>
             
-            <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <td class="first head">AuctionId</td>
-                        <td class="head">Description</td>
-                        <td class="head">Donated By</td>
-                        <td class="head">Value</td>
-                        <td class="head">Winning Bidder</td>
-                        <td class="last head">Winning Bid</td>
-                    </tr>
-                </thead>
-            </table>
+        <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <td class="first head">AuctionId</td>
+                    <td class="head">Description</td>
+                    <td class="head">Donated By</td>
+                    <td class="head">Value</td>
+                    <td class="head">Winning Bidder</td>
+                    <td class="last head">Winning Bid</td>
+                </tr>
+            </thead>
+        </table>
             <input id="start" type="button" class="btn-info center" value="Start Rotating Pages" onclick="changePagesAutomatically();" />
         </div>
     </body>
