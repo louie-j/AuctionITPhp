@@ -298,7 +298,7 @@ End $$
 /*updateAccount*/
 Delimiter $$
 drop procedure if exists updateAccount $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccount`(in id INT, in pass VARCHAR(100), in type VARCHAR(5), in active BOOL)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccount`(in id INT(11), in pass VARCHAR(256), in type VARCHAR(20), in active tinyint(4))
 BEGIN
 	UPDATE ACCOUNTS as A
 	SET A.Password_hashed = IFNULL(pass, A.Password_hashed),
@@ -363,6 +363,7 @@ DELIMITER ;
 
 
 
+
 /*viewAccounts*/
 delimiter $$
 drop procedure if exists viewAccounts $$
@@ -371,3 +372,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAccounts`()
  	SELECT *
      FROM ACCOUNTS;
 END $$
+
+/*viewAccount*/
+delimiter $$
+drop procedure if exists viewAccount $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAccount`(in id INT)
+ BEGIN
+ 	SELECT *
+     FROM ACCOUNTS
+     WHERE id = AutoId;
+END $$
+

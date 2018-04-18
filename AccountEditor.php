@@ -1,58 +1,174 @@
-         <?php
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <?php
             session_start();
             if($_SESSION["accountType"] != 'admin')
             {
                 header('Location: index.php'); 
             }
         ?>
-
+       
         <script type="text/javascript">
-        // var radioStatusActive = document.getElementById("statusARadioBtn");
-        // radioStatusActive.addEventListener("click", updateRadioBtns());
+            function validate()
+                {
+                    var error="";
+                    var activeBtn     = document.getElementById( "statusARadioBtn" );
+                    var inActiveBtn   = document.getElementById( "statusInARadioBtn" );
+                    var adminBtn      = document.getElementById( "type1RadioBtn" );
+                    var regUserBtn    = document.getElementById( "type2RadioBtn" );
 
-            function intialializeRadioBtns() 
+                    if( activeBtn.value === false && inActiveBtn.value === false)
+                    {
+                        error = "You have not selected user activity.";
+                        document.getElementById( "error_para" ).innerHTML = error;
+                        return false;
+                    }
+                    var description = document.getElementById( "description" );
+                    if( adminBtn.value === false && regUserBtn.value === false )
+                    {
+                        error = "You have not selected user type.";
+                        document.getElementById( "error_para" ).innerHTML = error;
+                        return false;
+                    }
+
+                    else
+                    {
+                        return true;
+                    }
+                }
+
+
+
+
+            window.onload = function intialializeRadioBtns() 
             {
-                document.getElementById("statusARadioBtn").checked = true;
-                var status =  $('#UserManagementBody').data( 'status');
-                var accType =  $('#UserManagementBody').data( 'accType');
+                var queryString = decodeURIComponent(window.location.search);
+                queryString = queryString.substring(1);
+
+                var queries = queryString.split("&");
+                var autoId, accType, status;
+                for (var i = 0; i < queries.length; i++)
+                {
+                    //There will be three cases
+                    switch(i)
+                    {
+                        case 0:
+                            autoId  = queries[i].substring(5);
+                            break;
+                        case 1:
+                            accType = queries[i].substring(5);
+                            break;
+                        case 2:
+                            status  = queries[i].substring(5);             
+                            break;
+                    }
+                 }
+
+                //Set account number 
+                document.getElementById("accountLabel").text = autoId;
+
+                if (status == 1)
+                    document.getElementById("statusARadioBtn").checked = true;
+                else
+                    document.getElementById("statusInARadioBtn").checked = true;
+                if(accType == "Admin")
+                    document.getElementById("typeAdminRadioBtn").checked = true;
+                else   
+                    document.getElementById("typeRegRadioBtn").checked = true;
             }
 
             //Radio button action buttons
             function clickActive() {document.getElementById("statusInARadioBtn").checked = false;}
             function clickInActive() {document.getElementById("statusARadioBtn").checked = false;}
-            function clickAdmin(){document.getElementById("type2RadioBtn").checked = false;}
-            function clickRegular(){document.getElementById("type1RadioBtn").checked = false}
-
-            function update(){}
+            function clickAdmin(){document.getElementById("typeRegRadioBtn").checked = false;}
+            function clickRegular(){document.getElementById("typeAdminRadioBtn").checked = false}
 
         </script>
+        <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+
+    <body  class="container body-content top" >
 
 
-    <div id = "tease">
-        <?php include "PhpScripts/Templates/Nav.php";?>
-        
-        <form id = "radioBtnForm" action="" >
-        <label>Status</label><br>
-            <input onclick="clickActive()" id = "statusARadioBtn" type="radio" name="statusA" value="Active"> Active<br>
-            <input onclick="clickInActive()" id = "statusInARadioBtn" type="radio" name="statusInA" value="Inactive"> Inactive<br>
+        <?php include "PhpScripts/Templates/Nav.php";
 
-            <label>Type of User</label><br>
-            <input onclick="clickAdmin()" id = "type1RadioBtn" type="radio" name="type1" value="Admin"> Admin <br>
-            <input onclick="clickRegular()" id = "type2RadioBtn" type="radio" name="type2" value="Regular"> Regular <br>
-        </form>
+            require 'PhpScripts/DatabaseConnection.php';
+            $autoId = 4;
+            $username = $password_hashed = $type = $active = "";  
+            $conn = Connect();
+            //$autoId = $conn->real_escape_string($_POST['autoId']);
+            $query = "CALL viewAccount(". $autoId . ")";
+            $result = $conn->query($query);
+            if ($result->num_rows == 1) {
+                while($row = mysqli_fetch_assoc($result)) {
+                    $autoId             = $row["AutoId"];
+                    
+                    $username           = $row["Username"];
+                    echo $username;
+                    $password_hashed    = $row["Password_hashed"];
+                    //echo $password_hashed;
+                    //$type               = $row["Type"];    
+                    //echo $type;
+                    //$active             = $row["Active"]; 
+                    //echo $active; 
+                } 
+            }
+            else 
+            {
+                $autoId = "Not Found";
+                $username = "Not Found";
+                $password_hashed = "Not Found";
+                $type = "Not Found";
+                $active = "Not Found";
+            } 
+            $_SESSION["autoId"] = $autoId;
+            $_SESSION["username"] = $username;
+            //$_SESSION["password_hashed"] = $password_hashed;
+            //$_SESSION["type"] = $type;
+            //$_SESSION["active"] = $active;
 
-          <form action="">
-            <label>New Password</label><br>
-            <input id = "newPasswordText" type="text" name="New Password">
-  
-        </form>
+    //echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+    /*<input onclick="clickActive()"   id = "statusARadioBtn"      type="radio" name="active"        value="<?php echo  $active ?>"> Active<br>
+    <input onclick="clickAdmin()"    id = "typeAdminRadioBtn"    type="radio" name="typeAdmin"     value="<?php echo  $type    ?>"  > Admin <br>
+     */   
+        ?>
+        <div>
+                <form class="form-group" action="PhpScripts/EditUser.php" onsubmit="return validate();" method="post">
+                    <div id = "radioBtns" class="form-group">
 
-          <form action="">
-            <button onclick="location.href = 'AdminPage.php';" id = "updateButton" type="button">Update</button>
-            <button onclick="location.href = 'AdminPage.php';" id = "deleteButton" type="button">Delete</button>
-            <button onclick="location.href = 'AdminPage.php';" id = "cancelButton" type="button">Cancel</button>
-        </form>
-        
-        
+                    <label for "accountLabel">Account Number</label>
+                    <input type="text" class="form-control" name="autoId" id="accountLabel" value="<?php echo $autoId ?>" readonly>
 
-    </div>
+                    <label>Status</label><br>
+                        <input onclick="clickActive()"   id = "statusARadioBtn"      type="radio" name="active"          > Active<br> 
+                        <input onclick="clickInActive()" id = "statusInARadioBtn"    type="radio" name="inActive"                                    > Inactive<br>
+                        <label>Type of User</label><br>
+                        <input onclick="clickAdmin()"    id = "typeAdminRadioBtn"    type="radio" name="typeAdmin"      value = false  > Admin <br>
+                        <input onclick="clickRegular()"  id = "typeRegRadioBtn"      type="radio" name="typeRegular"                                 > Regular <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label>New Password</label><br>
+                        <input id = "newPasswordText" type="text" name="newPassword">
+                    </div>
+
+                    <div class="form-group">
+                            <button onclick="location.href = 'AdminPage.php';" class="btn btn-primary" id = "updateButton" type="submit">Update</button>
+                            
+                            <button onclick="location.href = 'AdminPage.php';" class="btn btn-primary" id = "cancelButton" type="button">Cancel</button>
+                    </div>
+                </form>
+                <p id="error_para" ></p>
+                
+        </div>
+    </body>
+</html>
