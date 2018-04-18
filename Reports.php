@@ -35,7 +35,7 @@ and open the template in the editor.
             <div class="separator"></div>
             <form class="form-group" action="PhpScripts/GenerateSpecificReceipt.php" method="post">
                 <div class="form-group">
-                    <label for="bidderID">Bidder ID</label>
+                    <label for="bidderID" style="margin-left: 12px;">Bidder ID</label>
                     <input type="text" class="form-control" name="bidderID" id="bidderID" placeholder="Bidder ID">
                 </div>
                 <input class="btn btn-primary" type="submit" value="Get Specific Receipt">
