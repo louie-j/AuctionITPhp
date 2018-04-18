@@ -52,7 +52,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a class="nav-link" href="FindItem.php"><h4>Item Management</h4></a>
+                            <a class="nav-link" href="ItemManagement.php"><h4>Item Management</h4></a>
                         </li>
                         <li>
                             <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
