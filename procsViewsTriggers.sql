@@ -320,6 +320,17 @@ Begin
     where AuctionId = auctionid and BidderId = bidderid;
 End $$
 
+/*deleteBidder*/
+DELIMITER $$
+DROP PROCEDURE IF EXISTS deleteBidder $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteBidder`(in id INT)
+BEGIN
+	DELETE FROM bidders
+    WHERE bidderId = id;
+END$$
+DELIMITER ;
+
+
 /* viewSpecificItem */
 Delimiter $$
 Drop procedure if exists viewSpecificItem $$
@@ -339,19 +350,20 @@ BEGIN
 	VALUES(600, bidder, 10*amount, amount);
 END $$
 
-
+drop procedure if exists updateBidder $$
 
 /*updateBidder*/
-delimiter $$
-drop procedure if exists updateBidder $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateBidder`(in id INT, `name` VARCHAR(100), in address VARCHAR(100), in phoneNumber INT(10))
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateBidder`(in id INT, `name` VARCHAR(100), in address VARCHAR(100), in phoneNumber VARCHAR(10))
 BEGIN
 	UPDATE BIDDERS as B
-	SET B.`name`     = IFNULL(`name`, B.`Name`),
-		B.address    = IFNULL(address, B.address),
-		B.Phone      = IFNULL(phoneNumber, B.Phone)
+	SET B.`name`     = `name`,
+		B.address    = address,
+		B.Phone      = phoneNumber
 	WHERE B.BidderId = id;
-END $$
+END$$
+DELIMITER ;
+
 
 
 /*viewAccounts*/
