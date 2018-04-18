@@ -279,22 +279,6 @@ Begin
 End $$
 
 
-/* updateAuctionItem */
-Delimiter $$
-Drop procedure if exists updateAuctionItem $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAuctionItem`(in id int(11), in AuctionId int(11), in Description varchar(500), in DonatedBy varchar(500), in `Value` decimal(10,2), in AddedModifiedDate datetime, in AddedModifiedBy int(11))
-Begin
-    UPDATE auctionitems
-    SET    
-           AuctionId = AuctionId,
-           Description = Description,
-           DonatedBy = DonatedBy,
-           `Value` = `Value`,
-           AddedModifiedDate = AddedModifiedDate,
-           AddedModifiedBy = AddedModifiedBy
-    WHERE  ItemId = id;
-End $$
-
 /*updateAccount*/
 Delimiter $$
 drop procedure if exists updateAccount $$

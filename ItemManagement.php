@@ -165,7 +165,7 @@ and open the template in the editor.
 
                 $("button#submit").click(function(){
                    
-                    var url = document.getElementById("itemId").value == null 
+                    var url = document.getElementById("itemId").value == "" 
                         ? "phpScripts/AddItemDatabase.php"
                         : "phpScripts/EditItemDatabase.php" ;
                     $.ajax( {
@@ -173,6 +173,7 @@ and open the template in the editor.
                         url: url,
                         data: $('form.edit').serialize(),
                         success: function(data) {
+                            console.log(data);
                             document.getElementById("edit").reset();
                             $('#myDataTable').DataTable().ajax.reload();
                             $("#edit-modal").modal('hide'); 

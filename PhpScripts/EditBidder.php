@@ -3,9 +3,9 @@
    require 'DatabaseConnection.php';
    $bidderId = strip_tags($_POST['bidderId']);
    $phone = strip_tags($_POST['phone']) == null ? 'null' : "'" . strip_tags($_POST['phone']) . "'";
-   $address = strip_tags($_POST['address']) == null ? 'null' : "'" . strip_tags($_POST['address']) . "'";
-   $name = strip_tags($_POST['name']) == null ? 'null' : "'" . strip_tags($_POST['name']) . "'";
-
+   $address = strip_tags($_POST['address']) == null ? 'null' : "'" . addslashes(strip_tags($_POST['address'])) . "'";
+   $name = strip_tags($_POST['name']) == null ? 'null' : "'" . addslashes(strip_tags($_POST['name'])) . "'";
+   $phone = preg_replace("/\D/", "", $phone);
    $conn = Connect();
    $sql = "CALL updateBidder ('" . $bidderId . "'," . $name . "," . $address . "," . $phone . ")";
    
