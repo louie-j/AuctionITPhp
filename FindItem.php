@@ -166,7 +166,6 @@ and open the template in the editor.
                 } ); 
 
                 $("button#submit").click(function(){
-                   
                     var url = document.getElementById("itemId").value == null 
                         ? "phpScripts/AddItemDatabase.php"
                         : "phpScripts/EditItemDatabase.php" ;
