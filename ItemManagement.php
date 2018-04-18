@@ -206,7 +206,7 @@ and open the template in the editor.
     <body id="UserManagementBody">
     <?php include "PhpScripts/Templates/Nav.php";?>
         
-		<div class="container body-content top">
+		<div style="width: 100% !important;" class="container body-content top">
             <div>
                 <button type="button" id="btn-new" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal" style="display: inline;">New Item</button>
                 <button type="button" id="btn-edit" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal" style="display: none;">Edit Item</button>

@@ -28,6 +28,8 @@ and open the template in the editor.
                         { mData: 'Username', "searchable": true } ,
                         { mData: 'Active', "searchable": false },
                         { mData: 'Type', "searchable": false },
+                        { mData: 'Password_hashed', "searchable": false },
+  
                         {  "targets": -1,
                             "data": null,
                             "orderable":false,
@@ -42,7 +44,7 @@ and open the template in the editor.
                         },
                         {
                             "render": function(data,type,row) {
-                                 return data == 0 ? 'User' : 'Admin';
+                                 return data == 'Admin' ? 'Admin' : 'User';
                             },
                             "targets":2
                         }
@@ -52,22 +54,21 @@ and open the template in the editor.
 
                 //Function that responds to user clicking edit button
                 $('#myDataTable tbody').on( 'click', 'button', function () {
-                    var dataObj = table.row( $(this).parents('td') ).data();
-                       
-                    //alert( JSON.stringify(data));//alert( JSON.stringify(data));
-                    var data    = Object.values(dataObj);
-                    $('#UserManagementBody').data( 'accType', data[3] );
-                    $('#UserManagementBody').data( 'status', data[4] );
 
-                    //var accType =data[3]; 
-                    //var status = data[4];
-                   // alert("test" + data[4]);
-                    $("#UserManagementBody").load("AccountEditor.php").dialog({
-                        appendTo: "#UserManagementBody"
-                        
-                        });
+                    //Get the data from the selected row
+                    var dataObj = table.row( $(this).parents('td') ).data();
+                    var data    = Object.values(dataObj);
+                    var AccID   = data[0];
+                    var TypeValue   = data[3];
+                    var activeValue = data[4];
+                
+                    //var queryString =  AccID +  TypeValue  + activeValue;
+                    var queryString = "?val1=" + AccID + "&val2=" + TypeValue +"&val3=" + activeValue;
+                    //alert(queryString);
+                    location.href = "AccountEditor.php" + queryString;
+
                     } );    
-                    //intialializeRadioBtns(); 
+               
 
                     setInterval( function () {
                     table.ajax.reload(null, false);
@@ -110,6 +111,7 @@ and open the template in the editor.
                         <td class="first head">Username</td>
                         <td class="head">State</td>
                         <td class="head">User Type</td>
+                        <td class="head">pass</td>
                         <td class="last head">Edit</td>
                     </tr>
                 </thead>
