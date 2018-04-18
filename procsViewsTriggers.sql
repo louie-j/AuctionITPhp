@@ -41,26 +41,40 @@ VIEW `viewBidders` AS
 
 
 /*View AuctionItemsSheet */
-drop view if exists viewauctionitemssheet;
+DROP VIEW IF EXISTS viewauctionitemssheet;
 CREATE 
     ALGORITHM = UNDEFINED 
     DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
-VIEW `viewauctionitemssheet` AS
-    SELECT 
-        `auctionitems`.`AuctionId` AS `auctionId`,
-        SUM(`auctionitems`.`Value`) AS `value`,
-        GROUP_CONCAT(DISTINCT `auctionitems`.`Description`
+VIEW `auctionit`.`viewauctionitemssheet` AS
+    (SELECT 
+        `auctionit`.`auctionitems`.`AuctionId` AS `auctionId`,
+        SUM(`auctionit`.`auctionitems`.`Value`) AS `value`,
+        GROUP_CONCAT(DISTINCT `auctionit`.`auctionitems`.`Description`
             SEPARATOR ', ') AS `description`,
-        GROUP_CONCAT(DISTINCT `auctionitems`.`DonatedBy`
+        GROUP_CONCAT(DISTINCT `auctionit`.`auctionitems`.`DonatedBy`
             SEPARATOR ', ') AS `donatedBy`,
-		bidders.name as `winningbidder`,
-        b.amount as `winningbid`
-    FROM auctionitems
-    left join viewWinningBids as b on b.auctionid = auctionitems.auctionid
-    left join bidders on bidders.bidderId = b.bidderid
-    GROUP BY `AuctionId`;
-	
+        `auctionit`.`bidders`.`Name` AS `winningbidder`,
+        `b`.`Amount` AS `winningbid`
+    FROM
+        ((`auctionit`.`auctionitems`
+        LEFT JOIN `auctionit`.`viewwinningbids` `b` ON ((`b`.`AuctionId` = `auctionit`.`auctionitems`.`AuctionId`)))
+        LEFT JOIN `auctionit`.`bidders` ON ((`auctionit`.`bidders`.`BidderId` = `b`.`BidderId`)))
+    WHERE
+        (`auctionit`.`auctionitems`.`AuctionId` IS NOT NULL)
+    GROUP BY `auctionit`.`auctionitems`.`AuctionId`) UNION (SELECT 
+        `auctionit`.`auctionitems`.`AuctionId` AS `auctionId`,
+        `auctionit`.`auctionitems`.`Value` AS `value`,
+        `auctionit`.`auctionitems`.`Description` AS `description`,
+        `auctionit`.`auctionitems`.`DonatedBy` AS `donatedBy`,
+        `auctionit`.`bidders`.`Name` AS `winningbidder`,
+        `b`.`Amount` AS `winningbid`
+    FROM
+        ((`auctionit`.`auctionitems`
+        LEFT JOIN `auctionit`.`viewwinningbids` `b` ON ((`b`.`AuctionId` = `auctionit`.`auctionitems`.`AuctionId`)))
+        LEFT JOIN `auctionit`.`bidders` ON ((`auctionit`.`bidders`.`BidderId` = `b`.`BidderId`)))
+    WHERE
+        ISNULL(`auctionit`.`auctionitems`.`AuctionId`));	
 
 /* viewReceipts */
 Drop view if exists viewReceipts;
