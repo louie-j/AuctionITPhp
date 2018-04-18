@@ -27,10 +27,10 @@ function Connect()
     $dbname = "AuctionIT"; */
 
     /* Ewen */
-    $dbhost = "127.0.0.1";
+    $dbhost = "localhost";
     $dbuser = "root";
     $dbpass = "testtest";
-    $dbname = "AuctionIT";
+    $dbname = "fbcmtown_auctionitdb";
 
     // Create connection
     $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname) or die($conn->connect_error);
