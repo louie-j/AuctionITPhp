@@ -7,9 +7,8 @@
    $userId = $_SESSION['autoID'];
   
    $conn = Connect();
-   $sql = "CALL deleteAuctionItem ('" . $auctionId . "','" . $userId . "','" . $isAssigned . "')";
+   $sql = "CALL deleteAuctionItem ('" . $auctionId . "','" . $userId . "'," . $isAssigned . ")";
    
-  // echo $sql;
   $result = $conn->query($sql);
 
    if (!$result) {
