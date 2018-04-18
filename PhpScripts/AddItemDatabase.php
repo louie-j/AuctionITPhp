@@ -4,11 +4,10 @@ require 'DatabaseConnection.php';
 //$itemNumber = $description = $donatedBy = $value = $year = "";
 
 $conn = Connect();
-$auctionID    = $conn->real_escape_string($_POST['auctionid']);
-$description   = $conn->real_escape_string($_POST['description']);
-$donatedBy    = $conn->real_escape_string($_POST['donatedBy']);
-$value = $conn->real_escape_string($_POST['value']);
-//$year = $conn->real_escape_string($_POST['year']);
+$auctionId = strip_tags($_POST['auctionId']) == null ? 'null' : strip_tags($_POST['auctionId']);
+$description = strip_tags($_POST['description']) == null ? 'null' : strip_tags($_POST['description']);
+$donatedBy = strip_tags($_POST['donatedBy']) == null ? 'null' : strip_tags($_POST['donatedBy']);
+$value = strip_tags($_POST['value']) == null ? -1 : strip_tags($_POST['value']);
 
 session_start();
 $modifiedby = $_SESSION['autoID'];
