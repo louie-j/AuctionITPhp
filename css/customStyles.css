@@ -109,7 +109,8 @@
     cursor: pointer;
     color: #cccccc;
     border: 1px solid #cccccc;
-    border-radius: 3px; 
+    border-radius: 3px;
+    transition: 0.2s ease-in-out color, 0.2s ease-in-out border-color;
 }
 
 .header:hover {
@@ -118,20 +119,21 @@
 }
 
 .header:active {
-    color:white;
-    border-color:white; 
+    color: white;
+    border-color: white; 
 }
 
 .chevron {
-    color: white;
+    color: #e6e6e6;
     transition-duration: 0.30s;
     display: inline-block;
-    transition-property: transform;
+    transition: 0.2s ease-in-out color, 0.2s ease-in-out transform;
     height: 35px;
     
 }
 
-.chevron:hover {
+.header:hover > span > .chevron {
+    color: white;
     transform: rotate(90deg);
 }
 
@@ -169,6 +171,17 @@
     float: right;
     margin-right: 5px;
     margin-top: 6px;
+    pointer-events: none;
+}
+
+.navbar {
+    margin-bottom: 24px;
+}
+
+.separator {
+    background-color: #666;
+    height: 1px;
+    margin-bottom: 24px;
 }
 
 .page {

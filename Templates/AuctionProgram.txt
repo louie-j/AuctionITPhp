@@ -1,0 +1,129 @@
+{ "size": 16, "weight": "B", "align": "C", "newPage": true }
+First Baptist Church Middletown
+
+
+{ "size": 18, "weight": "B", "align": "C" }
+Festival Missions Auction
+
+
+{ "weight": "BU", "align": "C" }
+Tonight's Agenda
+
+
+{ "left": "18", "width": "130" }
+6:00 p.m.              Doors Open & Appetizers Served
+
+7:30 p.m.              1st Silent Section Closes (Pink 100s)
+
+7:45 p.m.              2nd Silent Section Closes (Yellow 200s)
+
+8:00 p.m.              Live Auction Begins
+
+{ "weight": "B", "align": "C", "left": "18", "width": "130" }
+Please note - Checkout will not open until after the live auction has ended. Cash or check only please.
+
+------------------------------------------------------------------------------------------
+
+
+
+
+{ "align": "C", "weight": "U" }
+AUCTION COMMITTEE
+
+{ "align": "C" }
+Christine Kimmel
+
+Jim Lewis
+
+Gail Milsap
+
+Richard Mullins
+
+Vicky Nallia
+
+Cindi Rhodes
+
+Patrick Rhodes
+
+John Vincent
+
+Doug Caskins - Chairman
+
+James Cobban - Pastor
+{ "newPage": true }
+{ "size": 20, "weight": "B", "align": "C", "height": 8, "newPage": true }
+IMPORTANT BIDDING
+
+INFORMATION
+
+PLEASE READ BEFORE BIDDING!!!
+
+{ "height": 10 }
+All bids must be in multiples of $5 (5-10-15-20 etc.). Any Bid that is not a multiple of $5 will be discarded. Bids will be accepted until the board closed. All bids in the recorders hands when the board closes will be considered and the highest bidder will win the item. In case of a tie, the first bid submitted will be the winning bid.
+
+
+{ "weight" : "B" }
+Buy it Now Items
+
+
+{}
+The "Buy It Now" items can be purchased immediately at the designated price.
+
+These Items are tagged with a blue "Buy It Now" bidder slip.
+
+If you want to purchase an item at the "Buy It Now" price, pull the bidder sheet and give to attendant in that area. If attendant is occupied, you may take it to the nearest bidder board
+
+
+
+{ "weight" : "B" }
+Checkout Process
+
+
+{}
+NO EARLY CHECKOUTS. Cashiers are not set up until after the live auction is complete. Other than "Buy It Now" items, no early payment can be accepted.
+
+All items must be picked up by Sunday at 5:00 PM. Special arrangements will need to be made on Saturday night to schedule a Sunday pick up time.
+{ "newPage": true }
+{ "startHeader": true }
+{ "size": 10, "weight": "B", "align": "C" }
+"Broadway on Main"
+Festival Missions Auction
+
+{ "endHeader": true }
+{ "newPage": true, "useHeader": true, "useColumns": true }
+{ "startRepeatable": 0 }
+{  "size": 10, "weight": "BU" }
+{{title}}
+
+{ "startRepeatable": 1 }
+{  "size": 10, "weight": "B", "width": "12" }
+{{auctionId}}.
+{  "size": 10, "left": "12", "top": "-5", "width": "60", "weight": "B" }
+{{description}}
+{  "size": 10, "left": "12", "width": "60" }
+{{donatedBy}}
+{  "size": 10, "left": "12", "width": "60", "weight": "I" }
+{{otherDescription}}
+{  "size": 10, "left": "12", "width": "60", "weight": "B" }
+Retail Value: ${{value}}
+
+{ "endRepeatable": 1, "repeatOn": "items", "checkOverflow": true }
+{ "endRepeatable": 0, "repeatOn": "sections" }
+
+{ "newPage": true, "weight": "BU" }
+OTHER CONTRIBUTERS
+
+
+{ "startRepeatable": 0 }
+{ "size": 10 }
+{{DonatedBy}}
+{ "endRepeatable": 0, "repeatOn": "donors" }
+{ "left": "83", "weight": "BU", "width": "60", "top": "75%" }
+SPECIAL NOTE
+
+{ "left": "83", "weight": "B", "width": "60" }
+PLEASE CHECK ALL GIFT CERTIFICATES FOR EXPIRATION DATES!
+
+
+{ "left": "83", "weight": "B", "width": "65" }
+A special thaks to Fulfillment Concepts, Inc. for donating all of the auction printing.
