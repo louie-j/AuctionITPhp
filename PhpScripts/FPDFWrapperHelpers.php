@@ -5,25 +5,34 @@ require 'FPDFWrapper.php';
 
 // Takes array of items from database and sorts by item id to separate by sections
 function GetItemsBySection($items) {
-	$items100s = array();
-	$items200s = array();
-	$items300s = array();
+	$items100s	= array();
+	$items200s	= array();
+	$items300s	= array();
+	$retVal			= array();
 
 	foreach ($items as $item) {
-		if ($item['ItemId'] >= 100 && $item['ItemId'] < 200) {
+		if ($item['auctionId'] >= 100 && $item['auctionId'] < 200) {
 			$items100s[count($items100s)] = $item;
-		} else if ($item['ItemId'] >= 200 && $item['ItemId'] < 300) {
+		} else if ($item['auctionId'] >= 200 && $item['auctionId'] < 300) {
 			$items200s[count($items200s)] = $item;
-		} else if ($item['ItemId'] >= 300 && $item['ItemId'] < 400) {
+		} else if ($item['auctionId'] >= 300 && $item['auctionId'] < 400) {
 			$items300s[count($items300s)] = $item;
 		}
 	}
 
-	return array(
-		array( "title" => "SECTION ONE - SILENT (PINK)",    "items" => $items100s ),
-		array( "title" => "SECTION TWO - SILENT (YELLOW)",  "items" => $items200s ),
-		array( "title" => "SECTION THREE - LIVE",						"items" => $items300s )
-	);
+	if (count($items100s) > 0) {
+		array_push($retVal, array( "title" => "SECTION ONE - SILENT (PINK)", "items" => $items100s ));
+	}
+
+	if (count($items200s) > 0) {
+		array_push($retVal, array( "title" => "SECTION TWO - SILENT (YELLOW)", "items" => $items200s ));
+	}
+
+	if (count($items300s) > 0) {
+		array_push($retVal, array( "title" => "SECTION THREE - LIVE", "items" => $items300s ));
+	}
+
+	return $retVal;
 }
 
 // Makes a receipt by adding up purchases per buyers and listing each purchase
@@ -36,7 +45,7 @@ function GetReceiptsFromPurchases($purchases) {
 		if (isset($receipts[$purchase['BuyerId']])) {
 			$receipts[$purchase['BuyerId']]['Total'] += $purchase['Value'];
 			$receipts[$purchase['BuyerId']]['Items'][count($receipts[$purchase['BuyerId']]['Items'])] = array(
-				"ItemId"      => $purchase['ItemId'],
+				"AuctionId"   => $purchase['AuctionId'],
 				"Value"       => $purchase['Value'],
 				"Description" => $purchase['Description']
 			);
@@ -47,7 +56,7 @@ function GetReceiptsFromPurchases($purchases) {
 				"Total"   => $purchase['Value'],
 				"Items"   => array(
 					array(
-						"ItemId"			=> $purchase['ItemId'],
+						"AuctionId"		=> $purchase['AuctionId'],
 						"Value"       => $purchase['Value'],
 						"Description"	=> $purchase['Description']
 					)
@@ -79,7 +88,7 @@ function GetDonorsAndTotals($donations) {
 				"Total"   => $donation['Value'],
 				"Items"   => array(
 					array(
-						"ItemId"			=> $donation['ItemId'],
+						"AuctionId"		=> $donation['AuctionId'],
 						"Value"       => $donation['Value'],
 						"Description"	=> $donation['Description']
 					)

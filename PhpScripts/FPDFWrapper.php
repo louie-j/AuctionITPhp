@@ -452,8 +452,10 @@ class FPDFWrapper {
 		if (isset($metadata['newPage'])) {
 			$this->pdf->AddPage();
 
-			// Reset top for new page
-			$this->currentTop = $this->topMargin;
+			// Reset top and left for new page
+			$this->currentTop		= $this->topMargin;
+			$this->leftMargin		= $this->actualLeftMargin;
+			$this->currentLeft	= $this->leftMargin;
 
 			// Check if the page uses the currently set header
 			$this->usingHeader = isset($metadata['useHeader']);
@@ -488,6 +490,7 @@ class FPDFWrapper {
 			if ($this->newStartTopWithHeader == 0) {
 				$this->newStartTopWithHeader = $this->pdf->GetY();
 			}
+
 		}
 	}
 

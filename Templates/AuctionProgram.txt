@@ -97,15 +97,15 @@ Festival Missions Auction
 
 { "startRepeatable": 1 }
 {  "size": 10, "weight": "B", "width": "12" }
-{{ItemId}}.
+{{auctionId}}.
 {  "size": 10, "left": "12", "top": "-5", "width": "60", "weight": "B" }
-{{Description}}
+{{description}}
 {  "size": 10, "left": "12", "width": "60" }
-{{DonatedBy}}
+{{donatedBy}}
 {  "size": 10, "left": "12", "width": "60", "weight": "I" }
-{{OtherDescription}}
+{{otherDescription}}
 {  "size": 10, "left": "12", "width": "60", "weight": "B" }
-Retail Value: ${{Value}}.00
+Retail Value: ${{value}}
 
 { "endRepeatable": 1, "repeatOn": "items", "checkOverflow": true }
 { "endRepeatable": 0, "repeatOn": "sections" }
