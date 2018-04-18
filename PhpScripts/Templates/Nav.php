@@ -25,8 +25,8 @@
                                     case("Reports.php"):
                                         echo("Reports");
                                         break;
-                                    case("RegisterBidder.php"):
-                                        echo("Register Bidder");
+                                    case("bidderManagement.php"):
+                                        echo("Bidder Management");
                                         break;
                                     case("index.php"):
                                         echo("Log In");
@@ -64,7 +64,7 @@
                             <a class="nav-link" href="AddBid.php"><h4>Add Bid</h4></a>
                         </li>
                         <li>
-                            <a class="nav-link" href="RegisterBidder.php"><h4>Bidder Registration</h4></a>
+                            <a class="nav-link" href="bidderManagement.php"><h4>Bidder Management</h4></a>
                         </li>
                     <?php if ($_SESSION["accountType"] == 'admin'): ?>
                         <li>
