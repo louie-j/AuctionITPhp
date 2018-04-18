@@ -182,3 +182,13 @@
     height: 1px;
     margin-bottom: 24px;
 }
+
+.page {
+    padding: 0px 50px;
+}
+
+.name {
+    font-size: 18px;
+    border-bottom: 1px solid black;
+    margin-bottom: 15px;
+}
