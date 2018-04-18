@@ -1,0 +1,172 @@
+.column {
+    float: left;
+    width: 25%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.odd {
+    background-color: #ddebf7 !important;
+}
+
+.even {
+    background-color: #ffffff !important; 
+}
+
+.selected {
+    background-color: rebeccapurple !important;
+    color: white !important;
+}
+
+.head {
+    border: 1px solid black;
+    border-left: none;
+    padding-left: 5px;
+    height: 48px;
+}
+
+.first {
+    border-left: 1px solid black !important;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.last {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.top {
+    margin-top: 10px;
+}
+
+.center {
+    border-radius: 5px;
+    display: block;
+    width: auto;
+    margin: auto;
+}
+
+.forty {
+    display: inline-block !important;
+    width: 40% !important;
+    vertical-align: top;
+}
+
+.description-search {
+    margin-left: 10%;
+}
+
+.dropdown {
+    border: 1px solid rgba(0,0,0,.15);
+    border-top: none;
+    cursor: pointer;
+    padding-left: 5px;
+}
+
+.dropdown:hover {
+    background-color: rgba(0,0,0, .05);
+}
+
+.drop {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    margin-top: .5rem;
+}
+
+.block {
+    display: block !important;
+}
+
+.error {
+    color: red;
+}
+
+.none {
+    display: none !important;
+}
+
+.page-name {
+    font-size: 18px;
+    height: 100%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.header {
+    background-color: #000000;
+    font-family: Verdana;
+    margin-right: 0 !important;
+    font-size: 22px;
+    padding: 5px;
+    height: 100%;
+    display: inline-block;
+    cursor: pointer;
+    color: #cccccc;
+    border: 1px solid #cccccc;
+    border-radius: 3px; 
+}
+
+.header:hover {
+    color: #e6e6e6;
+    border-color: #e6e6e6;
+}
+
+.header:active {
+    color:white;
+    border-color:white; 
+}
+
+.chevron {
+    color: white;
+    transition-duration: 0.30s;
+    display: inline-block;
+    transition-property: transform;
+    height: 35px;
+    
+}
+
+.chevron:hover {
+    transform: rotate(90deg);
+}
+
+
+.groups {
+    border: 1px solid black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;    
+    width: 140px;
+    text-align: center;
+    padding: 5px;
+    position: absolute;
+    left: 40%;
+    cursor: pointer !important;
+    z-index: 40;
+}
+
+.dropper {
+    overflow: hidden;
+    width: 140px;
+    height: 0px;
+
+    position: absolute;
+    left: 40%;
+    z-index: 41;
+    background-color: white;
+    top: 36px;
+}
+
+.auto-height {
+    height:auto;
+}
+
+.check-boxes {
+    float: right;
+    margin-right: 5px;
+    margin-top: 6px;
+}

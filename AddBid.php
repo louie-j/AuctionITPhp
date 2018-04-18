@@ -7,57 +7,222 @@ and open the template in the editor.
 <html>
     <head>
         <?php
+
             session_start();
             if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
             {
                 header('Location: index.php'); 
             }
+            $items = [];
         ?>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
+        <link href="css/customStyles.css" text="text/css" rel="stylesheet">
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <script type="text/javascript">
+            var items;
+            var bidders;
+            var userValid = false;
+            var itemValid = false;
+            var bidValid = false;
+            var minBid;
             $( document ).ready(function() {
+
                 if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
                 {
                     alert("Bid Added");
                     <?php $_SESSION['databaseSuccess'] = 0; ?>
                 }
-                else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
+                else if(<?php echo $_SESSION['databaseSuccess'] ?> == 2)
                 {
                     alert("Error adding Bid to Database");
                     <?php $_SESSION['databaseSuccess'] = 0; ?>
                 }
-                else if(<?php echo $_SESSION['databaseSuccess'] ?> === 3)
-                {
-                    alert("This is a test");
-                    <?php $_SESSION['databaseSuccess'] = 0; ?>
-                }
-                else
-                {
-                }
+
+
+                var oReq = new XMLHttpRequest();
+                oReq.onload = function() {
+                    items = JSON.parse(this.responseText).aaData;
+                };
+                oReq.open("get", "PhpScripts/ViewItemTable.php", true);
+                oReq.send();
+
+                var oReq2 = new XMLHttpRequest();
+                
+                oReq2.onload = function() {
+                    bidders = JSON.parse(this.responseText).aaData;
+                };
+                oReq2.open("get", "PhpScripts/ViewBidders.php", true);
+                oReq2.send();
             });
-            function validate()
-            {
-                var error="";
-                var number = document.getElementById( "itemNumber" );
-                if( number.value === "" )
-                {
-                    error = "You have to enter an Item Number.";
-                    document.getElementById( "error_para" ).innerHTML = error;
-                    return false;
+
+
+            function searchDescriptions(filterText, type) {
+                if (filterText == "") {
+                    closeDropdown(type);
                 }
-                var bidderID = document.getElementById( "bidderID" );
-                if( description.value === "" )
-                {
-                    error = "You have to enter a Bidder ID.";
-                    document.getElementById( "error_para" ).innerHTML = error;
-                    return false;
+                else {
+                    var possible = [];
+                    var id = "description" + type;
+                    var drop = document.getElementById(id);
+                    while (drop.firstChild) {
+                        drop.removeChild(drop.firstChild);
+                    }
+                    filterText = filterText.toLowerCase();
+                    var arr = type == "Item" ? items : bidders;
+                    for (var i = 0; i < arr.length; i++) {
+                        if (type == "Item") {
+                            var description = arr[i].description.toLowerCase();
+                            if (description.indexOf(filterText) !== -1) {
+                                possible.push(arr[i]);
+                                var el = document.createElement("div");
+                                el.textContent = arr[i].description;
+                                el.value = arr[i].auctionId;
+                                el.onclick = function() { 
+                                    changeValue(this.value, type, this.textContent); 
+                                    closeDropdown(type);
+                                }
+                                el.classList.add("dropdown");
+                                drop.appendChild(el);
+                            }
+                        }
+                        else {
+                            var name = arr[i].Name;
+                            if (name && name.toLowerCase().indexOf(filterText) !== -1) {
+                                possible.push(arr[i]);
+                                var el = document.createElement("div");
+                                el.textContent = arr[i].Name;
+                                el.value = arr[i].BidderId;
+                                el.onclick = function() { 
+                                    changeValue(this.value, type, this.textContent); 
+                                    closeDropdown(type);
+                                }
+                                el.classList.add("dropdown");
+                                drop.appendChild(el);
+                            }
+                        }
+                    }
                 }
-                else
-                {
-                    return true;
+            }
+
+            function closeDropdown(type) {
+                var id = "description" + type;
+                var drop = document.getElementById(id);
+                while (drop.firstChild) {
+                    drop.removeChild(drop.firstChild);
+                }
+            }
+
+            function changeValue(value, type, name="") {
+                if (type == "Item") {
+                    if(document.getElementById("auctionID")) {
+                        document.getElementById("auctionID").value = value;
+                        document.getElementById("searchTextItem").value = name;
+                        doesAuctionIdExist(value, type);
+                    }
+                } 
+                else if (type == "Bidder") {
+                    if(document.getElementById("bidderID")) {
+                        document.getElementById("bidderID").value = value;
+                        document.getElementById("searchTextBidder").value = name;
+                        doesAuctionIdExist(value, type);
+                    }
+                }
+
+            }
+
+            function getBidderName(id) {
+                bidders.forEach((bidder) => {
+                    if (bidder.BidderId == id) {
+                        return bidder.Name;
+                    }
+                });
+            }
+
+            function doesAuctionIdExist(id, type) {
+                if (type == "Item") {
+                    for(var i = 0; i < items.length; i++) {
+                    if (items[i].auctionId == id) {
+                        itemValid = true;
+                        if (items[i].winningbid) minBid = parseInt(items[i].winningbid) + 5;
+                        else minBid = null;
+                        document.getElementById("searchTextItem").value = items[i].description;
+                        return manipulateHtml(true, "Item");
+                    }
+                }
+                    itemValid = false;
+                    return manipulateHtml(false, type);
+                }
+                else if (type == "Bidder") {
+                    for(var i = 0; i < bidders.length; i++) {
+                        if (bidders[i].BidderId == id) {
+                            userValid = true;
+                            document.getElementById("searchTextBidder").value = bidders[i].Name;
+                            return manipulateHtml(true, "Bidder");
+                        }   
+                    }
+                    userValid = false;
+                    return manipulateHtml(false, type)
+                }
+            }
+            function manipulateHtml(valid, type) {
+                var errorMessage = type === "Item" ? "auctionError" : "bidderError";
+                if (valid) {
+                    hideOrShowElement("hide", errorMessage);
+                    if (userValid && itemValid && bidValid) {
+                        hideOrShowElement("show", "enabled");
+                        hideOrShowElement("hide", "disabled");
+                    }
+                }
+                else {
+                    hideOrShowElement("show", errorMessage);
+                    hideOrShowElement("hide", "enabled");
+                    hideOrShowElement("show", "disabled");
+                }
+                return;
+            }
+
+            function hideOrShowElement(hideOrShow, element) {
+                if (hideOrShow == "hide") {
+                    if (document.getElementById(element).classList.contains('block')) {
+                        document.getElementById(element).classList.toggle('block');
+                    }
+                    document.getElementById(element).classList.add('none');
+                }
+                if (hideOrShow == "show") {
+                    if (document.getElementById(element).classList.contains('none')) {
+                        document.getElementById(element).classList.toggle('none');
+                    }
+                    document.getElementById(element).classList.add('block');
+                }
+            }
+
+            function checkBid(bid) {
+                if (minBid == null) minBid = 5;
+                if (bid >= minBid) {
+                    hideOrShowElement("hide", "minBidError");
+                    if (bid % 5 == 0) {
+                        bidValid = true;
+                        hideOrShowElement("hide", "multipleOfFiveError")
+                        if (userValid && itemValid) {
+                            hideOrShowElement("show", "enabled");
+                            hideOrShowElement("hide", "disabled");
+                        }
+                    }
+                    else {
+                        bidValid = false;
+                        hideOrShowElement("show", "multipleOfFiveError")
+                        hideOrShowElement("hide", "enabled");
+                        hideOrShowElement("show", "disabled");
+                    }
+                } 
+                else {
+                    bidValid = false;
+                    document.getElementById("minBidError").textContent = "Bid must be at least $" + minBid.toString();
+                    hideOrShowElement("show", "minBidError");
+                    hideOrShowElement("hide", "enabled");
+                    hideOrShowElement("show", "disabled"); 
                 }
             }
 
@@ -66,81 +231,50 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <nav class="navbar navbar-inverse bg-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                    <button style="background-color: #292b2c;"type="button" class="navbar-inverse-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <a class="navbar-brand" href="Index.php">AuctionIT</a>
-                    </button>
-                    <?php if ($_SESSION["accountType"] != 'guest'): ?>
-                        <form style="float: right;"action="PhpScripts/Logout.php">
-                            <input type="submit" class="btn btn-primary" value="Logout" />
-                        </form>
-                    <?php endif;?>
-                </div>
-                <?php if ($_SESSION["accountType"] != 'guest'): ?>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a class="nav-link" href="index.php"><h4>Home</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
-                        </li>
-                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
-                        <li>
-                            <a class="nav-link" href="FindItem.php"><h4>Edit an Item</h4></a>
-                        </li>
-                    <?php endif; ?>
-                        <li>
-                            <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="Reports.php"><h4>Reports</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="AddBid.php"><h4>Add Bid</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="RegisterBidder.php"><h4>Bidder Registration</h4></a>
-                        </li>
-                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
-                        <li>
-                            <a class="nav-link" href="AdminPage.php"><h4>Administrator Tools</h4></a>
-                        </li>
-                    <?php endif; ?>
-                    </ul>
-                </div>
-                <?php endif; ?>
+    
+        <?php include "PhpScripts/Templates/Nav.php";?>
 
-            </div>
-        </nav>
+
          <div class="container body-content">
-            <form class="form-group" action="PhpScripts/AddBidDatabase.php" method="post">
-                <div class="form-group">
-                    <label for="itemNumber">Item Number</label>
-                    <input type="text" class="form-control" name="itemNumber" id="itemNumber" placeholder="Item Number">
-                </div>
-                <div class="form-group">
-                    <label for="bidderID">Bidder ID</label>
-                    <input type="text" class="form-control" name="bidderID" id="bidderID" placeholder="Bidder ID">
-                </div>
-                <div class="form-group">
-                    <label for="value">Value</label>
-                    <input type="text" class="form-control" name="value" id="value" placeholder="Value">
-                </div>
-                <div class="form-group">
-                    <label for="year">Year</label>
-                    <input type="text" class="form-control" name="year" id="year" value=<?php echo date("Y") ?>>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description (Used only for 600+)</label>
-                    <input type="text" class="form-control" name="description" id="description" placeholder="description">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            <div class="forty">
+                <form class="form-group" action="PhpScripts/AddBidDatabase.php" method="post">
+                    <div class="form-group">
+                        <label for="auctionID">Auction Number</label>
+                        <input type="number" class="form-control" name="auctionID" id="auctionID"
+                        onkeyup="doesAuctionIdExist(document.getElementById('auctionID').value, 'Item')">
+                    </div>
+                    <div class="form-group">
+                        <label for="bidderID">Bidder ID</label>
+                        <input type="number" class="form-control" name="bidderID" id="bidderID"
+                        onkeyup="doesAuctionIdExist(document.getElementById('bidderID').value, 'Bidder')">
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Bid Amount</label>
+                        <input onkeyup="checkBid(document.getElementById('amount').value)" type="number" class="form-control" name="amount" id="amount">
+                    </div>
+                    <button id="disabled" disabled type="submit" class="btn btn-primary">Submit</button>
+                    <button id="enabled" type="submit" class="btn none btn-primary">Submit</button>
+                    <div class="error none" id="auctionError">That Auction Number does not exist</div>
+                    <div class="error none" id="bidderError">That Bidder Number does not exist</div>
+                    <div class="error none" id="minBidError"></div>
+                    <div class="error none" id="multipleOfFiveError">Bids must be multiples of 5</div>
+                </form>
+            </div>
+
+            <div class="forty description-search">
+                <div>Search By Auction Description<div>
+                <input type="text" placeholder="Search..." class="form-control drop" id="searchTextItem" 
+                onkeyup="searchDescriptions(document.getElementById('searchTextItem').value, 'Item')">
+                <div id="descriptionItem"></div>
+
+                <div style="margin-top: 1rem">Search By Bidder Name<div>
+                <input type="text" placeholder="Search..." class="form-control drop" id="searchTextBidder" 
+                onkeyup="searchDescriptions(document.getElementById('searchTextBidder').value, 'Bidder')">
+                <div id="descriptionBidder"></div>
+            </div>
+
         </div>
-        <div>
+        <!-- <div>
             <table style="width:20%">
                 <tr>
                     <th>Item Number</th>
@@ -167,6 +301,6 @@ and open the template in the editor.
                     <th>Button Type 2</th>
                 </tr>
             </table>
-        </div>
+        </div> -->
     </body>
 </html>

@@ -13,92 +13,109 @@ and open the template in the editor.
                 header('Location: index.php'); 
             }
         ?>
-        <script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
-        <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <script src="DataTables/datatables.min.js"></script>
         <script type="text/javascript">
-            $( document ).ready(function() {
-                if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
+            $( document ).ready(function()
+            {
+                var table = $('#myDataTable').DataTable( {
+                    "ajax": "phpScripts/viewAccountsTable.php", 
+                    "bPaginate":true,
+                    "bProcessing": true,
+                    "columns": [
+                        { mData: 'Username', "searchable": true } ,
+                        { mData: 'Active', "searchable": false },
+                        { mData: 'Type', "searchable": false },
+                        {  "targets": -1,
+                            "data": null,
+                            "orderable":false,
+                            "defaultContent": "<button class=>Edit</button>"}
+                    ],
+                    "columnDefs": [
+                        {
+                            "render": function(data,type,row) {
+                                 return data == 1 ? 'Active' : 'Inactive';
+                            },
+                            "targets":1
+                        },
+                        {
+                            "render": function(data,type,row) {
+                                 return data == 0 ? 'User' : 'Admin';
+                            },
+                            "targets":2
+                        }
+                    ]
+                    
+                } );
+
+                //Function that responds to user clicking edit button
+                $('#myDataTable tbody').on( 'click', 'button', function () {
+                    var dataObj = table.row( $(this).parents('td') ).data();
+                       
+                    //alert( JSON.stringify(data));//alert( JSON.stringify(data));
+                    var data    = Object.values(dataObj);
+                    $('#UserManagementBody').data( 'accType', data[3] );
+                    $('#UserManagementBody').data( 'status', data[4] );
+
+                    //var accType =data[3]; 
+                    //var status = data[4];
+                   // alert("test" + data[4]);
+                    $("#UserManagementBody").load("AccountEditor.php").dialog({
+                        appendTo: "#UserManagementBody"
+                        
+                        });
+                    } );    
+                    //intialializeRadioBtns(); 
+
+                    setInterval( function () {
+                    table.ajax.reload(null, false);
+                }, 10000 );
+            });
+            var interval;
+            function changePagesAutomatically()
+            {
+                var table = $('#myDataTable').DataTable();
+                if(interval)
                 {
-                    alert("Password Changed");
-                    <?php $_SESSION['databaseSuccess'] = 0 ?>
-                }
-                else if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
-                {
-                    alert("Error occured when attempting to change password");
-                    <?php $_SESSION['databaseSuccess'] = 0 ?>
+                    document.getElementById("start").value = "Start Rotating Pages";
+                    clearInterval(interval);
+                    interval = null;
                 }
                 else
                 {
+                    document.getElementById("start").value = "Stop Rotating Pages";
+                    interval = setInterval( function () {
+                        var info = table.page.info();
+                        var pageNum = (info.page < info.pages) ? info.page + 1 : 1;
+                        table.page(pageNum).draw(false); 
+                    }, 10000);                   
                 }
-            });
-        </script>
+            }
+		
+		</script>
+		<link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
     </head>
-    <body>
-        <nav class="navbar navbar-inverse bg-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                    <button style="background-color: #292b2c;"type="button" class="navbar-inverse-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <a class="navbar-brand" href="Index.php">AuctionIT</a>
-                    </button>
-                    <?php if ($_SESSION["accountType"] != 'guest'): ?>
-                        <form style="float: right;"action="PhpScripts/Logout.php">
-                            <input type="submit" class="btn btn-primary" value="Logout" />
-                        </form>
-                    <?php endif;?>
-                </div>
-                <?php if ($_SESSION["accountType"] != 'guest'): ?>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a class="nav-link" href="index.php"><h4>Home</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
-                        </li>
-                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
-                        <li>
-                            <a class="nav-link" href="FindItem.php"><h4>Edit an Item</h4></a>
-                        </li>
-                    <?php endif; ?>
-                        <li>
-                            <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="Reports.php"><h4>Reports</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="AddBid.php"><h4>Add Bid</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="RegisterBidder.php"><h4>Bidder Registration</h4></a>
-                        </li>
-                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
-                        <li>
-                            <a class="nav-link" href="AdminPage.php"><h4>Administrator Tools</h4></a>
-                        </li>
-                    <?php endif; ?>
-                    </ul>
-                </div>
-                <?php endif; ?>
-
-            </div>
-        </nav>
-         <div class="container body-content">
-            <form class="form-group" action="PhpScripts/AdminToolsDatabase.php" method="post">                
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" name="username" id="username" placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="text" class="form-control" name="password" id="password" placeholder="Password">
-                </div>                                
-                <button type="submit" class="btn btn-primary">Change Password</button>
-            </form>
-        </div>
+    <body id="UserManagementBody">
+    <?php include "PhpScripts/Templates/Nav.php";?>
+        
+		<div class="container body-content top">
+            <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <td class="first head">Username</td>
+                        <td class="head">State</td>
+                        <td class="head">User Type</td>
+                        <td class="last head">Edit</td>
+                    </tr>
+                </thead>
+            </table>
+        <input id="start" type="button" class="center btn-info" value="Start Rotating Through Pages" onclick="changePagesAutomatically();" />
     </body>
+
 </html>
+
