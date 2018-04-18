@@ -44,6 +44,12 @@ and open the template in the editor.
                         },
                         {
                             "render": function(data,type,row) {
+                                 return data == -1 ? "Priceless" : data;
+                            },
+                            "targets":4
+                        },
+                        {
+                            "render": function(data,type,row) {
                                  return data == null ? "Unassigned" : data;
                             },
                             "targets":1
@@ -87,13 +93,20 @@ and open the template in the editor.
                 } );
 
                 $('input#noId').click( function () {
-                     //alert("No Auction Id");
                     document.getElementById('auctionId').readOnly = document.getElementById('noId').checked;
                     document.getElementById("auctionId").value = document.getElementById('noId').checked ?
                         null :
                         table.rows('.selected').data()[0].AuctionId;
 
-                } ); 
+                } );
+                
+                $('input#noValue').click( function () {
+                    document.getElementById('value').readOnly = document.getElementById('noValue').checked;
+                    document.getElementById("value").value = document.getElementById('noValue').checked ?
+                        null :
+                        table.rows('.selected').data()[0].Value;
+
+                } );
                 
                 $('button#btn-new').click( function () {
                     $("#title").text("New Item");
@@ -242,9 +255,9 @@ and open the template in the editor.
 						<textarea id="description" name="description" class="input-xlarge"></textarea>
 						<br /><br /><strong>Donated By</strong><br />					
                         <input id="donatedBy" name="donatedBy" type="text" class="input-xlarge" value="">
-                        <br /><br /> <strong>Value</strong>
-						<br />
-                        <input id="value" type="number" name="value" step="0.01" class="input-xlarge" value=0>
+                        <br /><br /> <strong>Value</strong><br />
+                        <input id="value" type="number" name="value" step="0.01" class="input-xlarge">
+                        <label><input type="checkbox" value="true" class="input-xlarge" name="noValue" id="noValue">Priceless</label>
 					</form>
 				</div>			
 				<div class="modal-footer">

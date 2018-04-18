@@ -15,26 +15,23 @@ and open the template in the editor.
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
-        <script type="text/javascript">
-            $( document ).ready(function() {
-                if(<?php echo $_SESSION['databaseSuccess'] ?> === 2)
-                {
-                    alert("Invalid Username or Password");
-                    <?php $_SESSION['databaseSuccess'] = 0 ?>
-                }
-            });
-        </script>
+
     </head>
 
-    <body>     
+    <body> 
         <?php
-        $_SESSION['databaseSuccess'] = 0;
-        if(isset($_SESSION['accountType']) == FALSE)
-        {
-            $_SESSION['accountType'] = "guest";
-        }?>
+            $_SESSION['databaseSuccess'] = 0;
+            if(isset($_SESSION['accountType']) == FALSE)
+            {
+                $_SESSION['accountType'] = "guest";
+            }?>    
         <?php include "PhpScripts/Templates/Nav.php";?>
         <div class="container body-content">
+        <?php if (isset($_SESSION['loginSuccess']) &&  !$_SESSION['loginSuccess']): ?>
+                    <p class="text-center text-white bg-danger lead">Invalid Login Information</p>
+                <?php endif;
+                    unset($_SESSION['loginSuccess'])
+                ?>  
             <form class="form-group" action="PhpScripts/LoginDatabase.php" method="post">
                 <div class="form-group">
                     <label for="userName">User Name</label>
@@ -43,7 +40,7 @@ and open the template in the editor.
                 <div class="form-group">
                     <label for="description">Password</label>
                     <input type="password" class="form-control" name="password" id="password">
-                </div>
+                </div> 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
