@@ -71,7 +71,7 @@ and open the template in the editor.
                  }
 
                 //Set account number 
-                document.getElementById("accountLabel").text = autoId;
+                // document.getElementById("accountLabel").text = autoId;
 
                 if (status == 1)
                     document.getElementById("statusARadioBtn").checked = true;
@@ -92,15 +92,14 @@ and open the template in the editor.
         </script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
+        <link href="css/customStyles.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
     </head>
 
-    <body  class="container body-content top" >
-
-
-        <?php include "PhpScripts/Templates/Nav.php";
-
+    <body  class="body-content" >
+    <?php include "PhpScripts/Templates/Nav.php";?>
+        <?php
             require 'PhpScripts/DatabaseConnection.php';
             $autoId = 4;
             $username = $password_hashed = $type = $active = "";  
@@ -113,7 +112,7 @@ and open the template in the editor.
                     $autoId             = $row["AutoId"];
                     
                     $username           = $row["Username"];
-                    echo $username;
+                    // echo $username;
                     $password_hashed    = $row["Password_hashed"];
                     //echo $password_hashed;
                     //$type               = $row["Type"];    
@@ -136,34 +135,31 @@ and open the template in the editor.
             //$_SESSION["type"] = $type;
             //$_SESSION["active"] = $active;
 
-    //echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
-    /*<input onclick="clickActive()"   id = "statusARadioBtn"      type="radio" name="active"        value="<?php echo  $active ?>"> Active<br>
-    <input onclick="clickAdmin()"    id = "typeAdminRadioBtn"    type="radio" name="typeAdmin"     value="<?php echo  $type    ?>"  > Admin <br>
-     */   
+
         ?>
-        <div>
-                <form class="form-group" action="PhpScripts/EditUser.php" onsubmit="return validate();" method="post">
+        <div class="page">
+                <form class="form-group" action="PhpScripts/EditUser.php" method="post">
+                    <span class="name"><?php echo $username   ?></span>
                     <div id = "radioBtns" class="form-group">
 
                     <label for "accountLabel">Account Number</label>
                     <input type="text" class="form-control" name="autoId" id="accountLabel" value="<?php echo $autoId ?>" readonly>
 
                     <label>Status</label><br>
-                        <input onclick="clickActive()"   id = "statusARadioBtn"      type="radio" name="active"          > Active<br> 
-                        <input onclick="clickInActive()" id = "statusInARadioBtn"    type="radio" name="inActive"                                    > Inactive<br>
-                        <label>Type of User</label><br>
+                        <input onclick="clickActive()"   id = "statusARadioBtn"      type="radio" name="active"> Active<br> 
+                        <input onclick="clickInActive()" id = "statusInARadioBtn"    type="radio" name="inActive"> Inactive<br>
+                    <label>Type of User</label><br>
                         <input onclick="clickAdmin()"    id = "typeAdminRadioBtn"    type="radio" name="typeAdmin"      value = false  > Admin <br>
-                        <input onclick="clickRegular()"  id = "typeRegRadioBtn"      type="radio" name="typeRegular"                                 > Regular <br>
+                        <input onclick="clickRegular()"  id = "typeRegRadioBtn"      type="radio" name="typeRegular"> Regular <br>
                     </div>
 
                     <div class="form-group">
-                        <label>New Password</label><br>
-                        <input id = "newPasswordText" type="text" name="newPassword">
+                        <label for="newPassword">New Password</label><br>
+                        <input id="newPasswordText" class="form-control" type="text" name="newPassword">
                     </div>
 
                     <div class="form-group">
-                            <button onclick="location.href = 'AdminPage.php';" class="btn btn-primary" id = "updateButton" type="submit">Update</button>
-                            
+                            <button class="btn btn-primary" id = "updateButton" type="submit">Update</button>
                             <button onclick="location.href = 'AdminPage.php';" class="btn btn-primary" id = "cancelButton" type="button">Cancel</button>
                     </div>
                 </form>
