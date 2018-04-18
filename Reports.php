@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
+    {
+        header('Location: index.php'); 
+    }
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -6,13 +13,6 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <?php
-            session_start();
-            if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
-            {
-                header('Location: index.php'); 
-            }
-        ?>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
