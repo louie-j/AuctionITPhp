@@ -5,7 +5,8 @@ $.fn.dataTable.ext.search.push(
         var two = document.getElementById('two').checked;
         var three = document.getElementById('three').checked;
         var six = document.getElementById('six').checked;
-        var id = window.location.pathname == '/AuctionITPhp/FindItem.php' ?
+        var splitPath = window.location.pathname.split( '/' );
+        var id = splitPath[splitPath.length-1] == 'FindItem.php' ?
             parseInt( data[1] ) : 
             parseInt( data[0] );
         if (unassigned && isNaN(id))
