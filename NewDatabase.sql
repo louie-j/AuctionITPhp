@@ -39,7 +39,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,'Alex','e10adc3949ba59abbe56e057f20f883e','1',1),(2,'Dr. Lewis','20318004908c6bb3addc919808e55b77','1',1),(3,'Ellie','35ac2332b603b8f6c24ac293e1d057fd','1',0),(4,'Tyler','5de7bb3c232741f461f3ccd13c1ba7a0','1',1),(5,'Ewen','58b5207f1a45b4f7e504858709cbebac','1',1);
+INSERT INTO `accounts` VALUES (1,'Alex','e10adc3949ba59abbe56e057f20f883e','1',1),(2,'Dr. Lewis','20318004908c6bb3addc919808e55b77','1',1),(3,'Ellie','35ac2332b603b8f6c24ac293e1d057fd','1',0),(4,'Tyler','5de7bb3c232741f461f3ccd13c1ba7a0','1',1),(5,'Ewen','05a671c66aefea124cc08b76ea6d30bb','1',1);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,6 +80,9 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `auctionitems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+
+/* !!!!!!!!! Need to add optional description !!!!!!! */
+
 CREATE TABLE `auctionitems` (
   `ItemId` int(11) NOT NULL AUTO_INCREMENT,
   `AuctionId` int(11) DEFAULT NULL,
@@ -98,7 +101,7 @@ CREATE TABLE `auctionitems` (
 
 LOCK TABLES `auctionitems` WRITE;
 /*!40000 ALTER TABLE `auctionitems` DISABLE KEYS */;
-INSERT INTO `auctionitems` VALUES (1,101,'Rubiks Cube','Alex',5.00,'2018-03-15 16:17:29',1),(2,102,'Ts GameCube Controller','Daniel Karem',399.99,'2018-03-13 00:00:00',2),(3,103,'Freshman Tears','Larry Tyler',11.99,'2018-03-13 00:00:00',4),(4,104,'Five Dollars','Mr. Rogers',0.99,'2018-03-13 00:00:00',2),(5,105,'Skynet','Roman Yampolskiy',19.99,'2018-03-13 00:00:00',4),(6,106,'Raspberry Pi','Adrian Lauf',24.99,'2018-03-13 00:00:00',1),(7,107,'CECS Degree','Dr. Elmaghraby',40000.00,'2018-03-13 00:00:00',4),(8,108,'Presidential Pardon','Donald Trump',19.99,'2018-03-13 00:00:00',2),(9,109,'FTL Drive','NASA',99.99,'2018-03-13 00:00:00',4),(10,110,'Pack of Gum','Anonymous',1.99,'2018-03-13 00:00:00',2),(219,322,'Ownership of Facebook','Mark Zuckerberg',5.00,'2018-04-15 16:05:36',1);
+INSERT INTO `auctionitems` VALUES (1,101,'Rubiks Cube','Alex',5.00,'2018-03-15 16:17:29',1),(2,102,'Ts GameCube Controller','Daniel Karem',399.99,'2018-03-13 00:00:00',2),(3,103,'Freshman Tears','Larry Tyler',11.99,'2018-03-13 00:00:00',4),(4,104,'Five Dollars','Mr. Rogers',0.99,'2018-03-13 00:00:00',2),(5,105,'Skynet','Roman Yampolskiy',19.99,'2018-03-13 00:00:00',4),(6,106,'Raspberry Pi','Adrian Lauf',24.99,'2018-03-13 00:00:00',1),(7,107,'CECS Degree','Dr. Elmaghraby',40000.00,'2018-03-13 00:00:00',4),(8,108,'Presidential Pardon','Donald Trump',19.99,'2018-03-13 00:00:00',2),(9,109,'FTL Drive','NASA',99.99,'2018-03-13 00:00:00',4),(10,110,'Pack of Gum','Anonymous',1.99,'2018-03-13 00:00:00',2),(219,322,'Ownership of Facebook','Mark Zuckerberg',5.00,'2018-04-15 16:05:36',1),(220,223,'Test Item','Me',-1.00,'2018-04-15 16:05:36',1);
 /*!40000 ALTER TABLE `auctionitems` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,7 +231,7 @@ CREATE TABLE `purchases` (
 
 LOCK TABLES `purchases` WRITE;
 /*!40000 ALTER TABLE `purchases` DISABLE KEYS */;
-INSERT INTO `purchases` VALUES (101,168473272,45.00,1),(102,168473273,450.00,1),(600,168473272,20.00,2);
+INSERT INTO `purchases` VALUES (101,168473272,45.00,1),(102,168473273,450.00,1),(600,168473272,20.00,2),(223,168473275,20.00,1),(103,168473275,20.00,1);
 /*!40000 ALTER TABLE `purchases` ENABLE KEYS */;
 UNLOCK TABLES;
 
