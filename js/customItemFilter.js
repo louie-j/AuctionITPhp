@@ -6,7 +6,6 @@ $.fn.dataTable.ext.search.push(
         var three = document.getElementById('three').checked;
         var six = document.getElementById('six').checked;
         var splitPath = window.location.pathname.split( '/' );
-        console.log(splitPath[splitPath.length-1]);
         var id = splitPath[splitPath.length-1] == 'ItemManagement.php' ?
             parseInt( data[1] ) : 
             parseInt( data[0] );
