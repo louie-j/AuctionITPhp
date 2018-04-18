@@ -84,7 +84,6 @@ and open the template in the editor.
 
                 $('button#btn-delete').click( function () {
                     var bidderId = table.rows('.selected').data()[0].BidderId;
-                    console.log(bidderId);
                     if (confirm("Are you sure you want to delete the selected item?")) {
                         $.ajax ( {
                             type: "POST",
@@ -98,19 +97,14 @@ and open the template in the editor.
                 } ); 
 
                 $("button#submit").click(function(){
-                   console.log(document.getElementById("bidderId").value);
-                    
-                    var url = document.getElementById("bidderId").value == "" 
+                      var url = document.getElementById("bidderId").value == "" 
                         ? "phpScripts/RegisterBidderDatabase.php"
-                        : "phpScripts/EditBidder.php" ;
-                    console.log(url);    
+                        : "phpScripts/EditBidder.php" ; 
                     $.ajax( {
                         type: "POST",
                         url: url,
                         data: $('form.edit').serialize(),
                         success: function(data) {
-                            console.log("Submit button");
-                            console.log(data);
                             document.getElementById("edit").reset();
                             $('#myDataTable').DataTable().ajax.reload();
                             $("#edit-modal").modal('hide'); 

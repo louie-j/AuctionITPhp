@@ -137,7 +137,6 @@ and open the template in the editor.
                         url: "phpScripts/unassignAuctionItems.php",
                         data: {auctionId: auctionId },
                         success: function(data) {
-                           // alert(data);
                             $('#myDataTable').DataTable().ajax.reload();
                         }
                     });
