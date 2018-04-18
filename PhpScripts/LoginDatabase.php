@@ -16,25 +16,25 @@ $password = md5($password);
 $sql = "CALL checkPassword('" . $userName . "','" . $password . "')";
 
 $result = $conn->query($sql);
-$loginSuccess = false;
+$_SESSION['loginSuccess'] = false;
 foreach($result as $row)
 {
     if($row["Type"] == 1)
     {
         $_SESSION['accountType'] = "admin";
         header('Location: ../ViewAllItems.php');
-        $loginSuccess = true;
+        $_SESSION['loginSuccess'] = true;
     }   
     if($row["Type"] == 2)
     {
         $_SESSION['accountType'] = "user";
         header('Location: ../ViewAllItems.php');
-        $loginSuccess = true;
+        $_SESSION['loginSuccess'] = true;
     }
     $_SESSION['autoID'] = $row["AutoId"];
     $_SESSION['username'] = $row["Username"];
 }
 
-if (!$loginSuccess) {
-    header('Location: ../Index.php');
+if (!$_SESSION['loginSuccess']) {
+    header('Location: ../index.php');
 }
