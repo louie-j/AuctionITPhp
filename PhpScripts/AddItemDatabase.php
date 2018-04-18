@@ -23,7 +23,6 @@ $result = $conn->query($sql);
         }
         echo "Item Added <br>";
         $_SESSION['databaseSuccess'] = 1;
-		header('Location: ../AddItem.php');
 
  
 $conn->close();
