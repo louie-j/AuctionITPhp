@@ -172,5 +172,11 @@
 }
 
 .navbar {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
+}
+
+.separator {
+    background-color: #666;
+    height: 1px;
+    margin-bottom: 24px;
 }

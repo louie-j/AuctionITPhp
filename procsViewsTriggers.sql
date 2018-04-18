@@ -92,12 +92,14 @@ VIEW `viewreceipts` AS
         `a`.`ItemId` AS `ItemId`,
         `a`.`Description` AS `Description`,
         `a`.`DonatedBy` AS `DonatedBy`,
-        `a`.`Value` AS `Value`
+        `a`.`Value` AS `Value`,
+        `b`.`Name` AS `Name`
     FROM
         (`purchases` `p`
-        JOIN `auctionitems` `a`)
+        JOIN `auctionitems` `a`
+        JOIN `bidders` `b`)
     WHERE
-        (`p`.`AuctionId` = `a`.`AuctionId`);
+        (`p`.`AuctionId` = `a`.`AuctionId` AND `p`.`BidderId` = `b`.`BidderId`);
 
 /*viewItems*/
 CREATE 

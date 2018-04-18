@@ -2,23 +2,23 @@
 { "size": 15, "weight": "B", "height": "10", "newPage": true }
 
 
-Dear {{Name}},
+Dear {{DonatedBy}},
 
 
 Thank you for donating to this year's auction. The generosity of you and others allow for the event to be a success. Also, consider this a donation receipt for tax purposes.
 
 
 { "startRepeatable": 1 }
-{ "size": 15, "weight": "B", "align": "C", "height": "10", "width": "-60", "left": "30" }
+{ "size": 15, "weight": "B", "align": "L", "height": "10", "width": "-60", "left": "30" }
 {{Description}}
 { "size": 15, "weight": "B", "height": "10", "align": "R", "top": "-10" }
-${{Value}}.00
+${{Value}}
 { "endRepeatable": 1, "repeatOn": "Items" }
 
-{ "size": 15, "weight": "B", "align": "C", "height": "10" }
+{ "size": 15, "weight": "B", "align": "L", "height": "10", "left": "30" }
 Total Contribution:
 { "size": 15, "weight": "B", "height": "10", "align": "R", "top": "-10" }
-${{Total}}.00
+${{Total}}
 
 
 { "size": 15, "weight": "B", "height": "10" }

@@ -11,12 +11,16 @@ function GetItemsBySection($items) {
 	$retVal			= array();
 
 	foreach ($items as $item) {
+		if ($item['value'] < 0) {
+			$item['value'] = 'Priceless';
+		}
+
 		if ($item['auctionId'] >= 100 && $item['auctionId'] < 200) {
-			$items100s[count($items100s)] = $item;
+			array_push($items100s, $item);
 		} else if ($item['auctionId'] >= 200 && $item['auctionId'] < 300) {
-			$items200s[count($items200s)] = $item;
+			array_push($items200s, $item);
 		} else if ($item['auctionId'] >= 300 && $item['auctionId'] < 400) {
-			$items300s[count($items300s)] = $item;
+			array_push($items300s, $item);
 		}
 	}
 
@@ -36,32 +40,36 @@ function GetItemsBySection($items) {
 }
 
 // Makes a receipt by adding up purchases per buyers and listing each purchase
-function GetReceiptsFromPurchases($purchases) {
+function GetReceiptsFromPurchases($purchases, $bidderID) {
 	$receipts = array();
 
 	foreach ($purchases as $purchase) {
 
 		// Check if a receipt for that buyer is already started
-		if (isset($receipts[$purchase['BuyerId']])) {
-			$receipts[$purchase['BuyerId']]['Total'] += $purchase['Value'];
-			$receipts[$purchase['BuyerId']]['Items'][count($receipts[$purchase['BuyerId']]['Items'])] = array(
-				"AuctionId"   => $purchase['AuctionId'],
-				"Value"       => $purchase['Value'],
-				"Description" => $purchase['Description']
-			);
-		} else {
-			$receipts[$purchase['BuyerId']] = array(
-				"BuyerId"	=> $purchase['BuyerId'],
-				"Name"		=> $purchase['Name'],
-				"Total"   => $purchase['Value'],
-				"Items"   => array(
-					array(
-						"AuctionId"		=> $purchase['AuctionId'],
-						"Value"       => $purchase['Value'],
-						"Description"	=> $purchase['Description']
+		if (!isset($bidderID) || ($purchase['BidderId'] == $bidderID)) {
+			if (isset($receipts[$purchase['BidderId']])) {
+				$receipts[$purchase['BidderId']]['Total'] = $receipts[$purchase['BidderId']]['Total'] == '______' ? '______' : $purchase['Value'] > 0 ? $receipts[$purchase['BidderId']]['Total'] + $purchase['Value'] : '______';
+				$receipts[$purchase['BidderId']]['Items'][count($receipts[$purchase['BidderId']]['Items'])] = array(
+					"AuctionId"   => $purchase['AuctionId'],
+					"Value"       => $purchase['Value'] > 0 ? $purchase['Value'] : "______",
+					"Description" => $purchase['Description']
+				);
+			} else {
+				$receipts[$purchase['BidderId']] = array(
+					"BidderId"	=> $purchase['BidderId'],
+					"Name"			=> $purchase['Name'],
+					"Total"   	=> $purchase['Value'] > 0 ? $purchase['Value'] : '______',
+					"Items"   	=> array(
+						array(
+							"AuctionId"		=> $purchase['AuctionId'],
+							"Value"       => $purchase['Value'] > 0 ? $purchase['Value'] : "______",
+							"Description"	=> $purchase['Description']
+						)
 					)
-				)
-			);
+				);
+			}
+		} else {
+			
 		}
 	}
 
@@ -75,22 +83,22 @@ function GetDonorsAndTotals($donations) {
 	foreach ($donations as $donation) {
 
 		// Check if a receipt for that buyer is already started
-		if (isset($donors[$donation['Name']])) {
-			$donors[$donation['Name']]['Total'] += $donation['Value'];
-			$donors[$donation['Name']]['Items'][count($donors[$donation['Name']]['Items'])] = array(
-				"ItemId"      => $donation['ItemId'],
-				"Value"       => $donation['Value'],
-				"Description" => $donation['Description']
+		if (isset($donors[$donation['donatedBy']])) {
+			$donors[$donation['donatedBy']]['Total'] = $donors[$donation['donatedBy']]['Total'] == '______' ? '______' : $donation['value'] > 0 ? $donors[$donation['donatedBy']]['Total'] + $donation['value'] : '______';
+			$donors[$donation['donatedBy']]['Items'][count($donors[$donation['donatedBy']]['Items'])] = array(
+				"AuctionId"   => $donation['auctionId'],
+				"Value"       => $donation['value'] > 0 ? $donation['value'] : "______",
+				"Description" => $donation['description']
 			);
 		} else {
-			$donors[$donation['Name']] = array(
-				"Name"		=> $donation['Name'],
-				"Total"   => $donation['Value'],
-				"Items"   => array(
+			$donors[$donation['donatedBy']] = array(
+				"DonatedBy"	=> $donation['donatedBy'],
+				"Total"   	=> $donation['value'] > 0 ? $donation['value'] : '______',
+				"Items"   	=> array(
 					array(
-						"AuctionId"		=> $donation['AuctionId'],
-						"Value"       => $donation['Value'],
-						"Description"	=> $donation['Description']
+						"AuctionId"		=> $donation['auctionId'],
+						"Value"       => $donation['value'] > 0 ? $donation['value'] : "______",
+						"Description"	=> $donation['description']
 					)
 				)
 			);
@@ -98,6 +106,22 @@ function GetDonorsAndTotals($donations) {
 	}
 
 	return $donors;
+}
+
+// Sets the value correctly for priceless items
+function GetNumSheetItems($items) {
+	$retVal = array();
+
+	foreach ($items as $item) {
+		array_push($retVal, array(
+			"auctionId"		=> $item['auctionId'],
+			"description"	=> $item['description'],
+			"donatedBy"		=> $item['donatedBy'],
+			"value"				=> $item['value'] > 0 ? $item['value'] : 'Priceless'
+		));
+	}
+
+	return $retVal;
 }
 
 ?>
