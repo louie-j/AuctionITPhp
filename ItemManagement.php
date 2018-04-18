@@ -86,7 +86,10 @@ and open the template in the editor.
                                 document.getElementById("btn-edit").style.display = "inline";
                             else
                                 document.getElementById("btn-edit").style.display = "none"; 
-                            document.getElementById("btn-unassign").style.display = "inline";
+                            if (table.rows('.selected').data()[0].AuctionId == null)
+                                document.getElementById("btn-unassign").style.display = "none";
+                            else
+                                document.getElementById("btn-unassign").style.display = "inline";
                             document.getElementById("btn-delete").style.display = "inline";
                             break; 
                     }
