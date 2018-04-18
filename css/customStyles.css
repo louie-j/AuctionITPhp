@@ -171,6 +171,7 @@
     float: right;
     margin-right: 5px;
     margin-top: 6px;
+    pointer-events: none;
 }
 
 .navbar {
