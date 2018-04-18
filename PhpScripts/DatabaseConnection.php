@@ -27,7 +27,7 @@ function Connect()
     $dbname = "AuctionIT"; */
 
     /* Ewen */
-    $dbhost = "localhost";
+    $dbhost = "127.0.0.1";
     $dbuser = "root";
     $dbpass = "testtest";
     $dbname = "AuctionIT";

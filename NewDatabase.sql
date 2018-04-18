@@ -39,7 +39,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,'Alex','e10adc3949ba59abbe56e057f20f883e','1',1),(2,'Dr. Lewis','20318004908c6bb3addc919808e55b77','1',1),(3,'Ellie','35ac2332b603b8f6c24ac293e1d057fd','1',0),(4,'Tyler','5de7bb3c232741f461f3ccd13c1ba7a0','1',1),(5,'Ewen','58b5207f1a45b4f7e504858709cbebac','1',1);
+INSERT INTO `accounts` VALUES (1,'Alex','e10adc3949ba59abbe56e057f20f883e','1',1),(2,'Dr. Lewis','20318004908c6bb3addc919808e55b77','1',1),(3,'Ellie','35ac2332b603b8f6c24ac293e1d057fd','1',0),(4,'Tyler','5de7bb3c232741f461f3ccd13c1ba7a0','1',1),(5,'Ewen','05a671c66aefea124cc08b76ea6d30bb','1',1);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
