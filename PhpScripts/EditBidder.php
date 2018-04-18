@@ -9,7 +9,6 @@
    $conn = Connect();
    $sql = "CALL updateBidder ('" . $bidderId . "'," . $name . "," . $address . "," . $phone . ")";
    
-// echo $sql;
    $result = $conn->query($sql);
 
    if (!$result) {

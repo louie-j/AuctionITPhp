@@ -9,7 +9,6 @@ $name = strip_tags($_POST['name']) == null ? 'null' : "'" . strip_tags($_POST['n
 
 $sql = "CALL createBidder($phone,$address,$name)";
 $result = $conn->query($sql);
-//  echo $sql;
 
    if (!$result) {
         $_SESSION['databaseSuccess'] = 2;
