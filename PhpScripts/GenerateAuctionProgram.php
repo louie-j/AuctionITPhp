@@ -8,7 +8,7 @@ ob_start();
 
 $year       = date("Y");
 $conn       = Connect();
-$itemQuery  = "CALL viewAuctionItemsSheet(".$year.")";
+$itemQuery  = "SELECT * FROM viewauctionitemssheet";//"CALL viewAuctionItemsSheet(".$year.")";
 $donorQuery = "CALL viewDonators(". $year . ")";
 //$items      = $conn->query($itemQuery);
 //$donors     = $conn->query($donorQuery);
