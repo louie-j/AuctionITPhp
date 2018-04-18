@@ -19,7 +19,7 @@
                                     case("AdminPage.php"):
                                         echo("User Management");
                                         break;
-                                    case("FindItem.php"):
+                                    case("ItemManagement.php"):
                                         echo("Item Management");
                                         break;
                                     case("Reports.php"):
