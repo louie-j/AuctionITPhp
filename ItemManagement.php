@@ -97,7 +97,7 @@ and open the template in the editor.
 
                 $('input#noId').click( function () {
                     document.getElementById('auctionId').readOnly = document.getElementById('noId').checked;
-                    document.getElementById("auctionId").value = document.getElementById('noId').checked ?
+                    document.getElementById("auctionId").value = document.getElementById('noId').checked || table.rows('.selected').data().length == 0 ?
                         null :
                         table.rows('.selected').data()[0].AuctionId;
 
@@ -105,7 +105,7 @@ and open the template in the editor.
                 
                 $('input#noValue').click( function () {
                     document.getElementById('value').readOnly = document.getElementById('noValue').checked;
-                    document.getElementById("value").value = document.getElementById('noValue').checked ?
+                    document.getElementById("value").value = document.getElementById('noValue').checked || table.rows('.selected').data().length == 0 ?
                         null :
                         table.rows('.selected').data()[0].Value;
 
