@@ -46,18 +46,22 @@
     }
     else
     {
-    $query   = "CALL updateAccount(" . $autoId . "," . "" . $password_hashed . "" . "," . "'" . $type . "'" . ","  . $active  . ")";
-    $success = $conn->query($query);
-    if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
+        if( $password_hashed == NULL)
+            $query   = "CALL updateAccount(" . $autoId . "," . "" . $password_hashed . "" . "," . "'" . $type . "'" . ","  . $active  . ")";    
+        else
+            $query   = "CALL updateAccount(" . $autoId . "," . "'" . $password_hashed . "'" . "," . "'" . $type . "'" . ","  . $active  . ")";
+        
+        $success = $conn->query($query);
+        if(!isset($_SESSION)) 
+        { 
+            session_start(); 
+        } 
 
-    if (!$success) {
-        $_SESSION['databaseSuccess'] = 2;
-        die("Couldn't enter data: ".$conn->error);
-    }
-    echo "Account Updated <br>";
-    $_SESSION['databaseSuccess'] = 1;
+        if (!$success) {
+            $_SESSION['databaseSuccess'] = 2;
+            die("Couldn't enter data: ".$conn->error);
+        }
+        echo "Account Updated <br>";
+        $_SESSION['databaseSuccess'] = 1;
     }
 ?>
