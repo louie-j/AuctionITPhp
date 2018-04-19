@@ -29,7 +29,6 @@ and open the template in the editor.
                         { mData: 'Username', "searchable": true } ,
                         { mData: 'Active', "searchable": false },
                         { mData: 'Type', "searchable": false },
-                        { mData: 'Password_hashed', "searchable": false },
   
                         {  "targets": -1,
                             "data": null,
@@ -159,7 +158,6 @@ and open the template in the editor.
                         <td class="first head">Username</td>
                         <td class="head">State</td>
                         <td class="head">User Type</td>
-                        <td class="head">pass</td>
                         <td class="last head">Edit</td>
                     </tr>
                 </thead>

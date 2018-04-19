@@ -15,10 +15,6 @@
     if($password == "")
         $password_hashed = NULL;
         
-
-
-
-
     //Convert from bool to 0 or 1 to match database schema
     $type              = $conn->real_escape_string($_POST['typeAdmin']);
     if($type == true)
