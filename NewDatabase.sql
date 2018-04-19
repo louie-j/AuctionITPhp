@@ -54,6 +54,7 @@ CREATE TABLE `auctionitem_history` (
   `ItemId` int(11) NOT NULL,
   `AuctionId` int(11) DEFAULT NULL,
   `Description` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description2` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `DonatedBy` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Value` decimal(10,2) DEFAULT NULL,
   `AddedModifiedDate` datetime DEFAULT NULL,
@@ -69,7 +70,7 @@ CREATE TABLE `auctionitem_history` (
 
 LOCK TABLES `auctionitem_history` WRITE;
 /*!40000 ALTER TABLE `auctionitem_history` DISABLE KEYS */;
-INSERT INTO `auctionitem_history` VALUES (1,101,'Used Rubiks cube','Alex Helm',4.99,'2018-03-13 00:00:00',1,2018),(1,101,'Time Machine','Man from the future',249.99,'2018-03-13 00:00:00',2,2020),(2,102,'Ts GameCube Controller','Daniel Karem',399.99,'2018-03-13 00:00:00',2,2018),(3,103,'Freshman Tears','Larry Tyler',11.99,'2018-03-13 00:00:00',4,2018),(4,104,'Five Dollars','Mr. Rogers',0.99,'2018-03-13 00:00:00',2,2018),(5,105,'Skynet','Roman Yampolskiy',19.99,'2018-03-13 00:00:00',4,2018),(6,106,'Raspberry Pi','Adrian Lauf',24.99,'2018-03-13 00:00:00',1,2018),(7,107,'CECS Degree','Dr. Elmaghraby',40000.00,'2018-03-13 00:00:00',4,2018),(8,108,'Presidential Pardon','Donald Trump',19.99,'2018-03-13 00:00:00',2,2018),(9,109,'FTL Drive','NASA',99.99,'2018-03-13 00:00:00',4,2018),(10,110,'Pack of Gum','Anonymous',1.99,'2018-03-13 00:00:00',2,2018);
+INSERT INTO `auctionitem_history` VALUES (1,101,'Used Rubiks cube',null,'Alex Helm',4.99,'2018-03-13 00:00:00',1,2018),(1,101,'Time Machine',null,'Man from the future',249.99,'2018-03-13 00:00:00',2,2020),(2,102,'Ts GameCube Controller',null,'Daniel Karem',399.99,'2018-03-13 00:00:00',2,2018),(3,103,'Freshman Tears',null,'Larry Tyler',11.99,'2018-03-13 00:00:00',4,2018),(4,104,'Five Dollars',null,'Mr. Rogers',0.99,'2018-03-13 00:00:00',2,2018),(5,105,'Skynet',null,'Roman Yampolskiy',19.99,'2018-03-13 00:00:00',4,2018),(6,106,'Raspberry Pi',null,'Adrian Lauf',24.99,'2018-03-13 00:00:00',1,2018),(7,107,'CECS Degree',null,'Dr. Elmaghraby',40000.00,'2018-03-13 00:00:00',4,2018),(8,108,'Presidential Pardon',null,'Donald Trump',19.99,'2018-03-13 00:00:00',2,2018),(9,109,'FTL Drive',null,'NASA',99.99,'2018-03-13 00:00:00',4,2018),(10,110,'Pack of Gum',null,'Anonymous',1.99,'2018-03-13 00:00:00',2,2018);
 /*!40000 ALTER TABLE `auctionitem_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,12 +82,11 @@ DROP TABLE IF EXISTS `auctionitems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 
-/* !!!!!!!!! Need to add optional description !!!!!!! */
-
 CREATE TABLE `auctionitems` (
   `ItemId` int(11) NOT NULL AUTO_INCREMENT,
   `AuctionId` int(11) DEFAULT NULL,
   `Description` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  `Description2` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
   `DonatedBy` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
   `Value` decimal(10,2) DEFAULT NULL,
   `AddedModifiedDate` datetime NOT NULL,
@@ -101,7 +101,7 @@ CREATE TABLE `auctionitems` (
 
 LOCK TABLES `auctionitems` WRITE;
 /*!40000 ALTER TABLE `auctionitems` DISABLE KEYS */;
-INSERT INTO `auctionitems` VALUES (1,101,'Rubiks Cube','Alex',5.00,'2018-03-15 16:17:29',1),(2,102,'Ts GameCube Controller','Daniel Karem',399.99,'2018-03-13 00:00:00',2),(3,103,'Freshman Tears','Larry Tyler',11.99,'2018-03-13 00:00:00',4),(4,104,'Five Dollars','Mr. Rogers',0.99,'2018-03-13 00:00:00',2),(5,105,'Skynet','Roman Yampolskiy',19.99,'2018-03-13 00:00:00',4),(6,106,'Raspberry Pi','Adrian Lauf',24.99,'2018-03-13 00:00:00',1),(7,107,'CECS Degree','Dr. Elmaghraby',40000.00,'2018-03-13 00:00:00',4),(8,108,'Presidential Pardon','Donald Trump',19.99,'2018-03-13 00:00:00',2),(9,109,'FTL Drive','NASA',99.99,'2018-03-13 00:00:00',4),(10,110,'Pack of Gum','Anonymous',1.99,'2018-03-13 00:00:00',2),(219,322,'Ownership of Facebook','Mark Zuckerberg',5.00,'2018-04-15 16:05:36',1),(220,223,'Test Item','Me',-1.00,'2018-04-15 16:05:36',1);
+INSERT INTO `auctionitems` VALUES (1,101,'Rubiks Cube',null,'Alex',5.00,'2018-03-15 16:17:29',1),(2,102,'Ts GameCube Controller',null,'Daniel Karem',399.99,'2018-03-13 00:00:00',2),(3,103,'Freshman Tears',null,'Larry Tyler',11.99,'2018-03-13 00:00:00',4),(4,104,'Five Dollars',null,'Mr. Rogers',0.99,'2018-03-13 00:00:00',2),(5,105,'Skynet',null,'Roman Yampolskiy',19.99,'2018-03-13 00:00:00',4),(6,106,'Raspberry Pi',null,'Adrian Lauf',24.99,'2018-03-13 00:00:00',1),(7,107,'CECS Degree',null,'Dr. Elmaghraby',40000.00,'2018-03-13 00:00:00',4),(8,108,'Presidential Pardon',null,'Donald Trump',19.99,'2018-03-13 00:00:00',2),(9,109,'FTL Drive',null,'NASA',99.99,'2018-03-13 00:00:00',4),(10,110,'Pack of Gum',null,'Anonymous',1.99,'2018-03-13 00:00:00',2),(219,322,'Ownership of Facebook',null,'Mark Zuckerberg',5.00,'2018-04-15 16:05:36',1),(220,223,'Test Item',null,'Me',-1.00,'2018-04-15 16:05:36',1);
 /*!40000 ALTER TABLE `auctionitems` ENABLE KEYS */;
 UNLOCK TABLES;
 
