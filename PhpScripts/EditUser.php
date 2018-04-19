@@ -46,7 +46,7 @@
     }
     else
     {
-    $query   = "CALL updateAccount(" . $autoId . "," . "'" . $password_hashed . "'" . "," . "'" . $type . "'" . ","  . $active  . ")";
+    $query   = "CALL updateAccount(" . $autoId . "," . "" . $password_hashed . "" . "," . "'" . $type . "'" . ","  . $active  . ")";
     $success = $conn->query($query);
     if(!isset($_SESSION)) 
     { 
