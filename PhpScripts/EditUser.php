@@ -22,9 +22,9 @@
     //Convert from bool to 0 or 1 to match database schema
     $type              = $conn->real_escape_string($_POST['typeAdmin']);
     if($type == true)
-        $type = "Admin";
+        $type = 1;
     else    
-        $type = "User";
+        $type = 0;
     $active            = $conn->real_escape_string($_POST['active']);
     //Convert from bool to 0 or 1 to match database schema
     if($active == true)

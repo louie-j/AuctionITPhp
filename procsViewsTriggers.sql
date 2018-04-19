@@ -279,7 +279,7 @@ ALTER TABLE `bids` ADD UNIQUE `uniqueBidAmount`(AuctionId, Amount);
 /* createAccount */
 Delimiter $$
 drop procedure if exists createAccount $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createAccount`(in Username varchar(100), in Password_hashed varchar(256), in `type` varchar(20), in Active tinyint(4))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createAccount`(in Username varchar(100), in Password_hashed varchar(256), in `type` tinyint(4), in Active tinyint(4))
 Begin 
 	
 	Insert INTO accounts(Username, Password_hashed, `type`, Active)
@@ -290,7 +290,7 @@ End $$
 /*updateAccount*/
 Delimiter $$
 drop procedure if exists updateAccount $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccount`(in id INT(11), in pass VARCHAR(256), in type VARCHAR(20), in active tinyint(4))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccount`(in id INT(11), in pass VARCHAR(256), in type tinyint(4), in active tinyint(4))
 BEGIN
 	UPDATE ACCOUNTS as A
 	SET A.Password_hashed = IFNULL(pass, A.Password_hashed),

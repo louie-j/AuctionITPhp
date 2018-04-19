@@ -26,7 +26,7 @@ CREATE TABLE `accounts` (
   `AutoId` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(100) NOT NULL,
   `Password_hashed` varchar(256) DEFAULT NULL,
-  `Type` varchar(20) NOT NULL,
+  `Type` tinyint(4) NOT NULL,
   `Active` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`AutoId`),
   UNIQUE KEY `Username_UNIQUE` (`Username`)
