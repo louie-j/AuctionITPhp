@@ -20,17 +20,17 @@ function Connect()
     $dbpass = "";
     $dbname = "fbcmtown_auctionITdb"; */
     
-    // Tyler
+    /* Tyler
     $dbhost = "localhost";
     $dbuser = "root";
     $dbpass = "";
-    $dbname = "AuctionIT"; 
+    $dbname = "AuctionIT"; */
 
-    /* Ewen 
+    /* Ewen */
     $dbhost = "localhost";
     $dbuser = "root";
     $dbpass = "testtest";
-    $dbname = "fbcmtown_auctionitdb";*/
+    $dbname = "fbcmtown_auctionitdb";
 
     // Create connection
     $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname) or die($conn->connect_error);

@@ -127,7 +127,6 @@ and open the template in the editor.
                      }
 
                      document.getElementById("description").value = table.rows('.selected').data()[0].Description;
-                     document.getElementById("description2").value = table.rows('.selected').data()[0].Description2;
                      document.getElementById("donatedBy").value = table.rows('.selected').data()[0].DonatedBy;
                      document.getElementById("value").value = table.rows('.selected').data()[0].Value;
                      document.getElementById("itemId").value = table.rows('.selected').data()[0].ItemId;
@@ -256,8 +255,6 @@ and open the template in the editor.
                         <label><input type="checkbox" value="true" class="input-xlarge" name="noId" id="noId" checked>No AuctionId</label>
 						<br /><br /><strong>Description</strong><br />
 						<textarea id="description" name="description" class="input-xlarge"></textarea>
-						<br /><br /><strong>Optional Description</strong><br />
-						<textarea id="description2" name="description2" class="input-xlarge"></textarea>
 						<br /><br /><strong>Donated By</strong><br />					
                         <input id="donatedBy" name="donatedBy" type="text" class="input-xlarge" value="">
                         <br /><br /> <strong>Value</strong><br />

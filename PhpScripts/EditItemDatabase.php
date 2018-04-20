@@ -4,13 +4,12 @@
    $itemId = strip_tags($_POST['itemId']);
    $auctionId = strip_tags($_POST['auctionId']) == null ? 'null' : strip_tags($_POST['auctionId']);
    $description = strip_tags($_POST['description']) == null ? 'null' : strip_tags($_POST['description']);
-   $description2 = strip_tags($_POST['description']) == null ? 'null' : strip_tags($_POST['description2']);
    $donatedBy = strip_tags($_POST['donatedBy']) == null ? 'null' : strip_tags($_POST['donatedBy']);
    $value = strip_tags($_POST['value']) == null ? -1 : strip_tags($_POST['value']);
    $userId = $_SESSION['autoID'];
 
    $conn = Connect();
-   $sql = "CALL updateAuctionItem ('" . $itemId . "'," . $auctionId . ",'" . addslashes($description) . "','" . addslashes($description2) . "','" . addslashes($donatedBy) . "','" . $value . "','" . $userId . "')";
+   $sql = "CALL updateAuctionItem ('" . $itemId . "'," . $auctionId . ",'" . addslashes($description) . "','" . addslashes($donatedBy) . "','" . $value . "','" . $userId . "')";
    
    //echo $auctionId;
    $result = $conn->query($sql);
