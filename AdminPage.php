@@ -121,13 +121,11 @@ and open the template in the editor.
                 var adminBtn      = document.getElementById( "typeAdminRadioBtn2" ).checked;
                 var regUserBtn    = document.getElementById( "typeRegRadioBtn2" ).checked;
 
-                //alert("value " + activeBtn.checked + inActiveBtn.checked);
-  
-                //if(username == "" || username == NULL)
-                //{
-                //    alert("You have not given the account a username.");
-                //    return false;
-                //}
+                if(username === '' || username == null)
+                {
+                    alert("You have not given the account a username.");
+                    return false;
+                }
                 if( activeBtn == false && inActiveBtn == false)
                 {
                     alert("You have not selected user activity.");
@@ -138,11 +136,11 @@ and open the template in the editor.
                     alert("You have not selected user type.");
                     return false;
                 }
-                //if( password == "" || password == NULL)
-                //{
-                //    alert("You have not created a user password.");
-                //    return false;
-                //}
+                if( password === '' || password == null)
+                {
+                   alert("You have not created a user password.");
+                   return false;
+                }
                 //alert("Success.");
                 return true;
             }

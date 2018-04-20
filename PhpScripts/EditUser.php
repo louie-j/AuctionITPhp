@@ -6,7 +6,6 @@
     $username = $password_hashed = $type = $active = "";  
 
     $conn   = Connect();
-    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
     $autoId            = $conn->real_escape_string($_POST['autoId']);
 
     //If update button pressed
@@ -15,8 +14,8 @@
         $password   = $conn->real_escape_string($_POST['newPassword']);
         $password_hashed = md5($password);
         //proc deals with null by not changing value as opposed to changing to empty string
-        //if($password == "")
-        //    $password_hashed = NULL;       
+        if($password == "" || $password == null)
+           $password_hashed = NULL;       
         //Convert from bool to 0 or 1 to match database schema
         $type              = $conn->real_escape_string($_POST['typeAdmin']);
         if($type == true)
@@ -43,10 +42,10 @@
         }
         else
         {
-           // if( $password_hashed == NULL)
-           //     $query   = "CALL updateAccount(" . $autoId . "," . "" . $password_hashed . "" . "," . "'" . $type . "'" . ","  . $active  . ")";    
-           // else
-            $query   = "CALL updateAccount(" . $autoId . "," . "'" . $password_hashed . "'" . "," .  $type  . ","  . $active  . ")";
+           if( $password_hashed == null)
+               $query   = "CALL updateAccount(" . $autoId . "," . "" . $password_hashed . "" . "," . "'" . $type . "'" . ","  . $active  . ")";    
+           else
+               $query   = "CALL updateAccount(" . $autoId . "," . "'" . $password_hashed . "'" . "," .  $type  . ","  . $active  . ")";
             
             $success = $conn->query($query);
             if(!isset($_SESSION)) 
