@@ -8,7 +8,7 @@ and open the template in the editor.
     <head>
         <?php
             session_start();
-            if($_SESSION["accountType"] != 'admin')
+            if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
             {
                 header('Location: index.php'); 
             }
@@ -91,6 +91,9 @@ and open the template in the editor.
                             data: {bidderId: bidderId},
                             success: function(data) {
                                 $('#myDataTable').DataTable().ajax.reload();
+                                document.getElementById("btn-new").style.display = "inline";
+                                document.getElementById("btn-edit").style.display = "none";
+                                document.getElementById("btn-delete").style.display = "none";
                             }
                         });
                     }
