@@ -1,0 +1,222 @@
+.column {
+    float: left;
+    width: 25%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.odd {
+    background-color: #ddebf7 !important;
+}
+
+.even {
+    background-color: #ffffff !important; 
+}
+
+.selected {
+    background-color: rebeccapurple !important;
+    color: white !important;
+}
+
+.head {
+    border: 1px solid black;
+    border-left: none;
+    padding-left: 5px;
+    height: 48px;
+}
+
+.first {
+    border-left: 1px solid black !important;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.last {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.top {
+    margin-top: 10px;
+}
+
+.center {
+    border-radius: 5px;
+    display: block;
+    width: auto;
+    margin: auto;
+}
+
+.forty {
+    display: inline-block !important;
+    width: 40% !important;
+    vertical-align: top;
+}
+
+.description-search {
+    margin-left: 10%;
+}
+
+.dropdown {
+    border: 1px solid rgba(0,0,0,.15);
+    border-top: none;
+    cursor: pointer;
+    padding-left: 5px;
+}
+
+.dropdown:hover {
+    background-color: rgba(0,0,0, .05);
+}
+
+.drop {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    margin-top: .5rem;
+}
+
+.block {
+    display: block !important;
+}
+
+.error {
+    color: red;
+}
+
+.none {
+    display: none !important;
+}
+
+.page-name {
+    font-size: 18px;
+    height: 100%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.header {
+    background-color: #000000;
+    font-family: Verdana;
+    margin-right: 0 !important;
+    font-size: 22px;
+    padding: 5px;
+    height: 100%;
+    display: inline-block;
+    cursor: pointer;
+    color: #cccccc;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    transition: 0.2s ease-in-out color, 0.2s ease-in-out border-color;
+}
+
+.header:hover {
+    color: #e6e6e6;
+    border-color: #e6e6e6;
+}
+
+.header:active {
+    color: white;
+    border-color: white; 
+}
+
+.chevron {
+    color: #e6e6e6;
+    transition-duration: 0.30s;
+    display: inline-block;
+    transition: 0.2s ease-in-out color, 0.2s ease-in-out transform;
+    height: 35px;
+    
+}
+
+.header:hover > span > .chevron {
+    color: white;
+    transform: rotate(90deg);
+}
+
+
+.groups {
+    border: 1px solid black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;    
+    width: 140px;
+    text-align: center;
+    padding: 5px;
+    position: absolute;
+    left: 40%;
+    cursor: pointer !important;
+    z-index: 40;
+}
+
+.dropper {
+    overflow: hidden;
+    width: 140px;
+    height: 0px;
+
+    position: absolute;
+    left: 40%;
+    z-index: 41;
+    background-color: white;
+    top: 36px;
+}
+
+.auto-height {
+    height:auto;
+}
+
+.check-boxes {
+    float: right;
+    margin-right: 5px;
+    margin-top: 6px;
+    pointer-events: none;
+}
+
+.navbar {
+    margin-bottom: 24px;
+}
+
+.separator {
+    background-color: #666;
+    height: 1px;
+    margin-bottom: 24px;
+}
+
+.page {
+    padding: 0px 50px;
+}
+
+.name {
+    font-size: 18px;
+    border-bottom: 1px solid black;
+    margin-bottom: 15px;
+}
+
+
+
+ 
+/* The Modal (background) */
+.modal-custom {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+/* Modal Content/Box */
+.modal-content-custom {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}

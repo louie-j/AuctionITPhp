@@ -1,30 +1,21 @@
 <?php
-header('Location: ../RegisterBidder.php');
-
 require 'DatabaseConnection.php';
-$bidderID = $phone = $address = $year = $name = "";
 
 $conn = Connect();
-$bidderID   = $conn->real_escape_string($_POST['bidderID']);
-$phone = $conn->real_escape_string($_POST['phone']);
-$year = $conn->real_escape_string($_POST['year']);
-$address   = $conn->real_escape_string($_POST['address']);
-$name = $conn->real_escape_string($_POST['name']);
 
-$sql = "CALL insertBidder(" . $bidderID . ",'" . $phone . "','" . $address . "'," . $year . ",'" . $name . "')";
+$phone = strip_tags($_POST['phone']) == null ? 'null' : "'" . strip_tags($_POST['phone']) . "'";
+$address = strip_tags($_POST['address']) == null ? 'null' : "'" . addslashes(strip_tags($_POST['address'])) . "'";
+$name = strip_tags($_POST['name']) == null ? 'null' : "'" . addslashes(strip_tags($_POST['name'])) . "'";
+$phone = preg_replace("/\D/", "", $phone);
+
+$sql = "CALL createBidder($phone,$address,$name)";
 $result = $conn->query($sql);
-session_start();
-foreach($result as $row)
-{
-    if($row["Output"] == 1)
-    {
-        $_SESSION['databaseSuccess'] = 1;
-    }   
-    if($row["Output"] == 0)
-    {
-        $_SESSION['databaseSuccess'] = 3;
+
+   if (!$result) {
+        $_SESSION['databaseSuccess'] = 2;
+        die("Couldn't enter data: ".$conn->error);
     }
-}
-$conn->close();
-?>
+    $_SESSION['databaseSuccess'] = 1;
+
+   $conn->close();
 
