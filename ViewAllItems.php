@@ -105,7 +105,7 @@ and open the template in the editor.
                     <td class="head">Description</td>
                     <td class="head">Donated By</td>
                     <td class="head">Value</td>
-                    <td class="head">Winning Bidder</td>
+                    <td class="head bidder">Winning Bidder</td>
                     <td class="last head">Winning Bid</td>
                 </tr>
             </thead>
