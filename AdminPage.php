@@ -121,6 +121,7 @@ and open the template in the editor.
                 var adminBtn      = document.getElementById( "typeAdminRadioBtn2" ).checked;
                 var regUserBtn    = document.getElementById( "typeRegRadioBtn2" ).checked;
 
+
                 if(username === '' || username == null)
                 {
                     alert("You have not given the account a username.");
@@ -185,9 +186,9 @@ and open the template in the editor.
     <!--
     Html for the eidt modal view
     -->
-    <div id="myEditModal" class="modal">      
+    <div id="myEditModal" class="modal-custom">      
             
-            <div class="modal-content page">
+            <div class="modal-content-custom page">
                     <form class="form-group" action="PhpScripts/EditUser.php" method="post">
                         <span class="name"></span>
                         <div id = "radioBtns" class="form-group">
@@ -223,9 +224,9 @@ and open the template in the editor.
     <!--
         Create Acount Modal
     -->
-        <div id="createAccountModal" class="modal">      
+        <div id="createAccountModal" class="modal-custom">      
             
-            <div class="modal-content page">
+            <div class="modal-content-custom page">
                     <form class="form-group" action="PhpScripts/CreateAccount.php" onsubmit = "return validateAccount()" method="post">
                         <span class="name"></span>
                         <div class="form-group">
