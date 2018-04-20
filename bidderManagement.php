@@ -8,7 +8,7 @@ and open the template in the editor.
     <head>
         <?php
             session_start();
-            if($_SESSION["accountType"] != 'admin')
+            if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
             {
                 header('Location: index.php'); 
             }
