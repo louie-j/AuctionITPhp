@@ -25,7 +25,7 @@ foreach($result as $row)
         header('Location: ../ViewAllItems.php');
         $_SESSION['loginSuccess'] = true;
     }   
-    if($row["Type"] == 2)
+    if($row["Type"] == 0)
     {
         $_SESSION['accountType'] = "user";
         header('Location: ../ViewAllItems.php');
