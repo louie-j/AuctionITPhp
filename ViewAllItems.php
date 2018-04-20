@@ -32,7 +32,7 @@ and open the template in the editor.
                         { mData: 'description', "searchable": true },
                         { mData: 'donatedBy', "searchable": false },
                         { mData: 'value', "searchable": false},                        
-                        { mData: 'winningbidder', "searchable": false},
+                        { mData: 'winningBidderId', "searchable": false},
                         { mData: 'winningbid', "searchable": false}
                     ]
                 }); // end data table

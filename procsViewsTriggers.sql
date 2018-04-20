@@ -54,6 +54,7 @@ VIEW `viewauctionitemssheet` AS
             SEPARATOR ', ') AS `description2`,
         GROUP_CONCAT(DISTINCT `auctionitems`.`DonatedBy`
             SEPARATOR ', ') AS `donatedBy`,
+            b.bidderId AS winningBidderId,
         `bidders`.`Name` AS `winningbidder`,
         `b`.`Amount` AS `winningbid`
     FROM
@@ -68,6 +69,7 @@ VIEW `viewauctionitemssheet` AS
         `auctionitems`.`Description` AS `description`,
         `auctionitems`.`Description2` AS `description2`,
         `auctionitems`.`DonatedBy` AS `donatedBy`,
+        b.bidderId AS winningBidderId,
         `bidders`.`Name` AS `winningbidder`,
         `b`.`Amount` AS `winningbid`
     FROM
