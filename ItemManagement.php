@@ -29,6 +29,7 @@ and open the template in the editor.
                         { mData: 'ItemId', visible: false},
                         { mData: 'AuctionId'  } ,
                         { mData: 'Description' },
+                        { mData: 'Description2' },
                         { mData: 'DonatedBy' },
                         { mData: 'Value' },
                         { mData: null },
@@ -40,13 +41,13 @@ and open the template in the editor.
                                 var date = new Date(data.LastModified).toLocaleDateString();
                                  return data.LastModifiedBy + ' on ' + date;
                             },
-                            "targets":5
+                            "targets":6
                         },
                         {
                             "render": function(data,type,row) {
                                  return data == -1 ? "Priceless" : data;
                             },
-                            "targets":4
+                            "targets":5
                         },
                         {
                             "render": function(data,type,row) {
@@ -232,6 +233,7 @@ and open the template in the editor.
                         <td ></td>
                         <td class=" first head">AuctionId</td>
                         <td class="head">Description</td>
+                        <td class="head">Optional Description</td>
                         <td class="head">Donated By</td>
                         <td class="head">Value</td>
                         <td class="last head">Last Edited By</td>
