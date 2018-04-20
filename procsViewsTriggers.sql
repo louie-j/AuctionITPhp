@@ -300,6 +300,16 @@ BEGIN
 END $$
 
 
+/* deleteAccount */
+Delimiter $$
+Drop procedure if exists deleteAccount $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteAccount`(in `acountId` int(11))
+Begin
+	delete from Accounts
+    where AutoId = `acountId`;
+End $$
+
+
 /* deleteBid */
 Delimiter $$
 Drop procedure if exists deleteBid $$

@@ -57,14 +57,13 @@ and open the template in the editor.
                 $('#myDataTable tbody').on( 'click', 'button', function () {
 
                     //Get the data from the selected row
-                    var dataObj = table.row( $(this).parents('td') ).data();
-                    var data    = Object.values(dataObj);
-                    var AccID   = data[0];
+                    var dataObj     = table.row( $(this).parents('td') ).data();
+                    var data        = Object.values(dataObj);
+                    var AccID       = data[0];
                     var TypeValue   = data[3];
                     var activeValue = data[4];
 
-                    //alert("deez nuts");
-                    var modal = document.getElementById('myModal');
+                    var modal = document.getElementById('myEditModal');
                     modal.style.display = "block";
                     var accountLabel = document.getElementById('accountLabel');
                     accountLabel.value = AccID;
@@ -106,40 +105,63 @@ and open the template in the editor.
                     }, 10000);                   
                 }
             }
+            function createAccount()
+            {
+                var modal = document.getElementById('createAccountModal');
+                modal.style.display = "block";
+            }
+            //Validate that an account is fully created before submit
+            function validateAccount()
+            {
+               // alert("Test!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                var username      = document.getElementById( "usernameLabel" );
+                var password      = document.getElementById( "newPasswordText2" );
+                var activeBtn     = document.getElementById( "statusARadioBtn2" ).checked;
+                var inActiveBtn   = document.getElementById( "statusInARadioBtn2" ).checked;
+                var adminBtn      = document.getElementById( "type1RadioBtn2" ).checked;
+                var regUserBtn    = document.getElementById( "type2RadioBtn2" ).checked;
 
-            function validate()
+                //alert("value " + activeBtn.checked + inActiveBtn.checked);
+  
+               // if(username == "" || username == NULL)
+                //{
+                //    alert("You have given the account a username.");
+                 //   return false;
+                //}
+                if( activeBtn == false && inActiveBtn == false)
                 {
-                    var error="";
-                    var activeBtn     = document.getElementById( "statusARadioBtn" );
-                    var inActiveBtn   = document.getElementById( "statusInARadioBtn" );
-                    var adminBtn      = document.getElementById( "type1RadioBtn" );
-                    var regUserBtn    = document.getElementById( "type2RadioBtn" );
-
-                    if( activeBtn.value === false && inActiveBtn.value === false)
-                    {
-                        error = "You have not selected user activity.";
-                        document.getElementById( "error_para" ).innerHTML = error;
-                        return false;
-                    }
-                    var description = document.getElementById( "description" );
-                    if( adminBtn.value === false && regUserBtn.value === false )
-                    {
-                        error = "You have not selected user type.";
-                        document.getElementById( "error_para" ).innerHTML = error;
-                        return false;
-                    }
-
-                    else
-                    {
-                        return true;
-                    }
+                    alert("You have not selected user activity.");
+                    return false;
                 }
+                else if( adminBtn == false && regUserBtn == false )
+                {
+                    alert("You have not selected user type.");
+                    return false;
+                }
+                //else if( password == "" || password == NULL)
+               // {
+                 //   alert("You have not created a user password.");
+                   // return false;
+                //}
+                else
+                {
+                    return false;
+                }
+                return false;
+            }
+
+
 
             //Radio button action buttons
             function clickActive() {document.getElementById("statusInARadioBtn").checked = false;}
             function clickInActive() {document.getElementById("statusARadioBtn").checked = false;}
             function clickAdmin(){document.getElementById("typeRegRadioBtn").checked = false;}
             function clickRegular(){document.getElementById("typeAdminRadioBtn").checked = false}
+
+            function clickActive2() {document.getElementById("statusInARadioBtn2").checked = false;}
+            function clickInActive2() {document.getElementById("statusARadioBtn2").checked = false;}
+            function clickAdmin2(){document.getElementById("typeRegRadioBtn2").checked = false;}
+            function clickRegular2(){document.getElementById("typeAdminRadioBtn2").checked = false}
 
 		</script>
 		<link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
@@ -162,12 +184,13 @@ and open the template in the editor.
                     </tr>
                 </thead>
             </table>
+            <button onclick= "createAccount();" class="btn btn-primary" type="button">Create Account</button>
         <input id="start" type="button" class="center btn-info" value="Start Rotating Through Pages" onclick="changePagesAutomatically();" />
-    
+    </div>
     <!--
-    Html for the modal view
+    Html for the eidt modal view
     -->
-    <div id="myModal" class="modal">      
+    <div id="myEditModal" class="modal">      
             
             <div class="modal-content page">
                     <form class="form-group" action="PhpScripts/EditUser.php" method="post">
@@ -191,14 +214,57 @@ and open the template in the editor.
                         </div>
 
                         <div class="form-group">
-                                <button class="btn btn-primary" id = "updateButton" type="submit">Update</button>
-                                <button onclick="location.href = 'AdminPage.php';" class="btn btn-primary" id = "cancelButton" type="button">Cancel</button>
+                            <button class="btn btn-primary" id = "updateButton" name = "update" type="submit">Update</button>
+                            <button class="btn btn-primary" id = "deleteButton" name = "delete" type="submit">Delete</button>
+                            <button onclick="location.href = 'AdminPage.php';" class="btn btn-primary" id = "cancelButton" type="button">Cancel</button>
                         </div>
                     </form>
                     <p id="error_para" ></p>
                     
             </div>
     </div>  
+
+
+    <!--
+        Create Acount Modal
+    -->
+        <div id="createAccountModal" class="modal">      
+            
+            <div class="modal-content page">
+                    <form class="form-group" action="PhpScripts/CreateAccount.php" onsubmit = "return validateAccount();" method="post">
+                        <span class="name"></span>
+                        <div class="form-group">
+
+                        <label for "usernameLabel">Account Username</label>
+                        <input type="text" class="form-control" name="username" id="usernameLabel" >
+
+                        <label>Status</label><br>
+                            <input onclick="clickActive2()"   id = "statusARadioBtn2"      type="radio" name="active"> Active<br> 
+                            <input onclick="clickInActive2()" id = "statusInARadioBtn2"    type="radio" name="inActive"> Inactive<br>
+                        <label>Type of User</label><br>
+                            <input onclick="clickAdmin2()"    id = "typeAdminRadioBtn2"    type="radio" name="typeAdmin"      value = false  > Admin <br>
+                            <input onclick="clickRegular2()"  id = "typeRegRadioBtn2"      type="radio" name="typeRegular"> Regular <br>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label><br>
+                            <input id="newPasswordText2" class="form-control" type="text" name="newPassword">
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary" id = "createButton" name = "create" type="submit">Create</button>
+                            <button onclick="location.href = 'AdminPage.php';" class="btn btn-primary" id = "cancelButton2" type="button">Cancel</button>
+                        </div>
+                    </form>
+                    <p id="error_para" ></p>
+                    
+            </div>
+    </div>
+
+    
+
+
+
    
     </body>
 </html>
