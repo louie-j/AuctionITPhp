@@ -8,7 +8,7 @@ and open the template in the editor.
     <head>
         <?php
             session_start();
-            if($_SESSION["accountType"] != 'admin')
+            if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
             {
                 header('Location: index.php'); 
             }
@@ -143,6 +143,10 @@ and open the template in the editor.
                         data: {auctionId: auctionId },
                         success: function(data) {
                             $('#myDataTable').DataTable().ajax.reload();
+                            document.getElementById("btn-new").style.display = "inline";
+                            document.getElementById("btn-edit").style.display = "none";
+                            document.getElementById("btn-unassign").style.display = "none";
+                            document.getElementById("btn-delete").style.display = "none";
                         }
                     });
                 } ); 
@@ -163,6 +167,10 @@ and open the template in the editor.
                             data: {auctionId: id, isAssigned: isAssigned },
                             success: function(data) {
                                 $('#myDataTable').DataTable().ajax.reload();
+                                document.getElementById("btn-new").style.display = "inline";
+                                document.getElementById("btn-edit").style.display = "none";
+                                document.getElementById("btn-unassign").style.display = "none";
+                                document.getElementById("btn-delete").style.display = "none";
                             }
                         });
                     }
