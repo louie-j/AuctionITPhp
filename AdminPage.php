@@ -114,40 +114,37 @@ and open the template in the editor.
             function validateAccount()
             {
                // alert("Test!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                var username      = document.getElementById( "usernameLabel" );
-                var password      = document.getElementById( "newPasswordText2" );
+                var username      = document.getElementById( "usernameLabel" ).value;
+                var password      = document.getElementById( "newPasswordText2" ).value;
                 var activeBtn     = document.getElementById( "statusARadioBtn2" ).checked;
                 var inActiveBtn   = document.getElementById( "statusInARadioBtn2" ).checked;
-                var adminBtn      = document.getElementById( "type1RadioBtn2" ).checked;
-                var regUserBtn    = document.getElementById( "type2RadioBtn2" ).checked;
+                var adminBtn      = document.getElementById( "typeAdminRadioBtn2" ).checked;
+                var regUserBtn    = document.getElementById( "typeRegRadioBtn2" ).checked;
 
                 //alert("value " + activeBtn.checked + inActiveBtn.checked);
   
-               // if(username == "" || username == NULL)
+                //if(username == "" || username == NULL)
                 //{
-                //    alert("You have given the account a username.");
-                 //   return false;
+                //    alert("You have not given the account a username.");
+                //    return false;
                 //}
                 if( activeBtn == false && inActiveBtn == false)
                 {
                     alert("You have not selected user activity.");
                     return false;
                 }
-                else if( adminBtn == false && regUserBtn == false )
+                if( adminBtn == false && regUserBtn == false )
                 {
                     alert("You have not selected user type.");
                     return false;
                 }
-                //else if( password == "" || password == NULL)
-               // {
-                 //   alert("You have not created a user password.");
-                   // return false;
+                //if( password == "" || password == NULL)
+                //{
+                //    alert("You have not created a user password.");
+                //    return false;
                 //}
-                else
-                {
-                    return false;
-                }
-                return false;
+                //alert("Success.");
+                return true;
             }
 
 
@@ -231,7 +228,7 @@ and open the template in the editor.
         <div id="createAccountModal" class="modal">      
             
             <div class="modal-content page">
-                    <form class="form-group" action="PhpScripts/CreateAccount.php" onsubmit = "return validateAccount();" method="post">
+                    <form class="form-group" action="PhpScripts/CreateAccount.php" onsubmit = "return validateAccount()" method="post">
                         <span class="name"></span>
                         <div class="form-group">
 
