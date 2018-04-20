@@ -103,7 +103,7 @@ Festival Missions Auction
 {  "size": 10, "left": "12", "width": "60" }
 {{donatedBy}}
 {  "size": 10, "left": "12", "width": "60", "weight": "I" }
-{{otherDescription}}
+{{description2}}
 {  "size": 10, "left": "12", "width": "60", "weight": "B" }
 Retail Value: ${{value}}
 
