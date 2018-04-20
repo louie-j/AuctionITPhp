@@ -91,6 +91,9 @@ and open the template in the editor.
                             data: {bidderId: bidderId},
                             success: function(data) {
                                 $('#myDataTable').DataTable().ajax.reload();
+                                document.getElementById("btn-new").style.display = "inline";
+                                document.getElementById("btn-edit").style.display = "none";
+                                document.getElementById("btn-delete").style.display = "none";
                             }
                         });
                     }
