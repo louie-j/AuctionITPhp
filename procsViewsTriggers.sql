@@ -300,6 +300,21 @@ BEGIN
 END $$
 
 
+/*updateAccountStatus*/
+Delimiter $$
+drop procedure if exists updateAccountStatus $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccountStatus`(in id INT(11), in type tinyint(4), in active tinyint(4))
+BEGIN
+	UPDATE ACCOUNTS as A
+	SET A.`Type`          = IFNULL(`type`, A.`Type`),
+		A.active          = IFNULL(active, A.Active)
+	WHERE A.AutoId = id;
+END $$
+
+
+
+
+
 /* deleteAccount */
 Delimiter $$
 Drop procedure if exists deleteAccount $$
