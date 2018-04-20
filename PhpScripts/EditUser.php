@@ -15,16 +15,12 @@
     if($password == "")
         $password_hashed = NULL;
         
-
-
-
-
     //Convert from bool to 0 or 1 to match database schema
     $type              = $conn->real_escape_string($_POST['typeAdmin']);
     if($type == true)
-        $type = "Admin";
+        $type = 1;
     else    
-        $type = "User";
+        $type = 0;
     $active            = $conn->real_escape_string($_POST['active']);
     //Convert from bool to 0 or 1 to match database schema
     if($active == true)
@@ -46,18 +42,22 @@
     }
     else
     {
-    $query   = "CALL updateAccount(" . $autoId . "," . "'" . $password_hashed . "'" . "," . "'" . $type . "'" . ","  . $active  . ")";
-    $success = $conn->query($query);
-    if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
+        if( $password_hashed == NULL)
+            $query   = "CALL updateAccount(" . $autoId . "," . "" . $password_hashed . "" . "," . "'" . $type . "'" . ","  . $active  . ")";    
+        else
+            $query   = "CALL updateAccount(" . $autoId . "," . "'" . $password_hashed . "'" . "," . "'" . $type . "'" . ","  . $active  . ")";
+        
+        $success = $conn->query($query);
+        if(!isset($_SESSION)) 
+        { 
+            session_start(); 
+        } 
 
-    if (!$success) {
-        $_SESSION['databaseSuccess'] = 2;
-        die("Couldn't enter data: ".$conn->error);
-    }
-    echo "Account Updated <br>";
-    $_SESSION['databaseSuccess'] = 1;
+        if (!$success) {
+            $_SESSION['databaseSuccess'] = 2;
+            die("Couldn't enter data: ".$conn->error);
+        }
+        echo "Account Updated <br>";
+        $_SESSION['databaseSuccess'] = 1;
     }
 ?>
