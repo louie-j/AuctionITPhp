@@ -28,16 +28,15 @@ and open the template in the editor.
             var bidValid = false;
             var minBid;
             $( document ).ready(function() {
-
-                if(<?php echo $_SESSION['databaseSuccess'] ?> === 1)
+                if(<?php echo $_SESSION['bidSuccess'] ?> === 1)
                 {
                     alert("Bid Added");
-                    <?php $_SESSION['databaseSuccess'] = 0; ?>
+                    <?php $_SESSION['bidSuccess'] = 0; ?>
                 }
-                else if(<?php echo $_SESSION['databaseSuccess'] ?> == 2)
+                else if(<?php echo $_SESSION['bidSuccess'] ?> === 2)
                 {
                     alert("Error adding Bid to Database");
-                    <?php $_SESSION['databaseSuccess'] = 0; ?>
+                    <?php $_SESSION['bidSuccess'] = 0; ?>
                 }
 
 
