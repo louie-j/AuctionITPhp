@@ -252,20 +252,21 @@ and open the template in the editor.
             function checkValue () {
                 var value = document.getElementById('value').value;
                 var priceless = document.getElementById('noValue').checked;
-                if (value == "" && !priceless ) {
-                    document.getElementById("valueError").classList.remove("none");
+                if (value !== "" || priceless ) {
+                    document.getElementById("valueError").classList.add("none");
                     return true;
                 }   
                 else {
-                    document.getElementById("valueError").classList.add("none");
+                    document.getElementById("valueError").classList.remove("none");
                     return false;
                 }
             }
 
             function isValid () {
-                if (checkId() && checkDescription() && checkDonatedBy() && checkValue() ) {
-                    document.getElementById("submit").disabled = false;
-                }
+                if (checkId() && checkDescription() && checkDonatedBy() && checkValue() ) 
+                    document.getElementById("submit").removeAttribute('disabled');
+                else
+                    document.getElementById("submit").disabled = true;
             }
 
 		</script>
