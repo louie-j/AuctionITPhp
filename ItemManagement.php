@@ -101,7 +101,7 @@ and open the template in the editor.
                     document.getElementById("auctionId").value = document.getElementById('noId').checked || table.rows('.selected').data().length == 0 ?
                         null :
                         table.rows('.selected').data()[0].AuctionId;
-
+                    isValid();
                 } );
                 
                 $('input#noValue').click( function () {
@@ -109,21 +109,25 @@ and open the template in the editor.
                     document.getElementById("value").value = document.getElementById('noValue').checked || table.rows('.selected').data().length == 0 ?
                         null :
                         table.rows('.selected').data()[0].Value;
-
+                    isValid();
                 } );
                 
                 $('button#btn-new').click( function () {
                     $("#title").text("New Item");
+                    isValid();
                 })
 
                 $('button#btn-edit').click( function () {
                     if (table.rows('.selected').data()[0].AuctionId) {
+                        console.log("Auction id is not empty");
                         document.getElementById("auctionId").value = table.rows('.selected').data()[0].AuctionId;
                         document.getElementById('noId').checked = false;
+                        document.getElementById('auctionId').removeAttribute("readonly");
                     }
                      else{
+                        console.log("Auction id is empty");
                         document.getElementById("auctionId").value = null;
-                        document.getElementById('auctionId').readOnly = true;
+                        document.getElementById('auctionId').readonly = true;
                         document.getElementById('noId').checked = true;
                      }
 
@@ -133,6 +137,7 @@ and open the template in the editor.
                      document.getElementById("value").value = table.rows('.selected').data()[0].Value;
                      document.getElementById("itemId").value = table.rows('.selected').data()[0].ItemId;
                      $("#title").text("Edit Item");
+                     isValid();
                 } );   
 
                 $('button#btn-unassign').click( function () {
@@ -197,6 +202,7 @@ and open the template in the editor.
 
                 $('.modal').on('hidden.bs.modal', function(){
                     document.getElementById("edit").reset();
+                    $(".error").removeClass("none");
                 });   
             });         
 
@@ -208,11 +214,72 @@ and open the template in the editor.
             function clickInput(id) {
                 document.getElementById(id).click();
             }
+
+            function checkId () {
+                console.log("checking id");
+                var id = document.getElementById('auctionId').value;
+                var idExists = document.getElementById('noId').checked;
+                if ((id > 99 && id < 400) || (id > 599 && id < 700) || idExists ) {
+                    document.getElementById("auctionError").classList.add("none");
+                    return true;
+                }   
+                else {
+                    document.getElementById("auctionError").classList.remove("none");
+                    return false;
+                }
+            }
+
+            function checkDescription () {
+                var description = document.getElementById('description').value;
+                console.log(description);
+                if (description == null || description == "" ) {
+                    document.getElementById("descriptionError").classList.remove("none");
+                    return false;
+                }   
+                else {
+                    document.getElementById("descriptionError").classList.add("none");
+                    return true;
+                }
+            }
+
+            function checkDonatedBy () {
+                var donatedBy = document.getElementById('donatedBy').value;
+                console.log(donatedBy);
+                if (donatedBy == null || donatedBy == "" ) {
+                    document.getElementById("donatedByError").classList.remove("none");
+                    return false;
+                }   
+                else {
+                    document.getElementById("donatedByError").classList.add("none");
+                    return true;
+                }
+            }
+
+            function checkValue () {
+                var value = document.getElementById('value').value;
+                var priceless = document.getElementById('noValue').checked;
+                if (value == "" && !priceless ) {
+                    document.getElementById("valueError").classList.remove("none");
+                    return true;
+                }   
+                else {
+                    document.getElementById("valueError").classList.add("none");
+                    return false;
+                }
+            }
+
+            function isValid () {
+                console.log("checking if valid");
+                if (checkId() && checkDescription() && checkDonatedBy() && checkValue() ) {
+                    console.log("Form is valid");
+                    document.getElementById("submit").disabled = false;
+                }
+            }
+
 		</script>
 		<link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
         <link href="css/customStyles.css" text="text/css" rel="stylesheet">
-        <!-- <link href="DataTables/DataTables-1.10.16/css/dataTables.jqueryui.min.css" text="text/css" rel="stylesheet"> -->
         <meta charset="UTF-8">
         <title></title>
     </head>
@@ -262,21 +329,25 @@ and open the template in the editor.
                         <input id="itemId", name="itemId" type="hidden">
 						<strong>AuctionId</strong>
 						<br />
-                        <input id="auctionId" type="number" name="auctionId" class="input-xlarge" readonly>
+                        <input id="auctionId" type="number" name="auctionId" class="input-xlarge" onkeyup=isValid() readonly>
                         <label><input type="checkbox" value="true" class="input-xlarge" name="noId" id="noId" checked>No AuctionId</label>
 						<br /><br /><strong>Description</strong><br />
-						<textarea id="description" name="description" class="input-xlarge"></textarea>
+						<textarea id="description" name="description" class="input-xlarge" onkeyup="isValid()"></textarea>
 						<br /><br /><strong>Optional Description</strong><br />
 						<textarea id="description2" name="description2" class="input-xlarge"></textarea>
 						<br /><br /><strong>Donated By</strong><br />					
-                        <input id="donatedBy" name="donatedBy" type="text" class="input-xlarge" value="">
+                        <input id="donatedBy" name="donatedBy" type="text" class="input-xlarge" value="" onkeyup="isValid()">
                         <br /><br /> <strong>Value</strong><br />
-                        <input id="value" type="number" name="value" step="0.01" class="input-xlarge">
+                        <input id="value" type="number" name="value" step="0.01" class="input-xlarge" onkeyup="isValid()">
                         <label><input type="checkbox" value="true" class="input-xlarge" name="noValue" id="noValue">Priceless</label>
 					</form>
+                    <div class="error none" id="auctionError">That Auction Number is invalid</div>
+                    <div class="error none" id="descriptionError">Description is required</div>
+                    <div class="error none" id="donatedByError">Donated By is required</div>
+                    <div class="error none" id="valueError">Item value is required</div>
 				</div>			
 				<div class="modal-footer">
-					<button class="btn btn-success" id="submit">Save</button>
+					<button class="btn btn-success" disabled id="submit">Save</button>
 					<a href="#" class="btn" data-dismiss="modal">Close</a>
 				</div>
 			</div>
