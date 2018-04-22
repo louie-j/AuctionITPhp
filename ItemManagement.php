@@ -26,13 +26,13 @@ and open the template in the editor.
                     resposive: true,
 
                     columns: [
-                        { mData: 'ItemId', visible: false},
-                        { mData: 'AuctionId'  } ,
-                        { mData: 'Description' },
-                        { mData: 'Description2' },
-                        { mData: 'DonatedBy' },
-                        { mData: 'Value' },
-                        { mData: null },
+                        { mData: 'ItemId', visible: false, searchable: false},
+                        { mData: 'AuctionId', searchable: true} ,
+                        { mData: 'Description', searchable: true},
+                        { mData: 'Description2', searchable: true },
+                        { mData: 'DonatedBy', searchable: true},
+                        { mData: 'Value', searchable: false},
+                        { mData: null, searchable: false},
        
                     ],
                     columnDefs: [

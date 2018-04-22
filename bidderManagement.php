@@ -25,10 +25,10 @@ and open the template in the editor.
                     resposive: true,
 
                     columns: [
-                        { mData: 'BidderId'},
-                        { mData: 'Name'  } ,
-                        { mData: 'Phone' },
-                        { mData: 'Address' }
+                        { mData: 'BidderId', searchable: true},
+                        { mData: 'Name', searchable: true} ,
+                        { mData: 'Phone', searchable: false},
+                        { mData: 'Address', searchable: false}
        
                     ],
                     columnDefs: [
