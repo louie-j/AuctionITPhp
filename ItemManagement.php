@@ -119,13 +119,11 @@ and open the template in the editor.
 
                 $('button#btn-edit').click( function () {
                     if (table.rows('.selected').data()[0].AuctionId) {
-                        console.log("Auction id is not empty");
                         document.getElementById("auctionId").value = table.rows('.selected').data()[0].AuctionId;
                         document.getElementById('noId').checked = false;
                         document.getElementById('auctionId').removeAttribute("readonly");
                     }
                      else{
-                        console.log("Auction id is empty");
                         document.getElementById("auctionId").value = null;
                         document.getElementById('auctionId').readonly = true;
                         document.getElementById('noId').checked = true;
@@ -191,7 +189,6 @@ and open the template in the editor.
                         url: url,
                         data: $('form.edit').serialize(),
                         success: function(data) {
-                            console.log(data);
                             document.getElementById("edit").reset();
                             $('#myDataTable').DataTable().ajax.reload();
                             $("#edit-modal").modal('hide'); 
@@ -216,7 +213,6 @@ and open the template in the editor.
             }
 
             function checkId () {
-                console.log("checking id");
                 var id = document.getElementById('auctionId').value;
                 var idExists = document.getElementById('noId').checked;
                 if ((id > 99 && id < 400) || (id > 599 && id < 700) || idExists ) {
@@ -231,7 +227,6 @@ and open the template in the editor.
 
             function checkDescription () {
                 var description = document.getElementById('description').value;
-                console.log(description);
                 if (description == null || description == "" ) {
                     document.getElementById("descriptionError").classList.remove("none");
                     return false;
@@ -244,7 +239,6 @@ and open the template in the editor.
 
             function checkDonatedBy () {
                 var donatedBy = document.getElementById('donatedBy').value;
-                console.log(donatedBy);
                 if (donatedBy == null || donatedBy == "" ) {
                     document.getElementById("donatedByError").classList.remove("none");
                     return false;
@@ -269,9 +263,7 @@ and open the template in the editor.
             }
 
             function isValid () {
-                console.log("checking if valid");
                 if (checkId() && checkDescription() && checkDonatedBy() && checkValue() ) {
-                    console.log("Form is valid");
                     document.getElementById("submit").disabled = false;
                 }
             }
