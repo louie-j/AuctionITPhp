@@ -25,10 +25,10 @@ and open the template in the editor.
                     resposive: true,
 
                     columns: [
-                        { mData: 'BidderId'},
-                        { mData: 'Name'  } ,
-                        { mData: 'Phone' },
-                        { mData: 'Address' }
+                        { mData: 'BidderId', searchable: true},
+                        { mData: 'Name', searchable: true} ,
+                        { mData: 'Phone', searchable: false},
+                        { mData: 'Address', searchable: false}
        
                     ],
                     columnDefs: [
@@ -39,10 +39,7 @@ and open the template in the editor.
                             "targets":1
                         }
                     ],
-                    select: {
-                        style:    'os',
-                        selector: 'td:first-child'
-                    },
+                    order: [[0, "asc"]]
                 } );
 
                  $('#myDataTable tbody').on('click', 'tr', function () {

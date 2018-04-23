@@ -32,9 +32,25 @@ and open the template in the editor.
                         { mData: 'description', "searchable": true },
                         { mData: 'donatedBy', "searchable": false },
                         { mData: 'value', "searchable": false},                        
-                        { mData: 'winningbidder', "searchable": false},
+                        { mData: 'winningBidderId', "searchable": false},
                         { mData: 'winningbid', "searchable": false}
-                    ]
+                    ],
+                    columnDefs: [
+                        
+                        {
+                            "render": function(data,type,row) {
+                                 return data == -1 ? "Priceless" : data;
+                            },
+                            "targets":3
+                        },
+                        {
+                            "render": function(data,type,row) {
+                                 return data == null ? "Unassigned" : data;
+                            },
+                            "targets":0
+                        }
+                    ],
+                    order: [[0, "asc"]]
                 }); // end data table
 
                 $('.idFilter').click( function() {

@@ -52,16 +52,16 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a class="nav-link" href="ItemManagement.php"><h4>Item Management</h4></a>
+                            <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
                         </li>
                         <li>
-                            <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
+                            <a class="nav-link" href="AddBid.php"><h4>Add Bid</h4></a>
                         </li>
                         <li>
                             <a class="nav-link" href="Reports.php"><h4>Reports</h4></a>
                         </li>
                         <li>
-                            <a class="nav-link" href="AddBid.php"><h4>Add Bid</h4></a>
+                            <a class="nav-link" href="ItemManagement.php"><h4>Item Management</h4></a>
                         </li>
                         <li>
                             <a class="nav-link" href="bidderManagement.php"><h4>Bidder Management</h4></a>
