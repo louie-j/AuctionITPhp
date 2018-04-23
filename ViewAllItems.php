@@ -33,7 +33,8 @@ and open the template in the editor.
                         { mData: 'donatedBy', "searchable": false },
                         { mData: 'value', "searchable": false},                        
                         { mData: 'winningBidderId', "searchable": false},
-                        { mData: 'winningbid', "searchable": false}
+                        { mData: 'winningbid', "searchable": false},
+                        { mData: 'sold', visible: false}
                     ],
                     columnDefs: [
                         
@@ -45,7 +46,10 @@ and open the template in the editor.
                         },
                         {
                             "render": function(data,type,row) {
-                                 return data == null ? "Unassigned" : data;
+                                console.log(data);
+                                console.log(row.sold);
+                                 var id = row.sold == 1 ? data + "\tSOLD!" : data;
+                                 return data == null ? "Unassigned" : id;
                             },
                             "targets":0
                         }
@@ -123,6 +127,7 @@ and open the template in the editor.
                     <td class="head">Value</td>
                     <td class="head bidder">Winning Bidder</td>
                     <td class="last head">Winning Bid</td>
+                    <td></td>
                 </tr>
             </thead>
         </table>

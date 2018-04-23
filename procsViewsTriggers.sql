@@ -4,6 +4,8 @@ drop view if exists viewthreehundreds;
 drop view if exists viewsixhundreds;
 drop procedure if exists viewAuctionItemGroups;
 
+USE auctionit;
+
 /* View Donators */
 drop view if exists viewDonators;
 CREATE 
@@ -41,7 +43,7 @@ VIEW `viewBidders` AS
 /*View AuctionItemsSheet */
 DROP VIEW IF EXISTS viewauctionitemssheet;
 CREATE 
-    ALGORITHM = UNDEFINED 
+     OR REPLACE ALGORITHM = UNDEFINED 
     DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
 VIEW `viewauctionitemssheet` AS
@@ -54,9 +56,21 @@ VIEW `viewauctionitemssheet` AS
             SEPARATOR ', ') AS `description2`,
         GROUP_CONCAT(DISTINCT `auctionitems`.`DonatedBy`
             SEPARATOR ', ') AS `donatedBy`,
-            b.bidderId AS winningBidderId,
+		 b.bidderId AS winningBidderId,
         `bidders`.`Name` AS `winningbidder`,
-        `b`.`Amount` AS `winningbid`
+        `b`.`Amount` AS `winningbid`,
+        (CASE
+            WHEN
+                EXISTS( SELECT 
+                        1
+                    FROM
+                        `purchases`
+                    WHERE
+                        (`purchases`.`AuctionId` = `auctionitems`.`AuctionId`))
+            THEN
+                1
+            ELSE 0
+        END) AS `sold`
     FROM
         ((`auctionitems`
         LEFT JOIN `viewwinningbids` `b` ON ((`b`.`AuctionId` = `auctionitems`.`AuctionId`)))
@@ -69,16 +83,16 @@ VIEW `viewauctionitemssheet` AS
         `auctionitems`.`Description` AS `description`,
         `auctionitems`.`Description2` AS `description2`,
         `auctionitems`.`DonatedBy` AS `donatedBy`,
-        b.bidderId AS winningBidderId,
+		 b.bidderId AS winningBidderId,
         `bidders`.`Name` AS `winningbidder`,
-        `b`.`Amount` AS `winningbid`
+        `b`.`Amount` AS `winningbid`,
+        0 AS `sold`
     FROM
         ((`auctionitems`
         LEFT JOIN `viewwinningbids` `b` ON ((`b`.`AuctionId` = `auctionitems`.`AuctionId`)))
         LEFT JOIN `bidders` ON ((`bidders`.`BidderId` = `b`.`BidderId`)))
     WHERE
-        ISNULL(`auctionitems`.`AuctionId`));	
-
+        ISNULL(`auctionitems`.`AuctionId`));
 /* viewReceipts */
 Drop view if exists viewReceipts;
 CREATE 
