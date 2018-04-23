@@ -39,10 +39,7 @@ and open the template in the editor.
                             "targets":1
                         }
                     ],
-                    select: {
-                        style:    'os',
-                        selector: 'td:first-child'
-                    },
+                    order: [[0, "asc"]]
                 } );
 
                  $('#myDataTable tbody').on('click', 'tr', function () {

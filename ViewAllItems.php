@@ -50,6 +50,7 @@ and open the template in the editor.
                             "targets":0
                         }
                     ],
+                    order: [[0, "asc"]]
                 }); // end data table
 
                 $('.idFilter').click( function() {

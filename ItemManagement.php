@@ -56,10 +56,7 @@ and open the template in the editor.
                             "targets":1
                         }
                     ],
-                    select: {
-                        style:    'os',
-                        selector: 'td:first-child'
-                    },
+                    order: [[1, "asc"]]
                 } );
 
                 $('.idFilter').click( function() {
