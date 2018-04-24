@@ -9,8 +9,7 @@ USE auctionit;
 /* View Donators */
 drop view if exists viewDonators;
 CREATE 
-    ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
+    ALGORITHM = UNDEFINED  
     SQL SECURITY DEFINER
 VIEW `viewdonators` AS
     SELECT DISTINCT
@@ -22,7 +21,6 @@ VIEW `viewdonators` AS
 drop view if exists viewWinningBids;
 CREATE 
     ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
 VIEW `viewWinningBids` AS
     SELECT *
@@ -33,7 +31,6 @@ VIEW `viewWinningBids` AS
 drop view if exists viewBidders;
 CREATE 
     ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
 VIEW `viewBidders` AS
     SELECT *
@@ -44,7 +41,6 @@ VIEW `viewBidders` AS
 DROP VIEW IF EXISTS viewauctionitemssheet;
 CREATE 
      OR REPLACE ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
 VIEW `viewauctionitemssheet` AS
     (SELECT 
@@ -97,7 +93,6 @@ VIEW `viewauctionitemssheet` AS
 Drop view if exists viewReceipts;
 CREATE 
     ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
 VIEW `viewreceipts` AS
     SELECT 
@@ -120,8 +115,7 @@ VIEW `viewreceipts` AS
 
 /*viewItems*/
 CREATE 
-     OR REPLACE ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
+     OR REPLACE ALGORITHM = UNDEFINED
     SQL SECURITY DEFINER
 VIEW `viewitems` AS
     (SELECT 
@@ -166,7 +160,7 @@ VIEW `viewitems` AS
 /*closeSilentAuction*/
 drop procedure if exists closeSilentAuction;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `closeSilentAuction`(in selectAuction INT)
+CREATE PROCEDURE `closeSilentAuction`(in selectAuction INT)
 BEGIN
 	INSERT INTO Purchases (AuctionId, bidderId, Price, Quantity)
     SELECT AuctionId, bidderId, Amount AS Price, 1 AS Quantity
@@ -175,10 +169,39 @@ BEGIN
     AND AuctionId BETWEEN (selectAuction+1) AND (selectAuction + 99);
 END $$
 
+
+
+DELIMITER $$
+DROP procedure IF EXISTS `clearData`$$
+CREATE PROCEDURE `clearData` (in `date` INT)
+BEGIN
+	INSERT INTO auctionItem_history (ItemId, AuctionId, Description, Description2, DonatedBy, `Value`, AddedModifiedDate, AddedModifiedBy, `Year`)
+    SELECT ItemId, AuctionId, Description, Description2, DonatedBy, `Value`, AddedModifiedDate, AddedModifiedBy, `date` AS `Year`
+    FROM auctionItems;
+    
+    INSERT INTO bidder_history (`Year`, BidderId, `Name`, Address, Phone)
+    SELECT `date` AS `Year`, BidderId, `Name`, Address, Phone
+    FROM bidders;
+    
+    INSERT INTO purchase_history (AuctionId, BidderId, Price, Quantity, `Year`)
+    SELECT AuctionId, BidderId, Price, Quantity, `date` AS `Year`
+    FROM purchases;
+    
+    TRUNCATE auctionItems;
+    TRUNCATE bidders;
+    TRUNCATE purchases;
+    TRUNCATE bids;
+    
+    
+END$$
+
+DELIMITER ;
+
+
 /*updateAuctionItem*/
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updateAuctionItem $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAuctionItem`(in id int(11), in AuctionId int(11), in Description varchar(500), in Description2 varchar(500), in DonatedBy varchar(500), in `Value` decimal(10,2), in AddedModifiedBy int(11))
+CREATE PROCEDURE `updateAuctionItem`(in id int(11), in AuctionId int(11), in Description varchar(500), in Description2 varchar(500), in DonatedBy varchar(500), in `Value` decimal(10,2), in AddedModifiedBy int(11))
 Begin
     UPDATE auctionitems
     SET    
@@ -197,7 +220,7 @@ DELIMITER ;
 /*deleteAuctionItem*/
 DELIMITER $$
 drop procedure if exists deleteAuctionItem $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteAuctionItem`(in Id INT, in UserId INT, in isAuctionId BOOL)
+CREATE PROCEDURE `deleteAuctionItem`(in Id INT, in UserId INT, in isAuctionId BOOL)
 BEGIN
 IF (!isAuctionId) THEN
 	DELETE FROM auctionItems
@@ -211,7 +234,7 @@ END$$
 /*unassignAuctionItems*/
 DELIMITER $$
 drop procedure if exists unassignAuctionItems $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `unassignAuctionItems`(in Id INT, in UserId INT)
+CREATE PROCEDURE `unassignAuctionItems`(in Id INT, in UserId INT)
 BEGIN
 	UPDATE AuctionItems
 	SET AddedModifiedBy = UserId,
@@ -223,7 +246,7 @@ END$$
 /* createBid */
 Delimiter $$
 drop procedure if exists createBid $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createBid`(in auctionId int(11), in bidderId int(11), in bid decimal(10,2))
+CREATE PROCEDURE `createBid`(in auctionId int(11), in bidderId int(11), in bid decimal(10,2))
 Begin 
 	
 	IF EXISTS (SELECT * FROM bids AS B WHERE B.auctionId = auctionId AND B.bidderId = bidderId) THEN 
@@ -253,7 +276,7 @@ End $$
 /* createBidder */
 Delimiter $$
 Drop procedure if exists createBidder $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createBidder`(in Phone varchar(10), in Address varchar(100), in Name varchar(45))
+CREATE PROCEDURE `createBidder`(in Phone varchar(10), in Address varchar(100), in Name varchar(45))
 Begin 
 	
 	Insert INTO bidders(Phone, Address, `Name`) 
@@ -264,7 +287,7 @@ End $$
 /* createAuctionItem */
 Delimiter $$
 Drop procedure if exists createAuctionItem $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createAuctionItem`(in AuctionId int(11), in Description varchar(500), in Description2 varchar(500), in DonatedBy varchar(500), in `Value` decimal(10,2), in AddedModifiedBy int(11))
+CREATE PROCEDURE `createAuctionItem`(in AuctionId int(11), in Description varchar(500), in Description2 varchar(500), in DonatedBy varchar(500), in `Value` decimal(10,2), in AddedModifiedBy int(11))
 Begin 
 	Insert INTO auctionitems(AuctionId, Description, Description2, DonatedBy, `Value`, AddedModifiedDate, AddedModifiedBy)
     Values (AuctionId, Description, Description2, DonatedBy, `Value`, NOW(), AddedModifiedBy);
@@ -276,7 +299,7 @@ End $$
 /*checkPassword*/
 delimiter $$
 Drop procedure if exists checkPassword $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `checkPassword`(in user VARCHAR(100), in pass VARCHAR(100))
+CREATE PROCEDURE `checkPassword`(in user VARCHAR(100), in pass VARCHAR(100))
 BEGIN
 
 SELECT Username, Password_hashed, Type, AutoId
@@ -295,7 +318,7 @@ ALTER TABLE `bids` ADD UNIQUE `uniqueBidAmount`(AuctionId, Amount);
 /* createAccount */
 Delimiter $$
 drop procedure if exists createAccount $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createAccount`(in Username varchar(100), in Password_hashed varchar(256), in `type` tinyint(4), in Active tinyint(4))
+CREATE PROCEDURE `createAccount`(in Username varchar(100), in Password_hashed varchar(256), in `type` tinyint(4), in Active tinyint(4))
 Begin 
 	
 	Insert INTO accounts(Username, Password_hashed, `type`, Active)
@@ -306,7 +329,7 @@ End $$
 /*updateAccount*/
 Delimiter $$
 drop procedure if exists updateAccount $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccount`(in id INT(11), in pass VARCHAR(256), in type tinyint(4), in active tinyint(4))
+CREATE PROCEDURE `updateAccount`(in id INT(11), in pass VARCHAR(256), in type tinyint(4), in active tinyint(4))
 BEGIN
 	UPDATE ACCOUNTS as A
 	SET A.Password_hashed = IFNULL(pass, A.Password_hashed),
@@ -319,7 +342,7 @@ END $$
 /*updateAccountStatus*/
 Delimiter $$
 drop procedure if exists updateAccountStatus $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccountStatus`(in id INT(11), in type tinyint(4), in active tinyint(4))
+CREATE PROCEDURE `updateAccountStatus`(in id INT(11), in type tinyint(4), in active tinyint(4))
 BEGIN
 	UPDATE ACCOUNTS as A
 	SET A.`Type`          = IFNULL(`type`, A.`Type`),
@@ -334,7 +357,7 @@ END $$
 /* deleteAccount */
 Delimiter $$
 Drop procedure if exists deleteAccount $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteAccount`(in `acountId` int(11))
+CREATE PROCEDURE `deleteAccount`(in `acountId` int(11))
 Begin
 	delete from Accounts
     where AutoId = `acountId`;
@@ -344,7 +367,7 @@ End $$
 /* deleteBid */
 Delimiter $$
 Drop procedure if exists deleteBid $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteBid`(in auctionid int(11), in bidderid int(11))
+CREATE PROCEDURE `deleteBid`(in auctionid int(11), in bidderid int(11))
 Begin
 	delete from bids
     where AuctionId = auctionid and BidderId = bidderid;
@@ -353,7 +376,7 @@ End $$
 /*deleteBidder*/
 DELIMITER $$
 DROP PROCEDURE IF EXISTS deleteBidder $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteBidder`(in id INT)
+CREATE PROCEDURE `deleteBidder`(in id INT)
 BEGIN
 	DELETE FROM bidders
     WHERE bidderId = id;
@@ -364,7 +387,7 @@ DELIMITER ;
 /* viewSpecificItem */
 Delimiter $$
 Drop procedure if exists viewSpecificItem $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `viewSpecificItem`(in aID int(11))
+CREATE PROCEDURE `viewSpecificItem`(in aID int(11))
 Begin
 	select *
     from auctionitems
@@ -374,7 +397,7 @@ End $$
 /*buyDuck*/
 Delimiter $$
 drop procedure if exists buyDuck $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `buyDuck`(in bidder int(11), in amount int(2))
+CREATE PROCEDURE `buyDuck`(in bidder int(11), in amount int(2))
 BEGIN
 	INSERT into purchases (AuctionId, BidderId, Price, Quantity)
 	VALUES(600, bidder, 10*amount, amount);
@@ -384,7 +407,7 @@ drop procedure if exists updateBidder $$
 
 /*updateBidder*/
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateBidder`(in id INT, `name` VARCHAR(100), in address VARCHAR(100), in phoneNumber VARCHAR(10))
+CREATE PROCEDURE `updateBidder`(in id INT, `name` VARCHAR(100), in address VARCHAR(100), in phoneNumber VARCHAR(10))
 BEGIN
 	UPDATE BIDDERS as B
 	SET B.`name`     = `name`,
@@ -400,7 +423,7 @@ DELIMITER ;
 /*viewAccounts*/
 delimiter $$
 drop procedure if exists viewAccounts $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAccounts`()
+CREATE PROCEDURE `viewAccounts`()
  BEGIN
  	SELECT *
      FROM ACCOUNTS;
@@ -409,7 +432,7 @@ END $$
 /*viewAccount*/
 delimiter $$
 drop procedure if exists viewAccount $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAccount`(in id INT)
+CREATE PROCEDURE `viewAccount`(in id INT)
  BEGIN
  	SELECT *
      FROM ACCOUNTS
