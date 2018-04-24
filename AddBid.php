@@ -17,16 +17,27 @@ and open the template in the editor.
         ?>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/tether.min.js"></script>
-        <script src ="js/bootstrap.min.js"></script>
-        <link href="css/customStyles.css" text="text/css" rel="stylesheet">
-        <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <script src ="js/bootstrap.min.js"></script>      
+        <script src="DataTables/datatables.min.js"></script>     
         <script type="text/javascript">
             var items;
             var bidders;
             var userValid = false;
             var itemValid = false;
+            var itemSold = false;
             var bidValid = false;
             var minBid;
+            var table;
+
+            $.fn.dataTable.ext.search.push(
+                function( settings, data, dataIndex ) {
+                     var id = document.getElementById('auctionID').value;
+                    if (id == parseInt(data[0]))
+                        return true;  
+                    return false;
+                }
+            );
+
             $( document ).ready(function() {
                 if(<?php echo $_SESSION['bidSuccess'] ?> === 1)
                 {
@@ -39,6 +50,36 @@ and open the template in the editor.
                     <?php $_SESSION['bidSuccess'] = 0; ?>
                 }
 
+                table = $('#myDataTable').DataTable( {
+                    ajax: "phpScripts/ViewBids.php", 
+                    columns: [
+                        { mData: 'AuctionId', searchable: true, visible:false},
+                        { mData: 'BidderId', searchable: false} ,
+                        { mData: 'Amount', searchable: false},
+                        { mData: 'Winning', searchable: false}
+                    ],
+                    bPaginate: false,
+                    ordering: false,
+                    order: [[2, "asc"]],
+                    bInfo: false
+                } );
+
+                 $('#myDataTable').on('click', 'tr', function () {
+                    if ( $(this).hasClass('selected') ) {
+                        $(this).removeClass('selected');
+                    }
+                    else {
+                        table.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
+                    if (table.rows('.selected').data().length)
+                        $("#btn-delete").removeClass("none");
+                    else
+                        $("#btn-delete").addClass("none");    
+                });
+                
+                $("#bidder-hist").appendTo("#main-block");
+                $(".dataTables_wrapper").addClass("hist");
 
                 var oReq = new XMLHttpRequest();
                 oReq.onload = function() {
@@ -56,6 +97,21 @@ and open the template in the editor.
                 oReq2.send();
             });
 
+            function deleteBid() {
+                var auctionId = document.getElementById("auctionID").value;
+                var bidderId = table.rows('.selected').data()[0].BidderId;
+                if (confirm("Are you sure you want to delete the selected bid?")) {
+                        $.ajax ( {
+                            type: "POST",
+                            url: "phpScripts/DeleteBid.php",
+                            data: {auctionId: auctionId, bidderId: bidderId },
+                            success: function(data) {
+                                $("#btn-delete").addClass("none"); 
+                                $('#myDataTable').DataTable().ajax.reload();
+                            }
+                        });
+                    }
+            }
 
             function searchDescriptions(filterText, type) {
                 if (filterText == "") {
@@ -69,7 +125,11 @@ and open the template in the editor.
                         drop.removeChild(drop.firstChild);
                     }
                     filterText = filterText.toLowerCase();
-                    var arr = type == "Item" ? items : bidders;
+                    var arr = type == "Item" ? 
+                        items.filter(function (item) {
+                            return item.auctionId != null;
+                         }) : 
+                         bidders;
                     for (var i = 0; i < arr.length; i++) {
                         if (type == "Item") {
                             var description = arr[i].description.toLowerCase();
@@ -144,6 +204,11 @@ and open the template in the editor.
                     for(var i = 0; i < items.length; i++) {
                     if (items[i].auctionId == id) {
                         itemValid = true;
+                        itemSold = items[i].sold == 1 ? true : false;
+                        if (itemSold)
+                            hideOrShowElement("show", "soldError");
+                        $("#bidder-hist").removeClass("none");
+                        table.draw();
                         if (items[i].winningbid) minBid = parseInt(items[i].winningbid) + 5;
                         else minBid = null;
                         document.getElementById("searchTextItem").value = items[i].description;
@@ -151,6 +216,8 @@ and open the template in the editor.
                     }
                 }
                     itemValid = false;
+                    hideOrShowElement("hide", "soldError");
+                    $("#bidder-hist").addClass("none")
                     return manipulateHtml(false, type);
                 }
                 else if (type == "Bidder") {
@@ -204,7 +271,7 @@ and open the template in the editor.
                     if (bid % 5 == 0) {
                         bidValid = true;
                         hideOrShowElement("hide", "multipleOfFiveError")
-                        if (userValid && itemValid) {
+                        if (userValid && itemValid && !itemSold) {
                             hideOrShowElement("show", "enabled");
                             hideOrShowElement("hide", "disabled");
                         }
@@ -225,16 +292,16 @@ and open the template in the editor.
                 }
             }
 
-        </script>
+        </script> 
+        <link href="css/customStyles.css" text="text/css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
     </head>
     <body>
-    
         <?php include "PhpScripts/Templates/Nav.php";?>
-
-
-         <div class="container body-content">
+        <div id="main-block" class="container body-content">
             <div class="forty">
                 <form class="form-group" action="PhpScripts/AddBidDatabase.php" method="post">
                     <div class="form-group">
@@ -254,11 +321,12 @@ and open the template in the editor.
                     <button id="disabled" disabled type="submit" class="btn btn-primary">Submit</button>
                     <button id="enabled" type="submit" class="btn none btn-primary">Submit</button>
                     <div class="error none" id="auctionError">That Auction Number does not exist</div>
+                    <div class="error none" id="soldError">That Auction Item has already been sold</div>
                     <div class="error none" id="bidderError">That Bidder Number does not exist</div>
                     <div class="error none" id="minBidError"></div>
                     <div class="error none" id="multipleOfFiveError">Bids must be multiples of 5</div>
                 </form>
-            </div>
+            </div> <!-- end forty -->
 
             <div class="forty description-search">
                 <div>Search By Auction Description<div>
@@ -270,9 +338,24 @@ and open the template in the editor.
                 <input type="text" placeholder="Search..." class="form-control drop" id="searchTextBidder" 
                 onkeyup="searchDescriptions(document.getElementById('searchTextBidder').value, 'Bidder')">
                 <div id="descriptionBidder"></div>
-            </div>
-
+            </div> <!-- end forty -->
+        </div> <!-- end container -->
+        <div id="bidder-hist" class="none">
+            <h3 class="bid-hist-title">Bid History</h3>
+            <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td class="first head">BidderId</td>
+                        <td class="head">Bid Amount</td>
+                        <td class="last head">Winning</td>
+                    </tr>
+                </thead>
+            </table>
+            <button id="btn-delete" type="button" onclick="deleteBid()" class="btn btn-danger none">Delete</button>
         </div>
+
+        
         <!-- <div>
             <table style="width:20%">
                 <tr>
