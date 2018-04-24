@@ -64,7 +64,7 @@ and open the template in the editor.
                     bInfo: false
                 } );
 
-                 $('#myDataTable tbody').on('click', 'tr', function () {
+                 $('#myDataTable').on('click', 'tr', function () {
                     if ( $(this).hasClass('selected') ) {
                         $(this).removeClass('selected');
                     }
@@ -78,6 +78,8 @@ and open the template in the editor.
                         $("#btn-delete").addClass("none");    
                 });
                 
+                $("#bidder-hist").appendTo("#main-block");
+                $(".dataTables_wrapper").addClass("hist");
 
                 var oReq = new XMLHttpRequest();
                 oReq.onload = function() {
@@ -205,7 +207,7 @@ and open the template in the editor.
                         itemSold = items[i].sold == 1 ? true : false;
                         if (itemSold)
                             hideOrShowElement("show", "soldError");
-                        $(".bidder-hist").removeClass("none");
+                        $("#bidder-hist").removeClass("none");
                         table.draw();
                         if (items[i].winningbid) minBid = parseInt(items[i].winningbid) + 5;
                         else minBid = null;
@@ -215,7 +217,7 @@ and open the template in the editor.
                 }
                     itemValid = false;
                     hideOrShowElement("hide", "soldError");
-                    $(".bidder-hist").addClass("none")
+                    $("#bidder-hist").addClass("none")
                     return manipulateHtml(false, type);
                 }
                 else if (type == "Bidder") {
@@ -298,11 +300,8 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-    
         <?php include "PhpScripts/Templates/Nav.php";?>
-
-
-         <div class="container body-content">
+        <div id="main-block" class="container body-content">
             <div class="forty">
                 <form class="form-group" action="PhpScripts/AddBidDatabase.php" method="post">
                     <div class="form-group">
@@ -327,7 +326,7 @@ and open the template in the editor.
                     <div class="error none" id="minBidError"></div>
                     <div class="error none" id="multipleOfFiveError">Bids must be multiples of 5</div>
                 </form>
-            </div>
+            </div> <!-- end forty -->
 
             <div class="forty description-search">
                 <div>Search By Auction Description<div>
@@ -339,9 +338,10 @@ and open the template in the editor.
                 <input type="text" placeholder="Search..." class="form-control drop" id="searchTextBidder" 
                 onkeyup="searchDescriptions(document.getElementById('searchTextBidder').value, 'Bidder')">
                 <div id="descriptionBidder"></div>
-            </div>
-            <div class="container bidder-hist none" col-md-12>
-            <h3>Bid History</h3>
+            </div> <!-- end forty -->
+        </div> <!-- end container -->
+        <div id="bidder-hist" class="none">
+            <h3 class="bid-hist-title">Bid History</h3>
             <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
                 <thead>
                     <tr>
@@ -353,8 +353,8 @@ and open the template in the editor.
                 </thead>
             </table>
             <button id="btn-delete" type="button" onclick="deleteBid()" class="btn btn-danger none">Delete</button>
-            </div>
         </div>
+
         
         <!-- <div>
             <table style="width:20%">

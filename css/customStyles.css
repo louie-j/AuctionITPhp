@@ -224,3 +224,16 @@
 .bidder {
     width: 45px !important;
 }
+
+.float-right {
+    margin-left: 15px;
+}
+
+.hist {
+    margin-top: -35px;
+}
+
+.bid-hist-title {
+    display: inline;
+    margin-left: 15px;
+}
