@@ -7,7 +7,7 @@
   
    $conn = Connect();
    $sql = "CALL deleteBid (" . $bidderId . "," . $auctionId . ")";
-  
+
   $result = $conn->query($sql);
 
    if (!$result) {

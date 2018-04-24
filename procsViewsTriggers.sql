@@ -173,12 +173,33 @@ BEGIN
 END $$
 
 
+
+DELIMITER $$
+DROP procedure IF EXISTS `setWinning`$$
+CREATE PROCEDURE `setWinning` (in id INT)
+BEGIN
+	SET @WinningAmount = (SELECT MAX(Amount) FROM bids WHERE bids.AuctionId = id);
+    
+    UPDATE bids
+    SET bids.Winning = false
+    WHERE bids.Winning = true
+    AND bids.auctionId = id;
+    
+    UPDATE bids
+    SET bids.Winning = true
+    WHERE Amount = @WinningAmount
+    AND bids.auctionId = id;
+END$$
+
+
 DELIMITER $$
 DROP procedure IF EXISTS `deleteBid`$$
-CREATE PROCEDURE `deleteBid` (in bidderId INT, in auctionId INT)
+CREATE PROCEDURE `deleteBid` (in bidder INT, in auction INT)
 BEGIN
 	DELETE FROM Bids 
-    WHERE bidderId = bidderId AND auctionId = auctionId;
+    WHERE bidderId = bidder AND auctionId = auction;
+    
+    CALL setWinning(auction);
 END$$
 
 
@@ -270,17 +291,7 @@ Begin
 		Values (auctionID, bidderId, bid, false);
     END IF;
     
-    SET @WinningAmount = (SELECT MAX(Amount) FROM bids WHERE bids.AuctionId = auctionId);
-    
-    UPDATE bids
-    SET bids.Winning = false
-    WHERE bids.Winning = true
-    AND bids.auctionId = auctionId;
-    
-    UPDATE bids
-    SET bids.Winning = true
-    WHERE Amount = @WinningAmount
-    AND bids.auctionId = auctionId;
+    CALL setWinning(auctionId);
 End $$
 
 
@@ -374,15 +385,6 @@ Begin
     where AutoId = `acountId`;
 End $$
 
-
-/* deleteBid */
-Delimiter $$
-Drop procedure if exists deleteBid $$
-CREATE PROCEDURE `deleteBid`(in auctionid int(11), in bidderid int(11))
-Begin
-	delete from bids
-    where AuctionId = auctionid and BidderId = bidderid;
-End $$
 
 /*deleteBidder*/
 DELIMITER $$

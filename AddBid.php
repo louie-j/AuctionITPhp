@@ -72,6 +72,10 @@ and open the template in the editor.
                         table.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
                     }
+                    if (table.rows('.selected').data().length)
+                        $("#btn-delete").removeClass("none");
+                    else
+                        $("#btn-delete").addClass("none");    
                 });
                 
 
@@ -94,15 +98,13 @@ and open the template in the editor.
             function deleteBid() {
                 var auctionId = document.getElementById("auctionID").value;
                 var bidderId = table.rows('.selected').data()[0].BidderId;
-                console.log(auctionId);
-                console.log(bidderId);
                 if (confirm("Are you sure you want to delete the selected bid?")) {
                         $.ajax ( {
                             type: "POST",
                             url: "phpScripts/DeleteBid.php",
                             data: {auctionId: auctionId, bidderId: bidderId },
                             success: function(data) {
-                                console.log(data);
+                                $("#btn-delete").addClass("none"); 
                                 $('#myDataTable').DataTable().ajax.reload();
                             }
                         });
@@ -346,7 +348,7 @@ and open the template in the editor.
                     </tr>
                 </thead>
             </table>
-            <button type="button" onclick="deleteBid()" class="btn btn-danger">Delete</button>
+            <button id="btn-delete" type="button" onclick="deleteBid()" class="btn btn-danger none">Delete</button>
             </div>
         </div>
         
