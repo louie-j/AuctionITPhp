@@ -173,6 +173,14 @@ BEGIN
 END $$
 
 
+DELIMITER $$
+DROP procedure IF EXISTS `deleteBid`$$
+CREATE PROCEDURE `deleteBid` (in bidderId INT, in auctionId INT)
+BEGIN
+	DELETE FROM Bids 
+    WHERE bidderId = bidderId AND auctionId = auctionId;
+END$$
+
 
 DELIMITER $$
 DROP procedure IF EXISTS `clearData`$$

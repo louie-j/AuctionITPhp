@@ -17,16 +17,27 @@ and open the template in the editor.
         ?>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/tether.min.js"></script>
-        <script src ="js/bootstrap.min.js"></script>
-        <link href="css/customStyles.css" text="text/css" rel="stylesheet">
-        <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <script src ="js/bootstrap.min.js"></script>      
+        <script src="DataTables/datatables.min.js"></script>     
         <script type="text/javascript">
             var items;
             var bidders;
             var userValid = false;
             var itemValid = false;
+            var itemSold = false;
             var bidValid = false;
             var minBid;
+            var table;
+
+            $.fn.dataTable.ext.search.push(
+                function( settings, data, dataIndex ) {
+                     var id = document.getElementById('auctionID').value;
+                    if (id == parseInt(data[0]))
+                        return true;  
+                    return false;
+                }
+            );
+
             $( document ).ready(function() {
                 if(<?php echo $_SESSION['bidSuccess'] ?> === 1)
                 {
@@ -38,6 +49,31 @@ and open the template in the editor.
                     alert("Error adding Bid to Database");
                     <?php $_SESSION['bidSuccess'] = 0; ?>
                 }
+
+                table = $('#myDataTable').DataTable( {
+                    ajax: "phpScripts/ViewBids.php", 
+                    columns: [
+                        { mData: 'AuctionId', searchable: true, visible:false},
+                        { mData: 'BidderId', searchable: false} ,
+                        { mData: 'Amount', searchable: false},
+                        { mData: 'Winning', searchable: false}
+                    ],
+                    bPaginate: false,
+                    ordering: false,
+                    order: [[2, "asc"]],
+                    bInfo: false
+                } );
+
+                 $('#myDataTable tbody').on('click', 'tr', function () {
+                    if ( $(this).hasClass('selected') ) {
+                        $(this).removeClass('selected');
+                    }
+                    else {
+                        table.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
+                });
+                
 
                 var oReq = new XMLHttpRequest();
                 oReq.onload = function() {
@@ -55,6 +91,23 @@ and open the template in the editor.
                 oReq2.send();
             });
 
+            function deleteBid() {
+                var auctionId = document.getElementById("auctionID").value;
+                var bidderId = table.rows('.selected').data()[0].BidderId;
+                console.log(auctionId);
+                console.log(bidderId);
+                if (confirm("Are you sure you want to delete the selected bid?")) {
+                        $.ajax ( {
+                            type: "POST",
+                            url: "phpScripts/DeleteBid.php",
+                            data: {auctionId: auctionId, bidderId: bidderId },
+                            success: function(data) {
+                                console.log(data);
+                                $('#myDataTable').DataTable().ajax.reload();
+                            }
+                        });
+                    }
+            }
 
             function searchDescriptions(filterText, type) {
                 if (filterText == "") {
@@ -68,10 +121,11 @@ and open the template in the editor.
                         drop.removeChild(drop.firstChild);
                     }
                     filterText = filterText.toLowerCase();
-                    var arr = type == "Item" ? items : bidders;
-                    arr = arr.filter(function (item) {
+                    var arr = type == "Item" ? 
+                        items.filter(function (item) {
                             return item.auctionId != null;
-                    });
+                         }) : 
+                         bidders;
                     for (var i = 0; i < arr.length; i++) {
                         if (type == "Item") {
                             var description = arr[i].description.toLowerCase();
@@ -146,6 +200,9 @@ and open the template in the editor.
                     for(var i = 0; i < items.length; i++) {
                     if (items[i].auctionId == id) {
                         itemValid = true;
+                        itemSold = items[i].sold ? true : false;
+                        $(".bidder-hist").removeClass("none");
+                        table.draw();
                         if (items[i].winningbid) minBid = parseInt(items[i].winningbid) + 5;
                         else minBid = null;
                         document.getElementById("searchTextItem").value = items[i].description;
@@ -153,6 +210,7 @@ and open the template in the editor.
                     }
                 }
                     itemValid = false;
+                    $(".bidder-hist").addClass("none")
                     return manipulateHtml(false, type);
                 }
                 else if (type == "Bidder") {
@@ -171,7 +229,7 @@ and open the template in the editor.
                 var errorMessage = type === "Item" ? "auctionError" : "bidderError";
                 if (valid) {
                     hideOrShowElement("hide", errorMessage);
-                    if (userValid && itemValid && bidValid) {
+                    if (userValid && itemValid && bidValid && !itemSold) {
                         hideOrShowElement("show", "enabled");
                         hideOrShowElement("hide", "disabled");
                     }
@@ -227,7 +285,10 @@ and open the template in the editor.
                 }
             }
 
-        </script>
+        </script> 
+        <link href="css/customStyles.css" text="text/css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
     </head>
@@ -273,8 +334,22 @@ and open the template in the editor.
                 onkeyup="searchDescriptions(document.getElementById('searchTextBidder').value, 'Bidder')">
                 <div id="descriptionBidder"></div>
             </div>
-
+            <div class="container bidder-hist none" col-md-12>
+            <h3>Bid History</h3>
+            <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td class="first head">BidderId</td>
+                        <td class="head">Bid Amount</td>
+                        <td class="last head">Winning</td>
+                    </tr>
+                </thead>
+            </table>
+            <button type="button" onclick="deleteBid()" class="btn btn-danger">Delete</button>
+            </div>
         </div>
+        
         <!-- <div>
             <table style="width:20%">
                 <tr>

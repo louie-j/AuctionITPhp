@@ -1,7 +1,7 @@
 <?php
     require 'DatabaseConnection.php';
     $conn = Connect();
-    $query = "select * from viewBidders";
+    $query = "SELECT * FROM bids ORDER BY AuctionId, Amount DESC";
     $result = $conn->query($query);
     $data = array();
     while( $rows = mysqli_fetch_assoc($result) ) {
