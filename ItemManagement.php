@@ -272,14 +272,7 @@ and open the template in the editor.
                     $.ajax( {
                             type: "POST",
                             url: "phpScripts/closeAuction.php",
-                            data: {select: number},
-                            success: function(data) {
-                                console.log(data);
-                                // document.getElementById("edit").reset();
-                                // $('#myDataTable').DataTable().ajax.reload();
-                                // $("#edit-modal").modal('hide'); 
-                                // table.rows('.selected').remove();
-                            }
+                            data: {select: number}
                         });
                 }    
             }

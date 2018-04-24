@@ -46,8 +46,6 @@ and open the template in the editor.
                         },
                         {
                             "render": function(data,type,row) {
-                                console.log(data);
-                                console.log(row.sold);
                                  var id = row.sold == 1 ? data + "\tSOLD!" : data;
                                  return data == null ? "Unassigned" : id;
                             },
@@ -56,6 +54,9 @@ and open the template in the editor.
                     ],
                     order: [[0, "asc"]]
                 }); // end data table
+                setInterval( function () {
+                    table.ajax.reload(null, false);
+                }, 10000 );
 
                 $('.idFilter').click( function() {
                     table.draw();
