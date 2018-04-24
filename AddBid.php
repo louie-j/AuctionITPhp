@@ -202,7 +202,9 @@ and open the template in the editor.
                     for(var i = 0; i < items.length; i++) {
                     if (items[i].auctionId == id) {
                         itemValid = true;
-                        itemSold = items[i].sold ? true : false;
+                        itemSold = items[i].sold == 1 ? true : false;
+                        if (itemSold)
+                            hideOrShowElement("show", "soldError");
                         $(".bidder-hist").removeClass("none");
                         table.draw();
                         if (items[i].winningbid) minBid = parseInt(items[i].winningbid) + 5;
@@ -212,6 +214,7 @@ and open the template in the editor.
                     }
                 }
                     itemValid = false;
+                    hideOrShowElement("hide", "soldError");
                     $(".bidder-hist").addClass("none")
                     return manipulateHtml(false, type);
                 }
@@ -231,7 +234,7 @@ and open the template in the editor.
                 var errorMessage = type === "Item" ? "auctionError" : "bidderError";
                 if (valid) {
                     hideOrShowElement("hide", errorMessage);
-                    if (userValid && itemValid && bidValid && !itemSold) {
+                    if (userValid && itemValid && bidValid) {
                         hideOrShowElement("show", "enabled");
                         hideOrShowElement("hide", "disabled");
                     }
@@ -266,7 +269,7 @@ and open the template in the editor.
                     if (bid % 5 == 0) {
                         bidValid = true;
                         hideOrShowElement("hide", "multipleOfFiveError")
-                        if (userValid && itemValid) {
+                        if (userValid && itemValid && !itemSold) {
                             hideOrShowElement("show", "enabled");
                             hideOrShowElement("hide", "disabled");
                         }
@@ -319,6 +322,7 @@ and open the template in the editor.
                     <button id="disabled" disabled type="submit" class="btn btn-primary">Submit</button>
                     <button id="enabled" type="submit" class="btn none btn-primary">Submit</button>
                     <div class="error none" id="auctionError">That Auction Number does not exist</div>
+                    <div class="error none" id="soldError">That Auction Item has already been sold</div>
                     <div class="error none" id="bidderError">That Bidder Number does not exist</div>
                     <div class="error none" id="minBidError"></div>
                     <div class="error none" id="multipleOfFiveError">Bids must be multiples of 5</div>
