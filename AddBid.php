@@ -39,7 +39,6 @@ and open the template in the editor.
                     <?php $_SESSION['bidSuccess'] = 0; ?>
                 }
 
-
                 var oReq = new XMLHttpRequest();
                 oReq.onload = function() {
                     items = JSON.parse(this.responseText).aaData;
@@ -70,6 +69,9 @@ and open the template in the editor.
                     }
                     filterText = filterText.toLowerCase();
                     var arr = type == "Item" ? items : bidders;
+                    arr = arr.filter(function (item) {
+                            return item.auctionId != null;
+                    });
                     for (var i = 0; i < arr.length; i++) {
                         if (type == "Item") {
                             var description = arr[i].description.toLowerCase();
