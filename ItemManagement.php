@@ -266,6 +266,24 @@ and open the template in the editor.
                     document.getElementById("submit").disabled = true;
             }
 
+            function closeAuction(number) {
+                //console.log(number);
+                if (confirm("Are you sure you would like to close the " + number + "'s auction?\nThis action cannot be reversed")) { 
+                    $.ajax( {
+                            type: "POST",
+                            url: "phpScripts/closeAuction.php",
+                            data: {select: number},
+                            success: function(data) {
+                                console.log(data);
+                                // document.getElementById("edit").reset();
+                                // $('#myDataTable').DataTable().ajax.reload();
+                                // $("#edit-modal").modal('hide'); 
+                                // table.rows('.selected').remove();
+                            }
+                        });
+                }    
+            }
+
 		</script>
 		<link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
         <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
@@ -282,6 +300,10 @@ and open the template in the editor.
                 <button type="button" id="btn-edit" class="btn btn-info btn-primary" data-toggle="modal" data-target="#edit-modal" style="display: none;">Edit Item</button>
                 <button type="button" id="btn-delete" class="btn btn-danger" style="display: none;">Delete Item</button>
                 <button type="button" id="btn-unassign" class="btn btn-warning" style="display: none;">Unassign Item</button> 
+                <button type="button" id="close300" class="btn btn-danger float-right" onclick="closeAuction(300)">Close 300's</button> 
+                <button type="button" id="close200" class="btn btn-danger float-right" onclick="closeAuction(200)">Close 200's</button> 
+                <button type="button" id="close100" class="btn btn-danger float-right" onclick="closeAuction(100)">Close 100's</button> 
+                
             </div>
             <br />
             <div onclick="openCheckBoxDropdown()" class="groups" data-toggle="dropdown">Select Groups ↓</div>
