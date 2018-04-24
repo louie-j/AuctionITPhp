@@ -162,11 +162,14 @@ drop procedure if exists closeSilentAuction;
 DELIMITER $$
 CREATE PROCEDURE `closeSilentAuction`(in selectAuction INT)
 BEGIN
+	DELETE FROM Purchases
+    WHERE AuctionId BETWEEN (selectAuction) AND (selectAuction + 99);
+
 	INSERT INTO Purchases (AuctionId, bidderId, Price, Quantity)
     SELECT AuctionId, bidderId, Amount AS Price, 1 AS Quantity
     FROM bids
 	WHERE Winning = true
-    AND AuctionId BETWEEN (selectAuction+1) AND (selectAuction + 99);
+    AND AuctionId BETWEEN (selectAuction) AND (selectAuction + 99);
 END $$
 
 

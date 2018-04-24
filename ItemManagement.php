@@ -267,8 +267,8 @@ and open the template in the editor.
             }
 
             function closeAuction(number) {
-                //console.log(number);
-                if (confirm("Are you sure you would like to close the " + number + "'s auction?\nThis action cannot be reversed")) { 
+                if (confirm("Are you sure you would like to close the " + number + "'s auction?\n" + 
+                            "This will overwrite any items in the " + number + "'s auction that have already been sold!")) { 
                     $.ajax( {
                             type: "POST",
                             url: "phpScripts/closeAuction.php",
