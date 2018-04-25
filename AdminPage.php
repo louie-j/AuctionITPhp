@@ -22,7 +22,7 @@ and open the template in the editor.
             $( document ).ready(function()
             {
                 var table = $('#myDataTable').DataTable( {
-                    "ajax": "phpScripts/viewAccountsTable.php", 
+                    "ajax": "PhpScripts/viewAccountsTable.php", 
                     "bPaginate":true,
                     "bProcessing": true,
                     "columns": [

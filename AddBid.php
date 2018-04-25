@@ -51,7 +51,7 @@ and open the template in the editor.
                 }
 
                 table = $('#myDataTable').DataTable( {
-                    ajax: "phpScripts/ViewBids.php", 
+                    ajax: "PhpScripts/ViewBids.php", 
                     columns: [
                         { mData: 'AuctionId', searchable: true, visible:false},
                         { mData: 'BidderId', searchable: false} ,
@@ -103,7 +103,7 @@ and open the template in the editor.
                 if (confirm("Are you sure you want to delete the selected bid?")) {
                         $.ajax ( {
                             type: "POST",
-                            url: "phpScripts/DeleteBid.php",
+                            url: "PhpScripts/DeleteBid.php",
                             data: {auctionId: auctionId, bidderId: bidderId },
                             success: function(data) {
                                 $("#btn-delete").addClass("none"); 

@@ -21,7 +21,7 @@ and open the template in the editor.
             $( document ).ready(function()
             {
                 var table = $('#myDataTable').DataTable( {
-                    ajax: "phpScripts/ViewBidders.php", 
+                    ajax: "PhpScripts/ViewBidders.php", 
                     resposive: true,
 
                     columns: [
@@ -84,7 +84,7 @@ and open the template in the editor.
                     if (confirm("Are you sure you want to delete the selected item?")) {
                         $.ajax ( {
                             type: "POST",
-                            url: "phpScripts/DeleteBidder.php",
+                            url: "PhpScripts/DeleteBidder.php",
                             data: {bidderId: bidderId},
                             success: function(data) {
                                 $('#myDataTable').DataTable().ajax.reload();
@@ -98,8 +98,8 @@ and open the template in the editor.
 
                 $("button#submit").click(function(){
                       var url = document.getElementById("bidderId").value == "" 
-                        ? "phpScripts/RegisterBidderDatabase.php"
-                        : "phpScripts/EditBidder.php" ; 
+                        ? "PhpScripts/RegisterBidderDatabase.php"
+                        : "PhpScripts/EditBidder.php" ; 
                     $.ajax( {
                         type: "POST",
                         url: url,

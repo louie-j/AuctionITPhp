@@ -22,7 +22,7 @@ and open the template in the editor.
             $( document ).ready(function()
             {
                 var table = $('#myDataTable').DataTable( {
-                    ajax: "phpScripts/viewAllItems.php", 
+                    ajax: "PhpScripts/viewAllItems.php", 
                     resposive: true,
 
                     columns: [
@@ -139,7 +139,7 @@ and open the template in the editor.
                     var auctionId = table.rows('.selected').data()[0].AuctionId;
                     $.ajax ( {
                         type: "Post",
-                        url: "phpScripts/unassignAuctionItems.php",
+                        url: "PhpScripts/unassignAuctionItems.php",
                         data: {auctionId: auctionId },
                         success: function(data) {
                             $('#myDataTable').DataTable().ajax.reload();
@@ -163,7 +163,7 @@ and open the template in the editor.
                     if (confirm("Are you sure you want to delete the selected item?")) {
                         $.ajax ( {
                             type: "POST",
-                            url: "phpScripts/deleteAuctionItem.php",
+                            url: "PhpScripts/deleteAuctionItem.php",
                             data: {auctionId: id, isAssigned: isAssigned },
                             success: function(data) {
                                 $('#myDataTable').DataTable().ajax.reload();
@@ -179,13 +179,14 @@ and open the template in the editor.
                 $("button#submit").click(function(){
                    
                     var url = document.getElementById("itemId").value == "" 
-                        ? "phpScripts/AddItemDatabase.php"
-                        : "phpScripts/EditItemDatabase.php" ;
+                        ? "PhpScripts/AddItemDatabase.php"
+                        : "PhpScripts/EditItemDatabase.php" ;
                     $.ajax( {
                         type: "POST",
                         url: url,
                         data: $('form.edit').serialize(),
                         success: function(data) {
+                            console.log(data);
                             document.getElementById("edit").reset();
                             $('#myDataTable').DataTable().ajax.reload();
                             $("#edit-modal").modal('hide'); 
@@ -271,7 +272,7 @@ and open the template in the editor.
                             "This will overwrite any items in the " + number + "'s auction that have already been sold!")) { 
                     $.ajax( {
                             type: "POST",
-                            url: "phpScripts/closeAuction.php",
+                            url: "PhpScripts/closeAuction.php",
                             data: {select: number}
                         });
                 }    
