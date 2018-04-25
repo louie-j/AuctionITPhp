@@ -23,7 +23,7 @@ and open the template in the editor.
             $( document ).ready(function()
             {
                 var table = $('#myDataTable').DataTable( {
-                    ajax: "PhpScripts/viewAllItems.php", 
+                    ajax: "PhpScripts/ViewAllItems.php", 
                     resposive: true,
 
                     columns: [
@@ -140,7 +140,7 @@ and open the template in the editor.
                     var auctionId = table.rows('.selected').data()[0].AuctionId;
                     $.ajax ( {
                         type: "Post",
-                        url: "PhpScripts/unassignAuctionItems.php",
+                        url: "PhpScripts/UnassignAuctionItems.php",
                         data: {auctionId: auctionId },
                         success: function(data) {
                             $('#myDataTable').DataTable().ajax.reload();
@@ -164,7 +164,7 @@ and open the template in the editor.
                     if (confirm("Are you sure you want to delete the selected item?")) {
                         $.ajax ( {
                             type: "POST",
-                            url: "PhpScripts/deleteAuctionItem.php",
+                            url: "PhpScripts/DeleteAuctionItem.php",
                             data: {auctionId: id, isAssigned: isAssigned },
                             success: function(data) {
                                 $('#myDataTable').DataTable().ajax.reload();
