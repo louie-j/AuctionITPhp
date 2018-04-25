@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
+    {
+        header('Location: index.php'); 
+    }
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -7,48 +14,73 @@ and open the template in the editor.
 
 <html>
     <head>
-        <?php
-            session_start();
-            if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
-            {
-                header('Location: index.php'); 
-            }
-        ?>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/tether.min.js"></script>
         <script src ="js/bootstrap.min.js"></script>
-        <script src="DataTables/datatables.min.js"></script>
+        <script src="DataTables/datatables.min.js"></script>     
+        <script src="js/customItemFilter.js"></script>
         <script type="text/javascript">
             var interval;
-            $( document ).ready(function() {
-                
-                var table = $('#myDataTable').DataTable( {
+            var table;
+            $( document ).ready(function() {                      
+                table = $('#myDataTable').DataTable( {
                     "ajax": "phpScripts/ViewItemTable.php",
                     "bPaginate":true,
                     "bProcessing": true,
                     "columns": [
-                        { mData: 'ItemId', "searchable": true } ,
-                        { mData: 'Description', "searchable": false },
-                        { mData: 'DonatedBy', "searchable": false },
-                        { mData: 'Value', "searchable": false},
-                        { mData: 'CurrentWinningBidder', "searchable": false},
-                        { mData: 'CurrentWinningBid', "searchable": false}
-                    ]
-                });
+                        { mData: 'auctionId', "searchable": true } ,
+                        { mData: 'description', "searchable": true },
+                        { mData: 'donatedBy', "searchable": false },
+                        { mData: 'value', "searchable": false},                        
+                        { mData: 'winningBidderId', "searchable": false},
+                        { mData: 'winningbid', "searchable": false},
+                        { mData: 'sold', visible: false}
+                    ],
+                    columnDefs: [
+                        
+                        {
+                            "render": function(data,type,row) {
+                                 return data == -1 ? "Priceless" : data;
+                            },
+                            "targets":3
+                        },
+                        {
+                            "render": function(data,type,row) {
+                                 var id = row.sold == 1 ? data + "\tSOLD!" : data;
+                                 return data == null ? "Unassigned" : id;
+                            },
+                            "targets":0
+                        }
+                    ],
+                    order: [[0, "asc"]]
+                }); // end data table
                 setInterval( function () {
                     table.ajax.reload(null, false);
                 }, 10000 );
-            });
+
+                $('.idFilter').click( function() {
+                    table.draw();
+                } );
+
+                $('select').on('change', function() {
+                    if (table.page.info().pages == 1) document.getElementById("start").style.display = "none";
+                    else document.getElementById("start").style.display = "block";
+                });
+            }); // end on ready
+
+
             function changePagesAutomatically()
             {
                 var table = $('#myDataTable').DataTable();
                 if(interval)
                 {
+                    document.getElementById("start").value = "Start Rotating Pages";
                     clearInterval(interval);
                     interval = null;
                 }
                 else
                 {
+                    document.getElementById("start").value = "Stop Rotating Pages";
                     interval = setInterval( function () {
                         var info = table.page.info();
                         var pageNum = (info.page < info.pages) ? info.page + 1 : 1;
@@ -56,76 +88,51 @@ and open the template in the editor.
                     }, 10000);                   
                 }
             }
+
+            function openCheckBoxDropdown() {
+                if (!document.getElementsByClassName("dropper")[0].classList.contains("auto-height")) document.getElementsByClassName("dropper")[0].classList.add("auto-height");
+                else document.getElementsByClassName("dropper")[0].classList.remove("auto-height");
+            }
+
+            function clickInput(id) {
+                document.getElementById(id).click();
+            }
+
         </script>
         <link href="css/bootstrap.min.css" text="text/css" rel="stylesheet">
+        <link href="css/customStyles.css" text="text/css" rel="stylesheet">
         <link href="DataTables/datatables.min.css" text="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <title></title>
+
     </head>
     <body>
-        <nav class="navbar navbar-inverse bg-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                    <button style="background-color: #292b2c;"type="button" class="navbar-inverse-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <a class="navbar-brand" href="Index.php">AuctionIT</a>
-                    </button>
-                    <?php if ($_SESSION["accountType"] != 'guest'): ?>
-                        <form style="float: right;"action="PhpScripts/Logout.php">
-                            <input type="submit" class="btn btn-primary" value="Logout" />
-                        </form>
-                    <?php endif;?>
-                </div>
-                <?php if ($_SESSION["accountType"] != 'guest'): ?>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a class="nav-link" href="index.php"><h4>Home</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="AddItem.php"><h4>Add an Item</h4></a>
-                        </li>
-                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
-                        <li>
-                            <a class="nav-link" href="FindItem.php"><h4>Edit an Item</h4></a>
-                        </li>
-                    <?php endif; ?>
-                        <li>
-                            <a class="nav-link" href="ViewAllItems.php"><h4>View Items</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="Reports.php"><h4>Reports</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="AddBid.php"><h4>Add Bid</h4></a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="RegisterBidder.php"><h4>Bidder Registration</h4></a>
-                        </li>
-                    <?php if ($_SESSION["accountType"] == 'admin'): ?>
-                        <li>
-                            <a class="nav-link" href="AdminPage.php"><h4>Administrator Tools</h4></a>
-                        </li>
-                    <?php endif; ?>
-                    </ul>
-                </div>
-                <?php endif; ?>
-
+    <?php include "PhpScripts/Templates/Nav.php";?>
+        <div class="container body-content top">
+            <div onclick="openCheckBoxDropdown()" class="groups" data-toggle="dropdown">Select Groups ↓</div>
+            <div class="dropper">
+                <div onclick="clickInput('one')" class="dropdown">100's <input id="one" class="idFilter check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('two')" class="dropdown">200's <input id="two" class="idFilter check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('three')" class="dropdown">300's <input id="three" class="idFilter check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('six')" class="dropdown">600's <input id="six" class="idFilter check-boxes" checked type="checkbox"></div>
+                <div onclick="clickInput('unassigned')" class="dropdown">Not Numbered<input id="unassigned" class="idFilter check-boxes" checked type="checkbox"></div>
             </div>
-        </nav>
-        <div class="container body-content">
-            <input id="clickMe" type="button" class="btn-info" value="Start/Stop Rotating Through Pages" onclick="changePagesAutomatically();" />
-            <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <td>ItemId</td>
-                        <td>Description</td>
-                        <td>Donated By</td>
-                        <td>Value</td>
-                        <td>Winning Bidder</td>
-                        <td>Winning Bid</td>
-                    </tr>
-                </thead>
-            </table>
+        </div>
+            
+        <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <td class="first head">AuctionId</td>
+                    <td class="head">Description</td>
+                    <td class="head">Donated By</td>
+                    <td class="head">Value</td>
+                    <td class="head bidder">Winning Bidder</td>
+                    <td class="last head">Winning Bid</td>
+                    <td></td>
+                </tr>
+            </thead>
+        </table>
+            <input id="start" type="button" class="btn-info center" value="Start Rotating Pages" onclick="changePagesAutomatically();" />
         </div>
     </body>
 </html>
