@@ -1,12 +1,17 @@
+<?php
+    session_start();
+    if($_SESSION["accountType"] != 'admin')
+            {
+                header('Location: index.php'); 
+            }
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<?php
-    session_start();
-?>
+
 <html>
     <head>
         <script src="js/jquery-3.2.1.min.js"></script>
