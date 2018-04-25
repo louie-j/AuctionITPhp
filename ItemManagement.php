@@ -1,10 +1,10 @@
 <?php
-            session_start();
-            if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
-            {
-                header('Location: index.php'); 
-            }
-        ?>
+    session_start();
+    if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
+    {
+        header('Location: index.php'); 
+    }
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
