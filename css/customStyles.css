@@ -237,3 +237,11 @@
     display: inline;
     margin-left: 15px;
 }
+
+.table-input {
+    border-radius: 5px;
+}
+
+.after-table {
+    margin-top: 20px;
+}

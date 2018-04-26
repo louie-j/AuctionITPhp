@@ -1,7 +1,6 @@
 drop view if exists viewunmarked;
 drop view if exists viewtwohundreds;
 drop view if exists viewthreehundreds;
-drop view if exists viewsixhundreds;
 drop procedure if exists viewAuctionItemGroups;
 
 USE auctionit;
@@ -35,6 +34,15 @@ CREATE
 VIEW `viewBidders` AS
     SELECT *
     FROM `bidders`;
+
+drop view if exists viewsixsundreds;
+CREATE 
+    ALGORITHM = UNDEFINED 
+    SQL SECURITY DEFINER
+VIEW 'viewsixhundreds' AS
+    SELECT *
+    FROM `viewauctionitemssheet`
+    where `auctionId` >= 600;
 
 
 /*View AuctionItemsSheet */

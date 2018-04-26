@@ -15,16 +15,16 @@ function Connect()
     $dbname = "fbcmtown_auctionITdb"; */
 
     /* Master */
-    $dbhost = "auctionit.fbcmtown.org";
-    $dbuser = "fbcmtown_auction";
-    $dbpass = "";
-    $dbname = "fbcmtown_auctionITdb"; 
+    // $dbhost = "auctionit.fbcmtown.org";
+    // $dbuser = "fbcmtown_auction";
+    // $dbpass = "";
+    // $dbname = "fbcmtown_auctionITdb"; 
     
     // Tyler
-    // $dbhost = "localhost";
-    // $dbuser = "root";
-    // $dbpass = "";
-    // $dbname = "AuctionIT"; 
+    $dbhost = "localhost";
+    $dbuser = "root";
+    $dbpass = "";
+    $dbname = "AuctionIT"; 
 
     /* Ewen 
     $dbhost = "localhost";

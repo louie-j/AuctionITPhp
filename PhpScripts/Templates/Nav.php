@@ -33,7 +33,10 @@
                                         break;
                                     case("AccountEditor.php"):
                                         echo("Account Editor");
-                                    break;
+                                        break;
+                                    case("BuyNow.php"):
+                                        echo("Buy Now");
+                                        break;
                                     default:
                                         echo(basename($_SERVER['PHP_SELF']));
                                         break;
@@ -56,6 +59,9 @@
                         </li>
                         <li>
                             <a class="nav-link" href="AddBid.php"><h4>Add Bid</h4></a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="BuyNow.php"><h4>Buy Now</h4></a>
                         </li>
                         <li>
                             <a class="nav-link" href="Reports.php"><h4>Reports</h4></a>
