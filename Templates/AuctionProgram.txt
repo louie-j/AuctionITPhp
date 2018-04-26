@@ -97,11 +97,11 @@ Festival Missions Auction
 
 { "startRepeatable": 1 }
 {  "size": 10, "weight": "B", "width": "12" }
-{{auctionId}}.
+{{auction_id}}.
 {  "size": 10, "left": "12", "top": "-5", "width": "60", "weight": "B" }
 {{description}}
 {  "size": 10, "left": "12", "width": "60" }
-{{donatedBy}}
+{{donated_by}}
 {  "size": 10, "left": "12", "width": "60", "weight": "I" }
 {{description2}}
 {  "size": 10, "left": "12", "width": "60", "weight": "B" }
@@ -116,7 +116,7 @@ OTHER CONTRIBUTERS
 
 { "startRepeatable": 0 }
 { "size": 10 }
-{{DonatedBy}}
+{{donated_by}}
 { "endRepeatable": 0, "repeatOn": "donors" }
 { "left": "83", "weight": "BU", "width": "60", "top": "75%" }
 SPECIAL NOTE

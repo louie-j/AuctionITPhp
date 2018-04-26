@@ -2,7 +2,7 @@
 { "size": 15, "weight": "B", "height": "10", "newPage": true }
 
 
-Dear {{DonatedBy}},
+Dear {{donated_by}},
 
 
 Thank you for donating to this year's auction. The generosity of you and others allow for the event to be a success. Also, consider this a donation receipt for tax purposes.
@@ -10,15 +10,15 @@ Thank you for donating to this year's auction. The generosity of you and others 
 
 { "startRepeatable": 1 }
 { "size": 15, "weight": "B", "align": "L", "height": "10", "width": "-60", "left": "30" }
-{{Description}}
+{{description}}
 { "size": 15, "weight": "B", "height": "10", "align": "R", "top": "-10" }
-${{Value}}
-{ "endRepeatable": 1, "repeatOn": "Items" }
+${{value}}
+{ "endRepeatable": 1, "repeatOn": "items" }
 
 { "size": 15, "weight": "B", "align": "L", "height": "10", "left": "30" }
 Total Contribution:
 { "size": 15, "weight": "B", "height": "10", "align": "R", "top": "-10" }
-${{Total}}
+${{total}}
 
 
 { "size": 15, "weight": "B", "height": "10" }

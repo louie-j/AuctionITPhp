@@ -9,7 +9,7 @@ $auctionID    = $conn->real_escape_string($_POST['auctionID']);
 $bidderID   = $conn->real_escape_string($_POST['bidderID']);
 $amount = $conn->real_escape_string($_POST['amount']);
 
-$sql = "CALL createBid(" . $auctionID. "," . $bidderID . "," . $amount .")";
+$sql = "CALL create_bid(" . $auctionID. "," . $bidderID . "," . $amount .")";
 $result = $conn->query($sql);
 session_start();
 

@@ -22,13 +22,13 @@ and open the template in the editor.
             $( document ).ready(function()
             {
                 var table = $('#myDataTable').DataTable( {
-                    "ajax": "PhpScripts/viewAccountsTable.php", 
+                    "ajax": "PhpScripts/ViewAccountsTable.php", 
                     "bPaginate":true,
                     "bProcessing": true,
                     "columns": [
-                        { mData: 'Username', "searchable": true } ,
-                        { mData: 'Active', "searchable": false },
-                        { mData: 'Type', "searchable": false },
+                        { mData: 'username', "searchable": true } ,
+                        { mData: 'active', "searchable": false },
+                        { mData: 'type', "searchable": false },
   
                         {  "targets": -1,
                             "data": null,
@@ -113,7 +113,6 @@ and open the template in the editor.
             //Validate that an account is fully created before submit
             function validateAccount()
             {
-               // alert("Test!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 var username      = document.getElementById( "usernameLabel" ).value;
                 var password      = document.getElementById( "newPasswordText2" ).value;
                 var activeBtn     = document.getElementById( "statusARadioBtn2" ).checked;
@@ -184,7 +183,7 @@ and open the template in the editor.
         <input id="start" type="button" class="center btn-info" value="Start Rotating Through Pages" onclick="changePagesAutomatically();" />
     </div>
     <!--
-    Html for the eidt modal view
+    Html for the edit modal view
     -->
     <div id="myEditModal" class="modal-custom">      
             

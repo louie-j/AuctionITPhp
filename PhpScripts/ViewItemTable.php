@@ -1,8 +1,8 @@
 <?php
     require 'DatabaseConnection.php';
     $conn = Connect();
-    $year = date("Y");
-    $query = "select * from viewauctionitemssheet";
+    $conn->query("SET sql_mode=''");
+    $query = "select * from view_auction_items_sheet";
     $result = $conn->query($query);
     $data = array();
     while( $rows = mysqli_fetch_assoc($result) ) {

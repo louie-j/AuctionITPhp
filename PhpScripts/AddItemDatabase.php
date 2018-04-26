@@ -1,7 +1,6 @@
 <?php
 
 require 'DatabaseConnection.php';
-//$itemNumber = $description = $donatedBy = $value = $year = "";
 
 $conn = Connect();
 $auctionId = strip_tags($_POST['auctionId']) == null ? 'null' : strip_tags($_POST['auctionId']);
@@ -12,7 +11,7 @@ $value = strip_tags($_POST['value']) == null ? -1 : strip_tags($_POST['value']);
 
 session_start();
 $modifiedby = $_SESSION['autoID'];
-$sql = "CALL createAuctionItem(" . $auctionId .",'" . $description . "'," . $description2 . "," . $donatedBy . "," . $value . ",'" . $modifiedby . "')";
+$sql = "CALL create_auction_item(" . $auctionId .",'" . $description . "'," . $description2 . "," . $donatedBy . "," . $value . ",'" . $modifiedby . "')";
 
 //echo $sql;
 $result = $conn->query($sql);

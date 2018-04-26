@@ -6,7 +6,7 @@
    $auctionId = $_POST['auctionId'];
   
    $conn = Connect();
-   $sql = "CALL deleteBid (" . $bidderId . "," . $auctionId . ")";
+   $sql = "CALL delete_bid (" . $bidderId . "," . $auctionId . ")";
 
   $result = $conn->query($sql);
 

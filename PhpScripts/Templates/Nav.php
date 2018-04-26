@@ -25,7 +25,7 @@
                                     case("Reports.php"):
                                         echo("Reports");
                                         break;
-                                    case("bidderManagement.php"):
+                                    case("BidderManagement.php"):
                                         echo("Bidder Management");
                                         break;
                                     case("index.php"):
@@ -64,7 +64,7 @@
                             <a class="nav-link" href="ItemManagement.php"><h4>Item Management</h4></a>
                         </li>
                         <li>
-                            <a class="nav-link" href="bidderManagement.php"><h4>Bidder Management</h4></a>
+                            <a class="nav-link" href="BidderManagement.php"><h4>Bidder Management</h4></a>
                         </li>
                     <?php if ($_SESSION["accountType"] == 'admin'): ?>
                         <li>

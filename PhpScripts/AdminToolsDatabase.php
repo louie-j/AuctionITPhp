@@ -7,7 +7,7 @@ $user   = $conn->real_escape_string($_POST['username']);
 $pass = $conn->real_escape_string($_POST['password']);
 $type = $conn->real_escape_string($_POST['type']);
 $pass = password_hash($pass, PASSWORD_DEFAULT);
-$sql = "CALL createAccount('" . $user . "','" . $pass . "','" . $type . "')";
+$sql = "CALL create_account('" . $user . "','" . $pass . "','" . $type . "')";
  $result = $conn->query($sql);
 session_start();
         if (!$result) {

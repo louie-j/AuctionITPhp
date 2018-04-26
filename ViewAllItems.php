@@ -28,12 +28,12 @@ and open the template in the editor.
                     "bPaginate":true,
                     "bProcessing": true,
                     "columns": [
-                        { mData: 'auctionId', "searchable": true } ,
+                        { mData: 'auction_id', "searchable": true } ,
                         { mData: 'description', "searchable": true },
-                        { mData: 'donatedBy', "searchable": false },
+                        { mData: 'donated_by', "searchable": false },
                         { mData: 'value', "searchable": false},                        
-                        { mData: 'winningBidderId', "searchable": false},
-                        { mData: 'winningbid', "searchable": false},
+                        { mData: 'winning_bidder_id', "searchable": false},
+                        { mData: 'winning_bid', "searchable": false},
                         { mData: 'sold', visible: false}
                     ],
                     columnDefs: [
@@ -122,7 +122,7 @@ and open the template in the editor.
         <table id="myDataTable"  class="stripe" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <td class="first head">AuctionId</td>
+                    <td class="first head">Auction Id</td>
                     <td class="head">Description</td>
                     <td class="head">Donated By</td>
                     <td class="head">Value</td>

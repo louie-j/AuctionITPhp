@@ -8,7 +8,7 @@ $address = strip_tags($_POST['address']) == null ? 'null' : "'" . addslashes(str
 $name = strip_tags($_POST['name']) == null ? 'null' : "'" . addslashes(strip_tags($_POST['name'])) . "'";
 $phone = preg_replace("/\D/", "", $phone);
 
-$sql = "CALL createBidder($phone,$address,$name)";
+$sql = "CALL create_bidder($phone,$address,$name)";
 $result = $conn->query($sql);
 
    if (!$result) {

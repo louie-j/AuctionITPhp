@@ -27,20 +27,20 @@ and open the template in the editor.
                     resposive: true,
 
                     columns: [
-                        { mData: 'ItemId', visible: false, searchable: false},
-                        { mData: 'AuctionId', searchable: true} ,
-                        { mData: 'Description', searchable: true},
-                        { mData: 'Description2', searchable: true },
-                        { mData: 'DonatedBy', searchable: true},
-                        { mData: 'Value', searchable: false},
+                        { mData: 'item_id', visible: false, searchable: false},
+                        { mData: 'auction_id', searchable: true} ,
+                        { mData: 'description', searchable: true},
+                        { mData: 'description2', searchable: true },
+                        { mData: 'donated_by', searchable: true},
+                        { mData: 'value', searchable: false},
                         { mData: null, searchable: false},
        
                     ],
                     columnDefs: [
                         {
                             "render": function(data,type,row) {
-                                var date = new Date(data.LastModified).toLocaleDateString();
-                                 return data.LastModifiedBy + ' on ' + date;
+                                var date = new Date(data.last_modified).toLocaleDateString();
+                                 return data.last_modified_by + ' on ' + date;
                             },
                             "targets":6
                         },
@@ -81,11 +81,11 @@ and open the template in the editor.
                             break;
                         case 1:
                             document.getElementById("btn-new").style.display = "none";
-                            if (table.rows('.selected').data()[0].ItemId > -1)
+                            if (table.rows('.selected').data()[0].item_id > -1)
                                 document.getElementById("btn-edit").style.display = "inline";
                             else
                                 document.getElementById("btn-edit").style.display = "none"; 
-                            if (table.rows('.selected').data()[0].AuctionId == null)
+                            if (table.rows('.selected').data()[0].auction_id == null)
                                 document.getElementById("btn-unassign").style.display = "none";
                             else
                                 document.getElementById("btn-unassign").style.display = "inline";
@@ -98,7 +98,7 @@ and open the template in the editor.
                     document.getElementById('auctionId').readOnly = document.getElementById('noId').checked;
                     document.getElementById("auctionId").value = document.getElementById('noId').checked || table.rows('.selected').data().length == 0 ?
                         null :
-                        table.rows('.selected').data()[0].AuctionId;
+                        table.rows('.selected').data()[0].auction_id;
                     isValid();
                 } );
                 
@@ -106,7 +106,7 @@ and open the template in the editor.
                     document.getElementById('value').readOnly = document.getElementById('noValue').checked;
                     document.getElementById("value").value = document.getElementById('noValue').checked || table.rows('.selected').data().length == 0 ?
                         null :
-                        table.rows('.selected').data()[0].Value;
+                        table.rows('.selected').data()[0].value;
                     isValid();
                 } );
                 
@@ -116,8 +116,8 @@ and open the template in the editor.
                 })
 
                 $('button#btn-edit').click( function () {
-                    if (table.rows('.selected').data()[0].AuctionId) {
-                        document.getElementById("auctionId").value = table.rows('.selected').data()[0].AuctionId;
+                    if (table.rows('.selected').data()[0].auction_id) {
+                        document.getElementById("auctionId").value = table.rows('.selected').data()[0].auction_id;
                         document.getElementById('noId').checked = false;
                         document.getElementById('auctionId').removeAttribute("readonly");
                     }
@@ -127,17 +127,17 @@ and open the template in the editor.
                         document.getElementById('noId').checked = true;
                      }
 
-                     document.getElementById("description").value = table.rows('.selected').data()[0].Description;
-                     document.getElementById("description2").value = table.rows('.selected').data()[0].Description2;
-                     document.getElementById("donatedBy").value = table.rows('.selected').data()[0].DonatedBy;
-                     document.getElementById("value").value = table.rows('.selected').data()[0].Value;
-                     document.getElementById("itemId").value = table.rows('.selected').data()[0].ItemId;
+                     document.getElementById("description").value = table.rows('.selected').data()[0].description;
+                     document.getElementById("description2").value = table.rows('.selected').data()[0].description2;
+                     document.getElementById("donatedBy").value = table.rows('.selected').data()[0].donated_by;
+                     document.getElementById("value").value = table.rows('.selected').data()[0].value;
+                     document.getElementById("itemId").value = table.rows('.selected').data()[0].item_id;
                      $("#title").text("Edit Item");
                      isValid();
                 } );   
 
                 $('button#btn-unassign').click( function () {
-                    var auctionId = table.rows('.selected').data()[0].AuctionId;
+                    var auctionId = table.rows('.selected').data()[0].auction_id;
                     $.ajax ( {
                         type: "Post",
                         url: "PhpScripts/UnassignAuctionItems.php",
@@ -153,12 +153,12 @@ and open the template in the editor.
                 } ); 
 
                 $('button#btn-delete').click( function () {
-                    if (table.rows('.selected').data()[0].AuctionId == null) {
-                        var id = table.rows('.selected').data()[0].ItemId;
+                    if (table.rows('.selected').data()[0].auction_id == null) {
+                        var id = table.rows('.selected').data()[0].item_id;
                         var isAssigned = false;
                     }
                     else {
-                        var id = table.rows('.selected').data()[0].AuctionId;
+                        var id = table.rows('.selected').data()[0].auction_id;
                         var isAssigned = true;
                     }
                     if (confirm("Are you sure you want to delete the selected item?")) {
@@ -191,7 +191,11 @@ and open the template in the editor.
                             document.getElementById("edit").reset();
                             $('#myDataTable').DataTable().ajax.reload();
                             $("#edit-modal").modal('hide'); 
-                            table.rows('.selected').remove();
+                            table.rows('.selected').remove();      
+                            document.getElementById("btn-new").style.display = "inline";
+                            document.getElementById("btn-edit").style.display = "none";
+                            document.getElementById("btn-unassign").style.display = "none";
+                            document.getElementById("btn-delete").style.display = "none";
                         }
                     });
                 });
@@ -273,7 +277,7 @@ and open the template in the editor.
                             "This will overwrite any items in the " + number + "'s auction that have already been sold!")) { 
                     $.ajax( {
                             type: "POST",
-                            url: "PhpScripts/closeAuction.php",
+                            url: "PhpScripts/CloseAuction.php",
                             data: {select: number}
                         });
                 }    
@@ -286,7 +290,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
     </head>
-    <body id="UserManagementBody">
+    <body id="ItemManagementBody">
     <?php include "PhpScripts/Templates/Nav.php";?>
         
 		<div style="width: 100% !important;" class="container body-content top">

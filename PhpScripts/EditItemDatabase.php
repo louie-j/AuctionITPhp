@@ -10,7 +10,7 @@
    $userId = $_SESSION['autoID'];
 
    $conn = Connect();
-   $sql = "CALL updateAuctionItem ('" . $itemId . "'," . $auctionId . ",'" . $description . "'," . $description2 . "," . $donatedBy . "," . $value . ",'" . $userId . "')";
+   $sql = "CALL update_auction_item ('" . $itemId . "'," . $auctionId . ",'" . $description . "'," . $description2 . "," . $donatedBy . "," . $value . ",'" . $userId . "')";
    
 //    echo $sql;
    $result = $conn->query($sql);

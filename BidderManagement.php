@@ -1,10 +1,10 @@
 <?php
-            session_start();
-            if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
-            {
-                header('Location: index.php'); 
-            }
-        ?>
+    session_start();
+    if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
+    {
+        header('Location: index.php'); 
+    }
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -26,19 +26,11 @@ and open the template in the editor.
                     resposive: true,
 
                     columns: [
-                        { mData: 'BidderId', searchable: true},
-                        { mData: 'Name', searchable: true} ,
-                        { mData: 'Phone', searchable: false},
-                        { mData: 'Address', searchable: false}
+                        { mData: 'bidder_id', searchable: true},
+                        { mData: 'name', searchable: true} ,
+                        { mData: 'phone', searchable: false},
+                        { mData: 'address', searchable: false}
        
-                    ],
-                    columnDefs: [
-                        {
-                            "render": function(data,type,row) {
-                                 return data;
-                            },
-                            "targets":1
-                        }
                     ],
                     order: [[0, "asc"]]
                 } );
@@ -72,16 +64,16 @@ and open the template in the editor.
 
                 $('button#btn-edit').click( function () {
                     document.getElementById("lbl-bidder").style.display = "block";
-                    $("#bidder").text(table.rows('.selected').data()[0].BidderId);
-                     document.getElementById("bidderId").value = table.rows('.selected').data()[0].BidderId;
-                     document.getElementById("phone").value = table.rows('.selected').data()[0].Phone;
-                     document.getElementById("address").value = table.rows('.selected').data()[0].Address;
-                     document.getElementById("name").value = table.rows('.selected').data()[0].Name;
+                    $("#bidder").text(table.rows('.selected').data()[0].bidder_id);
+                     document.getElementById("bidderId").value = table.rows('.selected').data()[0].bidder_id;
+                     document.getElementById("phone").value = table.rows('.selected').data()[0].phone;
+                     document.getElementById("address").value = table.rows('.selected').data()[0].address;
+                     document.getElementById("name").value = table.rows('.selected').data()[0].name;
                      $("#title").text("Edit Bidder");
                 } );   
 
                 $('button#btn-delete').click( function () {
-                    var bidderId = table.rows('.selected').data()[0].BidderId;
+                    var bidderId = table.rows('.selected').data()[0].bidder_id;
                     if (confirm("Are you sure you want to delete the selected item?")) {
                         $.ajax ( {
                             type: "POST",
@@ -109,7 +101,10 @@ and open the template in the editor.
                             document.getElementById("edit").reset();
                             $('#myDataTable').DataTable().ajax.reload();
                             $("#edit-modal").modal('hide'); 
-                            table.rows('.selected').remove();
+                            table.rows('.selected').remove(); 
+                            document.getElementById("btn-new").style.display = "inline";
+                            document.getElementById("btn-edit").style.display = "none";
+                            document.getElementById("btn-delete").style.display = "none";
                         }
                     });
                 });

@@ -12,7 +12,7 @@
             ? 'null' 
             : "'" . addslashes(strip_tags($_POST['name'])) . "'";
    $conn = Connect();
-   $sql = "CALL updateBidder ('" . $bidderId . "'," . $name . "," . $address . "," . $phone . ")";
+   $sql = "CALL update_bidder ('" . $bidderId . "'," . $name . "," . $address . "," . $phone . ")";
   
    $result = $conn->query($sql);
 
