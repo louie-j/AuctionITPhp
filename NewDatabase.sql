@@ -560,7 +560,7 @@ Begin
     UPDATE auction_items
     SET    
            auction_id = AuctionId,
-           decription = Description,
+           description = Description,
            description2 = Description2,
            donated_by = DonatedBy,
            `value` = `Value`,
