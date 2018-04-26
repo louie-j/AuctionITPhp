@@ -191,7 +191,11 @@ and open the template in the editor.
                             document.getElementById("edit").reset();
                             $('#myDataTable').DataTable().ajax.reload();
                             $("#edit-modal").modal('hide'); 
-                            table.rows('.selected').remove();
+                            table.rows('.selected').remove();      
+                            document.getElementById("btn-new").style.display = "inline";
+                            document.getElementById("btn-edit").style.display = "none";
+                            document.getElementById("btn-unassign").style.display = "none";
+                            document.getElementById("btn-delete").style.display = "none";
                         }
                     });
                 });
