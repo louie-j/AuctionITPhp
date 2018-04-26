@@ -39,7 +39,7 @@ and open the template in the editor.
                     columnDefs: [
                         {
                             "render": function(data,type,row) {
-                                var date = new Date(data.LastModified).toLocaleDateString();
+                                var date = new Date(data.last_modified).toLocaleDateString();
                                  return data.last_modified_by + ' on ' + date;
                             },
                             "targets":6
