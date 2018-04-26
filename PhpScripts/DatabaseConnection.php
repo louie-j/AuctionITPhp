@@ -3,22 +3,17 @@
 
 function Connect()
 {
-    // $dbhost = "localhost";
-    // $dbuser = "root";
-    // $dbpass = "";
-    // $dbname = "fbcmtown_auctionitdb";
-
-    /* Ellie
+    /* Ellie*/
     $dbhost = "localhost";
     $dbuser = "root";
     $dbpass = "";
-    $dbname = "fbcmtown_auctionITdb"; */
+    $dbname = "fbcmtown_auctionITdb"; 
 
-    /* Master */
+    /* Master 
     $dbhost = "auctionit.fbcmtown.org";
     $dbuser = "fbcmtown_auction";
     $dbpass = "";
-    $dbname = "fbcmtown_auctionITdb"; 
+    $dbname = "fbcmtown_auctionITdb"; */
     
     // Tyler
     // $dbhost = "localhost";

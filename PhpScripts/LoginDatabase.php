@@ -13,26 +13,26 @@ $password   = $conn->real_escape_string($_POST['password']);
 $password = md5($password);
 
 
-$sql = "CALL checkPassword('" . $userName . "','" . $password . "')";
+$sql = "CALL check_password('" . $userName . "','" . $password . "')";
 
 $result = $conn->query($sql);
 $_SESSION['loginSuccess'] = false;
 foreach($result as $row)
 {
-    if($row["Type"] == 1)
+    if($row["type"] == 1)
     {
         $_SESSION['accountType'] = "admin";
         header('Location: ../ViewAllItems.php');
         $_SESSION['loginSuccess'] = true;
     }   
-    if($row["Type"] == 0)
+    if($row["type"] == 0)
     {
         $_SESSION['accountType'] = "user";
         header('Location: ../ViewAllItems.php');
         $_SESSION['loginSuccess'] = true;
     }
-    $_SESSION['autoID'] = $row["AutoId"];
-    $_SESSION['username'] = $row["Username"];
+    $_SESSION['autoID'] = $row["auto_id"];
+    $_SESSION['username'] = $row["username"];
 }
 
 if (!$_SESSION['loginSuccess']) {

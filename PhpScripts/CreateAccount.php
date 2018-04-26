@@ -23,7 +23,7 @@
     else    
         $active = 0;
 
-    $query   = "CALL createAccount(" . "'" . $username . "'" . "," . "'" . $password_hashed . "'" . "," .  $type  . ","  . $active  . ")";
+    $query   = "CALL create_account(" . "'" . $username . "'" . "," . "'" . $password_hashed . "'" . "," .  $type  . ","  . $active  . ")";
     $success = $conn->query($query);
     if(!isset($_SESSION)) 
     { 

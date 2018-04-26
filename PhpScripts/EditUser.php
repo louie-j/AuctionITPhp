@@ -43,10 +43,10 @@
         else
         {
            if( $password_hashed == null)
-               $query   = "CALL updateAccountStatus(" . $autoId . ","  . $type . ","  . $active  . ")";  
+               $query   = "CALL update_account_status(" . $autoId . ","  . $type . ","  . $active  . ")";  
 
            else
-               $query   = "CALL updateAccount(" . $autoId . ","  . "'" . $password_hashed . "'" . "," .  $type  . ","  . $active  . ")";
+               $query   = "CALL update_account(" . $autoId . ","  . "'" . $password_hashed . "'" . "," .  $type  . ","  . $active  . ")";
             
             $success = $conn->query($query);
             if(!isset($_SESSION)) 
@@ -66,7 +66,7 @@
     //Delete account
     else
     {
-        $query   = "CALL deleteAccount(" . $autoId . ")";    
+        $query   = "CALL delete_account(" . $autoId . ")";    
         $success = $conn->query($query);
 
         if (!$success) {

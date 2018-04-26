@@ -4,7 +4,7 @@ require 'DatabaseConnection.php';
 $conn = Connect();
 $select = $_POST['select'];
 
-$sql = "CALL closeSilentAuction(" . $select . ")";
+$sql = "CALL close_silent_auction(" . $select . ")";
 
 $result = $conn->query($sql);
 
