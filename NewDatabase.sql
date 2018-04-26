@@ -1,6 +1,11 @@
 DROP DATABASE IF EXISTS `fbcmtown_auctionITdb`;
 CREATE DATABASE `fbcmtown_auctionITdb`;
 USE `fbcmtown_auctionITdb`;
+
+
+-- Prevent view items issue because of item id in group by
+SET sql_mode = '';
+
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: auctionit.fbcmtown.org    Database: fbcmtown_auctionITdb

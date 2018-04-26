@@ -1,7 +1,7 @@
 <?php
     require 'DatabaseConnection.php';
     $conn = Connect();
-    $year = date("Y");
+    $conn->query("SET sql_mode=''");
     $query = "select * from view_auction_items_sheet";
     $result = $conn->query($query);
     $data = array();

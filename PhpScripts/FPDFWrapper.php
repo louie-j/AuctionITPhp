@@ -133,9 +133,9 @@ class FPDFWrapper {
 		$this->usingColumns						= 0;
 		$this->checkOverflow					= false;
 
-		$this->repeatableTemplates = array();
-		$this->repeatableValues = array();
-		$this->currentRepeatable = -1;
+		$this->repeatableTemplates  = array();
+		$this->repeatableValues     = array();
+		$this->currentRepeatable    = -1;
 	}
 	
 	function __destruct() {
@@ -156,7 +156,7 @@ class FPDFWrapper {
 
 		// Split the template into an array of each line separated by new lines
 		$templateLines = explode(PHP_EOL, $template);
-	
+
 		// Go through each line to pass it to the function that checks what to do with it
 		foreach ($templateLines as $line) {
 			if ($this->readState == 'normal') {
@@ -191,8 +191,8 @@ class FPDFWrapper {
 		// Pass line to check for object and add line if it returns false
 		if (!$this->CheckForMetadata($line, $dynamicData)) {
 			$this->pdf->SetXY($this->currentLeft, $this->currentTop);
-			
-			$tempLine = $this->ReplaceDynamicData($line, $dynamicData);
+      
+      $tempLine = $this->ReplaceDynamicData($line, $dynamicData);
 			
 			if (strcmp($tempLine, "!!SKIP_THIS_LINE__ERROR") != 0) {
 				$this->pdf->MultiCell($this->width, $this->height, $tempLine, $this->border, $this->align);
@@ -228,7 +228,7 @@ class FPDFWrapper {
 		} else {
 
 			// Remove trailing new line if end of template
-			$this->repeatableTemplates[$this->currentRepeatable] = substr($this->repeatableTemplates[$this->currentRepeatable], 0, -2);
+			$this->repeatableTemplates[$this->currentRepeatable] = substr($this->repeatableTemplates[$this->currentRepeatable], 0, -1 * strlen(PHP_EOL));
 
 			// Since we have the whole template, we can iterate over dynamic data at the repeatable value and recurisevely add the template to the current pdf
 			foreach ($dynamicData[$this->repeatableValues[$this->currentRepeatable]] as $dynamicEntry) {
@@ -525,7 +525,7 @@ class FPDFWrapper {
 		}
 
 		if ($failedToInject && strlen($tempLine) == 0) {
-			$tempLine = "!!SKIP_THIS_LINE__ERROR";
+      $tempLine = "!!SKIP_THIS_LINE__ERROR";
 		}
 
 		return $tempLine;
@@ -553,7 +553,7 @@ class FPDFWrapper {
 		$tempPDF->AddPage();
 		$tempPDF->Append($template, $dynamicData);
 
-		return $tempPDF->GetCurrentY();
+		return $tempPDF->GetCurrentY() - $this->topMargin;
 	}
 }
 

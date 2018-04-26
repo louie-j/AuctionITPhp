@@ -2,8 +2,12 @@
     require 'DatabaseConnection.php';
     $conn = Connect();
     $year = date("Y");
-    $query = "select * from view_items";
+    $conn->query("SET sql_mode=''");
+    $query = "SELECT * FROM view_items";
     $result = $conn->query($query);
+    if ($result == false) {
+      echo $conn->error;
+    }
     $data = array();
     while( $rows = mysqli_fetch_assoc($result) ) {
         $data[] = $rows;

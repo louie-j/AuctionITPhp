@@ -3,11 +3,11 @@
 
 function Connect()
 {
-    /* Ellie*/
+    /* Ellie */
     $dbhost = "localhost";
     $dbuser = "root";
     $dbpass = "";
-    $dbname = "fbcmtown_auctionITdb"; 
+    $dbname = "fbcmtown_auctionITdb";
 
     /* Master 
     $dbhost = "auctionit.fbcmtown.org";
@@ -22,10 +22,10 @@ function Connect()
     // $dbname = "AuctionIT"; 
 
     /* Ewen 
-    $dbhost = "localhost";
+    $dbhost = "127.0.0.1";
     $dbuser = "root";
     $dbpass = "testtest";
-    $dbname = "fbcmtown_auctionitdb";*/
+    $dbname = "fbcmtown_auctionITdb"; */
 
     // Create connection
     $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname) or die($conn->connect_error);
