@@ -14,12 +14,12 @@ if($password != $confirmPassword)
 $passwordhash = md5($password);
 $userName    = $conn->real_escape_string($_SESSION['userName']);
 
-$sql = "CALL createPassword('" . $userName . "','" . $passwordhash . "')";
+$sql = "CALL create_password('" . $userName . "','" . $passwordhash . "')";
 $result = $conn->query($sql);
 $conn->close();
 
 $conn2 = Connect();
-$sql2 = "CALL checkPassword('" . $userName . "','" . $passwordhash . "')";
+$sql2 = "CALL check_password('" . $userName . "','" . $passwordhash . "')";
 $result2 = $conn2->query($sql2);
 
 foreach($result2 as $row)

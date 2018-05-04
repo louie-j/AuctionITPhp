@@ -6,7 +6,7 @@
    $userId = $_SESSION['autoID'];
   
    $conn = Connect();
-   $sql = "CALL unassignAuctionItems ('" . $auctionId . "','" . $userId . "')";
+   $sql = "CALL unassign_auction_items ('" . $auctionId . "','" . $userId . "')";
    
   // echo $sql;
    $result = $conn->query($sql);

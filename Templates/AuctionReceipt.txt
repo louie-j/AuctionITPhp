@@ -1,18 +1,18 @@
 { "startRepeatable": 0 }
 { "size": 15, "weight": "B", "align": "C", "height": "10", "newPage": true }
-Purchased By: {{Name}}
-Purchased By ID Number: {{BidderId}}
+Purchased By: {{name}}
+Purchased By ID Number: {{bidder_id}}
 
 
 { "startRepeatable": 1 }
 { "size": 15, "weight": "B", "align": "L", "height": "10", "width": "-60", "left": "30" }
-{{AuctionId}}. {{Description}}
+{{auction_id}}. {{description}}
 { "size": 15, "weight": "B", "height": "10", "align": "R", "top": "-10" }
-${{Value}}
-{ "endRepeatable": 1, "repeatOn": "Items" }
+${{value}}
+{ "endRepeatable": 1, "repeatOn": "items" }
 
 { "size": 15, "weight": "B", "align": "L", "height": "10", "left": "30" }
 Total Due:
 { "size": 15, "weight": "B", "height": "10", "align": "R", "top": "-10" }
-${{Total}}
+${{total}}
 { "endRepeatable": 0, "repeatOn": "receipts" }

@@ -5,7 +5,7 @@
    $bidderId =$_POST['bidderId'];
   
    $conn = Connect();
-   $sql = "CALL deleteBidder (" . $bidderId . ")";
+   $sql = "CALL delete_bidder (" . $bidderId . ")";
    
   $result = $conn->query($sql);
 

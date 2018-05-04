@@ -1,12 +1,12 @@
 <?php
 
-            session_start();
-            if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
-            {
-                header('Location: index.php'); 
-            }
-            $items = [];
-        ?>
+    session_start();
+    if($_SESSION["accountType"] != 'user' && $_SESSION["accountType"] != 'admin')
+    {
+        header('Location: index.php'); 
+    }
+    $items = [];
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -55,10 +55,10 @@ and open the template in the editor.
                 table = $('#myDataTable').DataTable( {
                     ajax: "PhpScripts/ViewBids.php", 
                     columns: [
-                        { mData: 'AuctionId', searchable: true, visible:false},
-                        { mData: 'BidderId', searchable: false} ,
-                        { mData: 'Amount', searchable: false},
-                        { mData: 'Winning', searchable: false}
+                        { mData: 'auction_id', searchable: true, visible:false},
+                        { mData: 'bidder_id', searchable: false} ,
+                        { mData: 'amount', searchable: false},
+                        { mData: 'winning', searchable: false}
                     ],
                     bPaginate: false,
                     ordering: false,
@@ -101,7 +101,7 @@ and open the template in the editor.
 
             function deleteBid() {
                 var auctionId = document.getElementById("auctionID").value;
-                var bidderId = table.rows('.selected').data()[0].BidderId;
+                var bidderId = table.rows('.selected').data()[0].bidder_id;
                 if (confirm("Are you sure you want to delete the selected bid?")) {
                         $.ajax ( {
                             type: "POST",
@@ -129,7 +129,7 @@ and open the template in the editor.
                     filterText = filterText.toLowerCase();
                     var arr = type == "Item" ? 
                         items.filter(function (item) {
-                            return item.auctionId != null;
+                            return item.auction_id != null;
                          }) : 
                          bidders;
                     for (var i = 0; i < arr.length; i++) {
@@ -139,7 +139,7 @@ and open the template in the editor.
                                 possible.push(arr[i]);
                                 var el = document.createElement("div");
                                 el.textContent = arr[i].description;
-                                el.value = arr[i].auctionId;
+                                el.value = arr[i].auction_id;
                                 el.onclick = function() { 
                                     changeValue(this.value, type, this.textContent); 
                                     closeDropdown(type);
@@ -149,12 +149,12 @@ and open the template in the editor.
                             }
                         }
                         else {
-                            var name = arr[i].Name;
+                            var name = arr[i].name;
                             if (name && name.toLowerCase().indexOf(filterText) !== -1) {
                                 possible.push(arr[i]);
                                 var el = document.createElement("div");
-                                el.textContent = arr[i].Name;
-                                el.value = arr[i].BidderId;
+                                el.textContent = arr[i].name;
+                                el.value = arr[i].bidder_id;
                                 el.onclick = function() { 
                                     changeValue(this.value, type, this.textContent); 
                                     closeDropdown(type);
@@ -195,8 +195,8 @@ and open the template in the editor.
 
             function getBidderName(id) {
                 bidders.forEach((bidder) => {
-                    if (bidder.BidderId == id) {
-                        return bidder.Name;
+                    if (bidder.bidder_id == id) {
+                        return bidder.name;
                     }
                 });
             }
@@ -204,14 +204,14 @@ and open the template in the editor.
             function doesAuctionIdExist(id, type) {
                 if (type == "Item") {
                     for(var i = 0; i < items.length; i++) {
-                    if (items[i].auctionId == id) {
+                    if (items[i].auction_id == id) {
                         itemValid = true;
                         itemSold = items[i].sold == 1 ? true : false;
                         if (itemSold)
                             hideOrShowElement("show", "soldError");
                         $("#bidder-hist").removeClass("none");
                         table.draw();
-                        if (items[i].winningbid) minBid = parseInt(items[i].winningbid) + 5;
+                        if (items[i].winning_bid) minBid = parseInt(items[i].winning_bid) + 5;
                         else minBid = null;
                         document.getElementById("searchTextItem").value = items[i].description;
                         return manipulateHtml(true, "Item");
@@ -224,9 +224,9 @@ and open the template in the editor.
                 }
                 else if (type == "Bidder") {
                     for(var i = 0; i < bidders.length; i++) {
-                        if (bidders[i].BidderId == id) {
+                        if (bidders[i].bidder_id == id) {
                             userValid = true;
-                            document.getElementById("searchTextBidder").value = bidders[i].Name;
+                            document.getElementById("searchTextBidder").value = bidders[i].name;
                             return manipulateHtml(true, "Bidder");
                         }   
                     }
