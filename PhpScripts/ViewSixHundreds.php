@@ -1,7 +1,7 @@
 <?php
     require 'DatabaseConnection.php';
     $conn = Connect();
-    $query = "select * from viewsixhundreds";
+    $query = "select * from view_six_hundreds";
     $result = $conn->query($query);
     $data = array();
     while( $rows = mysqli_fetch_assoc($result) ) {

@@ -35,14 +35,31 @@ VIEW `viewBidders` AS
     SELECT *
     FROM `bidders`;
 
-drop view if exists viewsixsundreds;
+drop view if exists view_six_hundreds;
 CREATE 
     ALGORITHM = UNDEFINED 
     SQL SECURITY DEFINER
-VIEW 'viewsixhundreds' AS
+VIEW `view_six_hundreds` AS
     SELECT *
-    FROM `viewauctionitemssheet`
-    where `auctionId` >= 600;
+    FROM `view_auction_items_sheet`
+    where `auction_id` >= 600;
+
+drop procedure if exists buy_now;
+
+delimiter $$
+CREATE PROCEDURE buy_now (IN AuctionId INT, IN BidderId INT, IN Amount INT)
+BEGIN
+IF (AuctionId > 599 AND AuctionId < 700) THEN 
+	IF EXISTS (SELECT * FROM purchases WHERE auction_id = AuctionId AND bidder_id = BidderId) THEN
+		UPDATE purchases 
+		SET purchases.quantity = (purchases.quantity + Amount), purchases.price = (select `value` from auction_items where auction_id = AuctionId) 
+		WHERE auction_id = AuctionId AND bidder_id = BidderId;
+	ELSE
+		INSERT INTO purchases (auction_id, bidder_id, price, quantity)
+		VALUES 				  (AuctionId,  BidderId, (select `value` from auction_items where auction_id = AuctionId),  Amount);
+	End IF;
+END IF;
+END $$
 
 
 /*View AuctionItemsSheet */

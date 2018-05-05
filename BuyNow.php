@@ -21,6 +21,7 @@ and open the template in the editor.
         <script type="text/javascript">
             var toBuy;
             var text;
+            var bidders;
             var total;
             $( document ).ready(function()
             {
@@ -29,7 +30,7 @@ and open the template in the editor.
                     resposive: true,
                     paginate: false,
                     columns: [
-                        { mData: 'auctionId', searchable: true} ,
+                        { mData: 'auction_id', searchable: true} ,
                         { mData: 'description', searchable: true},
                         { mData: 'value', searchable: false},
                         { "targets": -1, "data": null, 
@@ -37,6 +38,14 @@ and open the template in the editor.
                     ],
                     order: [[0, "asc"]]
                 } );
+
+
+                var oReq = new XMLHttpRequest();
+                oReq.onload = function() {
+                    bidders = JSON.parse(this.responseText).aaData;
+                };
+                oReq.open("get", "PhpScripts/ViewBidders.php", true);
+                oReq.send();
             });
 
             function updateCart() {
@@ -53,12 +62,26 @@ and open the template in the editor.
                         document.getElementById('quantity-error').classList.remove('none');
                         allValid = false;
                     }
+                    if (!document.getElementById("bidderID").value) {
+                        document.getElementById('bidder-error').classList.remove('none');
+                        allValid = false;
+                    }
+                    else {
+                        document.getElementById('bidder-error').classList.add('none');
+                        var valid = false;
+                        bidders.forEach((bidder) => {
+                            if (bidder.bidder_id == document.getElementById("bidderID").value) valid = true;
+                        });
+                        if (valid) document.getElementById('bidderError').classList.add('none');
+                        else document.getElementById('bidderError').classList.remove('none');
+                    }
                 }
                 if (allValid && toBuy.length) {
                     document.getElementById('enabled').classList.remove('none');
                     document.getElementById('disabled').classList.add('none');
                     document.getElementById('total').classList.remove('none');
                     document.getElementById('quantity-error').classList.add('none');
+                    document.getElementById('bidder-error').classList.add('none');
                     runningTotal();    
                 }
                 else {
@@ -81,7 +104,66 @@ and open the template in the editor.
             }
 
             function areYouSure() {
-                alert("Are you sure you want to spend $" + total + " on " + text.substring(0,text.length - 4 - total.toString().length) + "?");
+                var bidderId = document.getElementById("bidderID").value
+                var questionText = "Are you sure you want to spend $" + total + " on " + text.substring(0,text.length - 4 - total.toString().length) + "?";
+                if (confirm(questionText)) {
+                    toBuy.forEach((item) => {
+                        $.ajax ( {
+                            type: "POST",
+                            url: "PhpScripts/BuyNowDatabase.php",
+                            data: {auctionID: item.id, bidderID: bidderId, amount: item.quantity }
+                        });
+                    });
+                }
+                alert("Success!");
+                location.reload();
+            }
+
+            function searchDescriptions(filterText) {
+                if (filterText == "") {
+                    closeDropdown();
+                }
+                else {
+                    var possible = [];
+                    var id = "descriptionBidder"
+                    var drop = document.getElementById(id);
+                    while (drop.firstChild) {
+                        drop.removeChild(drop.firstChild);
+                    }
+                    filterText = filterText.toLowerCase();
+                    for (var i = 0; i < bidders.length; i++) {         
+                        var name = bidders[i].name;
+                        if (name && name.toLowerCase().indexOf(filterText) !== -1) {
+                            possible.push(bidders[i]);
+                            var el = document.createElement("div");
+                            el.textContent = bidders[i].name;
+                            el.value = bidders[i].bidder_id;
+                            el.onclick = function() {
+                                changeValue(this.value, this.textContent);
+                                closeDropdown();
+                            }
+                            el.classList.add("dropdown");
+                            drop.appendChild(el);
+                        }
+                    }  
+                }
+            }
+
+            function closeDropdown() {
+                var id = "descriptionBidder"
+                var drop = document.getElementById(id);
+                while (drop.firstChild) {
+                    drop.removeChild(drop.firstChild);
+                }
+            }
+
+            function changeValue(value, name="") {
+                if(document.getElementById("bidderID")) {
+                    document.getElementById("bidderID").value = value;
+                    document.getElementById("searchTextBidder").value = name;
+                    updateCart();         
+                }
+            
             }
 
         </script>
@@ -94,6 +176,22 @@ and open the template in the editor.
     <body>
     <?php include "PhpScripts/Templates/Nav.php";?>
         <div class="container">
+            <div class="search">
+                <div class="bidder-id-numbers">
+                    <span style="margin-top: 1rem">Bidder ID</span>
+                    <input onkeyup="updateCart()" style="width: 160px; margin-top: .5rem;" class="form-control" id="bidderID" type="text">            
+                </div>
+                <div class="bidder-id-search">
+                    <span style="margin-top: 1rem">Search By Bidder Name<span>
+                    <input style="width: 200px" type="text" placeholder="Search..." class="form-control drop" id="searchTextBidder" 
+                    onkeyup="searchDescriptions(document.getElementById('searchTextBidder').value)">
+                    <div id="descriptionBidder"></div>            
+                </div>
+
+            </div>
+
+
+
             <table id="myDataTable"  class="display stripe" cellspacing="0" width="100%">
                 <thead>
                     <tr>
@@ -109,6 +207,9 @@ and open the template in the editor.
                 <button onclick="areYouSure()" id="enabled" class="btn btn-primary none">Buy Now</button>
                 <button id="disabled" disabled class="btn btn-primary">Buy Now</button>
                 <div id="quantity-error" class="error none">Quantity cannot be negative</div>
+                <div id="bidder-error" class="error none">Must Enter BidderID</div>
+                <div class="error none" id="bidderError">That Bidder Number does not exist</div>
+      
             </div>
 
         </div>
