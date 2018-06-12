@@ -4,7 +4,9 @@
 {{auction_id}}
 
 
-${{value}} {{description}}
+{{description}}
+
+${{value}}
 { "size": 20, "weight": "B", "align": "C", "height": 10, "top": "80%" }
 Donated By:
 
