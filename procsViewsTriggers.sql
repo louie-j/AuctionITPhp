@@ -3,7 +3,7 @@ drop view if exists viewtwohundreds;
 drop view if exists viewthreehundreds;
 drop procedure if exists viewAuctionItemGroups;
 
-USE auctionit;
+USE `fbcmtown_auctionITdb`;
 
 /* View Donators */
 drop view if exists viewDonators;
