@@ -2,16 +2,9 @@
 
 function Connect()
 {
-    /* Master */
-    // $dbhost = "auctionit.fbcmtown.org";
-    // $dbuser = "fbcmtown_auction";
-    // $dbpass = "";
-    // $dbname = "fbcmtown_auctionITdb";
-
-    /* Dev */
-    $dbhost = "127.0.0.1";
-    $dbuser = "root";
-    $dbpass = "testtest";
+    $dbhost = "auctionit.fbcmtown.org";
+    $dbuser = "fbcmtown_auction";
+    $dbpass = "";
     $dbname = "fbcmtown_auctionITdb";
 
     // Create connection

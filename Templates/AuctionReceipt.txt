@@ -8,7 +8,7 @@ Purchased By ID Number: {{bidder_id}}
 { "size": 15, "weight": "B", "align": "L", "height": "10", "width": "-60", "left": "30" }
 {{auction_id}}. {{description}}
 { "size": 15, "weight": "B", "height": "10", "align": "R", "top": "-10" }
-${{value}}
+${{price}}
 { "endRepeatable": 1, "repeatOn": "items" }
 
 { "size": 15, "weight": "B", "align": "L", "height": "10", "left": "30" }
