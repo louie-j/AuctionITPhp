@@ -1,10 +1,9 @@
 drop view if exists viewunmarked;
 drop view if exists viewtwohundreds;
 drop view if exists viewthreehundreds;
-drop view if exists viewsixhundreds;
 drop procedure if exists viewAuctionItemGroups;
 
-USE auctionit;
+USE `fbcmtown_auctionITdb`;
 
 /* View Donators */
 drop view if exists viewDonators;
@@ -35,6 +34,32 @@ CREATE
 VIEW `viewBidders` AS
     SELECT *
     FROM `bidders`;
+
+drop view if exists view_six_hundreds;
+CREATE 
+    ALGORITHM = UNDEFINED 
+    SQL SECURITY DEFINER
+VIEW `view_six_hundreds` AS
+    SELECT *
+    FROM `view_auction_items_sheet`
+    where `auction_id` >= 600;
+
+drop procedure if exists buy_now;
+
+delimiter $$
+CREATE PROCEDURE buy_now (IN AuctionId INT, IN BidderId INT, IN Amount INT)
+BEGIN
+IF (AuctionId > 599 AND AuctionId < 700) THEN 
+	IF EXISTS (SELECT * FROM purchases WHERE auction_id = AuctionId AND bidder_id = BidderId) THEN
+		UPDATE purchases 
+		SET purchases.quantity = (purchases.quantity + Amount), purchases.price = (select `value` from auction_items where auction_id = AuctionId) 
+		WHERE auction_id = AuctionId AND bidder_id = BidderId;
+	ELSE
+		INSERT INTO purchases (auction_id, bidder_id, price, quantity)
+		VALUES 				  (AuctionId,  BidderId, (select `value` from auction_items where auction_id = AuctionId),  Amount);
+	End IF;
+END IF;
+END $$
 
 
 /*View AuctionItemsSheet */

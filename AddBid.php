@@ -91,7 +91,6 @@ and open the template in the editor.
                 oReq.send();
 
                 var oReq2 = new XMLHttpRequest();
-                
                 oReq2.onload = function() {
                     bidders = JSON.parse(this.responseText).aaData;
                 };

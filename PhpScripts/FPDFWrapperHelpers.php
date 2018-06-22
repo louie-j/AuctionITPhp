@@ -45,31 +45,31 @@ function GetReceiptsFromPurchases($purchases, $bidderID) {
 
 	foreach ($purchases as $purchase) {
 
-		// Check if a receipt for that buyer is already started
+		// Check if the receipt is for a specific user and that the purchase is theirs
 		if (!isset($bidderID) || ($purchase['bidder_id'] == $bidderID)) {
+
+      // Check if a receipt for that buyer is already started
 			if (isset($receipts[$purchase['bidder_id']])) {
-				$receipts[$purchase['bidder_id']]['total'] = $receipts[$purchase['bidder_id']]['total'] == '______' ? '______' : ($purchase['value'] > 0 ? $receipts[$purchase['bidder_id']]['total'] + $purchase['value'] : '______');
-				$receipts[$purchase['bidder_id']]['items'][count($receipts[$purchase['bidder_id']]['items'])] = array(
+				$receipts[$purchase['bidder_id']]['total'] +=  $purchase['price'] * $purchase['quantity'];
+				$receipts[$purchase['bidder_id']]['items'][] = array(
 					"auction_id"  => $purchase['auction_id'],
-					"value"       => $purchase['value'] > 0 ? $purchase['value'] : "______",
+					"price"       => $purchase['price'] * $purchase['quantity'],
 					"description" => $purchase['description']
 				);
 			} else {
 				$receipts[$purchase['bidder_id']] = array(
 					"bidder_id"	=> $purchase['bidder_id'],
 					"name"			=> $purchase['name'],
-					"total"   	=> $purchase['value'] > 0 ? $purchase['value'] : '______',
+					"total"   	=> $purchase['price'] * $purchase['quantity'],
 					"items"   	=> array(
 						array(
 							"auction_id"	=> $purchase['auction_id'],
-							"value"       => $purchase['value'] > 0 ? $purchase['value'] : "______",
+							"price"       => $purchase['price'] * $purchase['quantity'],
 							"description"	=> $purchase['description']
 						)
 					)
 				);
 			}
-		} else {
-			
 		}
 	}
 
@@ -85,7 +85,7 @@ function GetDonorsAndTotals($donations) {
 		// Check if a receipt for that buyer is already started
 		if (isset($donors[$donation['donated_by']])) {
 			$donors[$donation['donated_by']]['total'] = $donors[$donation['donated_by']]['total'] == '______' ? '______' : ($donation['value'] > 0 ? $donors[$donation['donated_by']]['total'] + $donation['value'] : '______');
-			$donors[$donation['donated_by']]['items'][count($donors[$donation['donated_by']]['items'])] = array(
+			$donors[$donation['donated_by']]['items'][] = array(
 				"auction_id"  => $donation['auction_id'],
 				"value"       => $donation['value'] > 0 ? $donation['value'] : "______",
 				"description" => $donation['description']

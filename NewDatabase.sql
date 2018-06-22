@@ -10,6 +10,7 @@ USE `fbcmtown_auctionITdb`;
 -- Table structure for table `accounts`
 --
 
+
 DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts` (
   `auto_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -191,12 +192,9 @@ VIEW `view_auction_items_sheet` AS
     (SELECT 
         `auction_items`.`auction_id` AS `auction_id`,
         SUM(`auction_items`.`value`) AS `value`,
-        GROUP_CONCAT(DISTINCT `auction_items`.`description`
-            SEPARATOR ', ') AS `description`,
-        GROUP_CONCAT(DISTINCT `auction_items`.`description2`
-            SEPARATOR ', ') AS `description2`,
-        GROUP_CONCAT(DISTINCT `auction_items`.`donated_by`
-            SEPARATOR ', ') AS `donated_by`,
+        GROUP_CONCAT(DISTINCT `auction_items`.`description` SEPARATOR ', ') AS `description`,
+        GROUP_CONCAT(DISTINCT `auction_items`.`description2` SEPARATOR ', ') AS `description2`,
+        GROUP_CONCAT(DISTINCT `auction_items`.`donated_by` SEPARATOR ', ') AS `donated_by`,
         `b`.`bidder_id` AS `winning_bidder_id`,
         `bidders`.`name` AS `winning_bidder`,
         `b`.`amount` AS `winning_bid`,
@@ -218,7 +216,9 @@ VIEW `view_auction_items_sheet` AS
         LEFT JOIN `bidders` ON ((`bidders`.`bidder_id` = `b`.`bidder_id`)))
     WHERE
         (`auction_items`.`auction_id` IS NOT NULL)
-    GROUP BY `auction_items`.`auction_id`) UNION (SELECT 
+    GROUP BY `auction_items`.`auction_id`, `b`.`bidder_id`) 
+    UNION
+    (SELECT 
         `auction_items`.`auction_id` AS `auction_id`,
         `auction_items`.`value` AS `value`,
         `auction_items`.`description` AS `description`,
@@ -334,6 +334,34 @@ VIEW `view_receipts` AS
         ((`p`.`auction_id` = `a`.`auction_id`)
             AND (`p`.`bidder_id` = `b`.`bidder_id`));
 
+
+drop view if exists view_six_hundreds;
+CREATE 
+    ALGORITHM = UNDEFINED 
+    SQL SECURITY DEFINER
+VIEW `view_six_hundreds` AS
+    SELECT *
+    FROM `view_auction_items_sheet`
+    where `auction_id` >= 600;
+
+drop procedure if exists buy_now;
+
+DELIMITER ;;
+CREATE PROCEDURE buy_now (IN AuctionId INT, IN BidderId INT, IN Amount INT)
+BEGIN
+IF (AuctionId > 599 AND AuctionId < 700) THEN 
+	IF EXISTS (SELECT * FROM purchases WHERE auction_id = AuctionId AND bidder_id = BidderId) THEN
+		UPDATE purchases 
+		SET purchases.quantity = (purchases.quantity + Amount), purchases.price = (select `value` from auction_items where auction_id = AuctionId) 
+		WHERE auction_id = AuctionId AND bidder_id = BidderId;
+	ELSE
+		INSERT INTO purchases (auction_id, bidder_id, price, quantity)
+		VALUES 				  (AuctionId,  BidderId, (select `value` from auction_items where auction_id = AuctionId),  Amount);
+	End IF;
+END IF;
+END ;;
+
+DELIMITER ;
 
 --
 -- Dumping routines for database 'fbcmtown_auctionITdb'
